@@ -1,0 +1,33 @@
+# ── Core Data Handling ────────────────────────────────
+numpy
+pandas
+
+#notebook 
+notebook
+ipykernel
+
+# ── Visualization ─────────────────────────────────────
+matplotlib
+seaborn
+
+
+# ── Machine Learning ──────────────────────────────────
+scikit-learn
+xgboost
+lightgbm
+catboost
+
+optuna                   # for hyperparameter tuning
+# ── Imbalanced Data Handling ──────────────────────────
+imbalanced-learn        # SMOTE, ADASYN, etc.
+
+
+
+# ── Experiment Tracking (optional) ────────────────────
+mlflow                  # track model experiments and metrics
+
+#for connecting the server
+pyngrok
+
+
+python-dotenv
