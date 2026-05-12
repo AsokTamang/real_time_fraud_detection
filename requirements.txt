@@ -29,5 +29,7 @@ mlflow                  # track model experiments and metrics
 #for connecting the server
 pyngrok
 
+#for data_validation
+great_expectations
 
 python-dotenv
