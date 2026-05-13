@@ -25,7 +25,7 @@ class EarlyStoppingCallback:
             study.stop()
 
 
-def optimize_model_cv(X_train, y_train, X_test, models,n_trials=5):
+def optimize_model_cv(X_train,X_val,X_test,y_train,y_val,y_test, models,n_trials=5):
     cv = StratifiedKFold(n_splits=3, shuffle=True, random_state=42)
     best_overall_model= None
     best_overall_score  = -1
@@ -56,31 +56,36 @@ def optimize_model_cv(X_train, y_train, X_test, models,n_trials=5):
                     'subsample'       : trial.suggest_float('subsample', 0.6, 1.0),
                     'colsample_bytree': trial.suggest_float('colsample_bytree', 0.6, 1.0),
                     'min_child_weight': trial.suggest_int('min_child_weight', 1, 10),
-                    'scale_pos_weight': len(y[y==0]) / len(y[y==1]),
+                    'scale_pos_weight': len(y_train[y_train==0]) / len(y_train[y_train==1]),
                     'random_state'    : 42,
                     'eval_metric'     : 'aucpr',
                     'device'          : 'cuda',
                     'tree_method'     : 'hist'
                 }
                 model = XGBClassifier(**params)
-
+            
             elif model_name == 'LightGBM':
+                max_depth = trial.suggest_categorical('max_depth', [3, 5, 7])
                 params = {
-                    'n_estimators'     : trial.suggest_int('n_estimators', 100, 300),
-                    'max_depth'        : trial.suggest_int('max_depth', 3, 10),
-                    'learning_rate'    : trial.suggest_float('learning_rate', 0.01, 0.3, log=True),
-                    'subsample'        : trial.suggest_float('subsample', 0.6, 1.0),
-                    'colsample_bytree' : trial.suggest_float('colsample_bytree', 0.6, 1.0),
-                    'min_child_samples': trial.suggest_int('min_child_samples', 10, 100),
-                    'scale_pos_weight' : len(y[y==0]) / len(y[y==1]),
-                    'random_state'     : 42,
-                    'device'           : 'gpu',
+                'n_estimators'     : trial.suggest_categorical('n_estimators', [100, 200, 300]),
+                'max_depth'        : max_depth,
+                'learning_rate'    : trial.suggest_categorical('learning_rate', [0.01, 0.05, 0.1, 0.2]),
+                'subsample'        : trial.suggest_categorical('subsample', [0.6, 0.8, 1.0]),
+                'colsample_bytree' : trial.suggest_categorical('colsample_bytree', [0.6, 0.8, 1.0]),
+                'num_leaves'       : trial.suggest_int('num_leaves', 2, min(2**max_depth, 128)),
+                'min_child_samples': trial.suggest_int('min_child_samples', 2, 20),
+                'min_child_weight' : 0.001, # Helps prevent the 'left_count > 0' error
+                'scale_pos_weight' : len(y_train[y_train==0]) / len(y_train[y_train==1]),
+                'random_state'     : 42,
+                'device'           : 'cpu', # Changed to CPU for stability
+                'verbose'          : -1,
                 }
                 model = LGBMClassifier(**params)
 
             n_jobs = -1 if model_name == 'Random Forest' else 1
+            #updating the score based on cross_validation dataset
             scores = cross_val_score(
-                model, X_train, y_train,
+                model, X_val, y_val,
                 cv=cv,
                 scoring='average_precision',
                 n_jobs=n_jobs
@@ -109,8 +114,8 @@ def optimize_model_cv(X_train, y_train, X_test, models,n_trials=5):
             'LightGBM'     : LGBMClassifier(**best_params, random_state=42, device='gpu'),
         }
         final_model = model_map[model_name]
-        final_model.fit(X_train, y_train)
-        preds = final_model.predict(X_test)
+        final_model.fit(X_train, y_train)  #training the model on training dataset
+        preds = final_model.predict(X_test) #final prediction done on test dataset
 
         if study.best_value > best_overall_score:
             best_overall_score  = study.best_value  #storing the latest best cross_validation score
