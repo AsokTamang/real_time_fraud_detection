@@ -15,4 +15,5 @@ def build_features(df:pd.DataFrame) ->pd.DataFrame:
     df['day_of_week'] = (df['day'] - 1) % 7  # 0=Monday, 1=Tuesday, ... 6=Sunday  
     df['is_night_transaction'] = ((df['hour_of_day'] >= 0) & (df['hour_of_day'] <= 6)).astype(int)  #creating a new feature is_night_transaction which indicates whether the transaction occurred during the night hours (0-6) or not, as fraudulent transactions may be more likely to occur during these hours    
     df=df.drop(columns=['amount','type','dest_type','day','hour_of_day','step','nameorig','isflaggedfraud','namedest','oldbalanceorg','newbalanceorig','oldbalancedest','newbalancedest'])  #dropping the hour_of_day column as we have created a new feature is_night_transaction which captures the same information in a more suitable format for modeling
+    
     return df

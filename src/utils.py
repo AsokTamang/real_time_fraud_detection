@@ -1,5 +1,10 @@
+import sys
+import os
 import numpy as np
 from pandas.api.types import is_numeric_dtype
+from src.logger import logging
+from src.exception import CustomError
+import dill
 
 
 class EarlyStoppingCallback:
@@ -49,3 +54,13 @@ def reduce_memory(df,verbose=True):
               f'({100 * (start_memory - end_memory) / start_memory:.1f}% reduction)')
     
     return df
+
+def save_object(file_path, obj):    
+    try:
+        dir_path = os.path.dirname(file_path)
+        os.makedirs(dir_path, exist_ok=True)  # Create the directory if it doesn't exist
+        with open(file_path, 'wb') as file_obj:
+            dill.dump(obj, file_obj)  # Use dill to serialize the object
+            logging.info(f"Object saved successfully at {file_path}")  #logging the file path where the object is saved
+    except Exception as e:
+        raise CustomError(e, sys)
