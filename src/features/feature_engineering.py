@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 def build_features(df:pd.DataFrame) ->pd.DataFrame:
-    df['log_amount'] = df['amount']
+    df['log_amount'] = np.log1p(df['amount'])
     df['critical_transaction'] = (df['amount'] > 200000).astype(int)  #creating a new feature critical_amount which indicates whether the transaction amount is greater than 200000 or not, as we can see from the boxplot that there are some transactions with very high amounts which are likely to be fraudulent
     df['is_round'] = (df['amount'] % 1000 == 0).astype(int)
     df['is_transfer'] = (df['type'] == 'TRANSFER').astype(int)  #creating a new feature is_transfer which indicates whether the transaction type is a transfer or not
