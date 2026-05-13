@@ -5,6 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedKFold, cross_val_score
 from xgboost import XGBClassifier
 optuna.logging.set_verbosity(optuna.logging.WARNING)  # ✅ cleaner output
+from optuna.pruners import MedianPruner  #for stopping the bad tuning
 
 
 #this class is for stopping the hyperparameter tuning when the cross_validation score stops converging
@@ -83,9 +84,9 @@ def optimize_model_cv(X_train,X_val,X_test,y_train,y_val,y_test, models,n_trials
                 model = LGBMClassifier(**params)
 
             n_jobs = -1 if model_name == 'Random Forest' else 1
-            #updating the score based on cross_validation dataset
+            
             scores = cross_val_score(
-                model, X_val, y_val,
+                model, X_train, y_train,
                 cv=cv,
                 scoring='average_precision',
                 n_jobs=n_jobs
@@ -94,7 +95,8 @@ def optimize_model_cv(X_train,X_val,X_test,y_train,y_val,y_test, models,n_trials
 
         study = optuna.create_study(
             direction='maximize',
-            sampler=TPESampler(seed=42)     # ✅ reproducible
+            sampler=TPESampler(seed=42),
+            pruner=MedianPruner()          # avoiding the bad tunning
         )
         early_stop = EarlyStoppingCallback(patience=10)
 
@@ -111,11 +113,11 @@ def optimize_model_cv(X_train,X_val,X_test,y_train,y_val,y_test, models,n_trials
         model_map = {
             'Random Forest': RandomForestClassifier(**best_params, class_weight='balanced', random_state=42, n_jobs=-1),
             'XGBoost'      : XGBClassifier(**best_params, random_state=42, eval_metric='aucpr', device='cuda', tree_method='hist'),
-            'LightGBM'     : LGBMClassifier(**best_params, random_state=42, device='gpu'),
+            'LightGBM'     : LGBMClassifier(**best_params, random_state=42, device='cpu'),
         }
         final_model = model_map[model_name]
         final_model.fit(X_train, y_train)  #training the model on training dataset
-        preds = final_model.predict(X_test) #final prediction done on test dataset
+        preds = final_model.predict_proba(X_test)[:,1] #final prediction done on test dataset
 
         if study.best_value > best_overall_score:
             best_overall_score  = study.best_value  #storing the latest best cross_validation score
