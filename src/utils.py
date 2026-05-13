@@ -1,5 +1,28 @@
 import numpy as np
 from pandas.api.types import is_numeric_dtype
+
+
+class EarlyStoppingCallback:
+    def __init__(self, patience):
+        self.patience = patience
+        self.best_value = None
+        self.stagnant_trials = 0
+
+    def __call__(self, study, trial):
+        if self.best_value is None or study.best_value > self.best_value:
+            self.best_value = study.best_value
+            self.stagnant_trials = 0
+        else:
+            self.stagnant_trials += 1
+
+        if self.stagnant_trials >= self.patience:  #if the number of trials reached the number of patience then we just stop doing the trial test 
+            print(f"Stopping study: No improvement for {self.patience} trials.")
+            study.stop()
+
+
+
+
+
 def reduce_memory(df,verbose=True):
     start_memory = df.memory_usage().sum() / 1024**2
     for col in df.columns:
