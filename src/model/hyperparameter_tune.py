@@ -26,7 +26,7 @@ class EarlyStoppingCallback:
             study.stop()
 
 
-def optimize_model_cv(X_train,X_val,X_test,y_train,y_val,y_test, models,n_trials=5):
+def optimize_model_cv(X_train,X_val,X_test,y_train,y_val,y_test, models,n_trials=25):
     SEED =42
     cv = TimeSeriesSplit(n_splits=5, shuffle=True, random_state=SEED)
     results = {}
@@ -105,7 +105,7 @@ def optimize_model_cv(X_train,X_val,X_test,y_train,y_val,y_test, models,n_trials
             callbacks=[early_stop]
         )
         results[model_name] = study.best_params  #here we are storing the best parameter of the model with their best parameters
-    return results
+    return X_train,X_val,X_test,y_train,y_val,y_test,results
 
 
 
