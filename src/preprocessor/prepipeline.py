@@ -38,20 +38,34 @@ class Datascalar:
             y_train,y_val, y_test=y[train_mask].copy(),y[val_mask].copy(), y[test_mask].copy() 
 
 
+            #feature engineering based on training dataset
+            #inorder to prevent the dataleakage, we are using the transaction mean based on training dataset only
+            train_account_mean = X_train.groupby('nameorig')['amount'].transform('mean') #finding the mean of all the transaction amounts based on the account holder name
+            X_train['amount_vs_account_mean'] = X_train['amount'] / (train_account_mean + 1) #checking how much the current transaction amount is different from the usual transaction amount of the user, can be effective feature for fraud detection
+            global_mean = X_train['amount'].mean()
+
+            #here global mean is the fallback value, if the nameorig in validation or test dataset isnot found in training dataset
+            X_test['amount_vs_account_mean'] = X_test['amount'] / X_test['nameorig'].map(train_account_mean).fillna(global_mean)+ 1 
+            X_val['amount_vs_account_mean'] = X_val['amount'] / X_val['nameorig'].map(train_account_mean).fillna(global_mean) + 1
+
+
+            X_train = X_train.drop(columns = ['amount','nameorig'])
+            X_val = X_val.drop(columns = ['amount','nameorig'])
+            X_test = X_test.drop(columns = ['amount','nameorig'])
+
+
             #scaling pipeline
             scalar = RobustScaler()
-            X_train.loc[:, 'log_amount'] = scalar.fit_transform(X_train[['log_amount']])
-            X_val.loc[:, 'log_amount'] = scalar.transform(X_val[['log_amount']])
-            X_test.loc[:, 'log_amount'] = scalar.transform(X_test[['log_amount']])  
-            
+            continuous_features = ['log_amount','amount_vs_account_mean','txn_count_per_account', 'step']
+
+            X_train[continuous_features] = scalar.fit_transform(X_train[continuous_features])
+            X_val[continuous_features] = scalar.transform(X_val[continuous_features])
+            X_test[continuous_features] = scalar.transform(X_test[continuous_features])
+                        
             #saving the preprocessor object
             save_object(self.preprocessor_file_path,scalar)  #saving the trained scalar preprocessor
             logging.info('Scalar saved as pickle file')
              
-            #using downsampling method on training dataset to reduce the number of majority class or legimate transaction in this case
-            rus = RandomUnderSampler(sampling_strategy='majority', random_state=42)
-            X_train, y_train = rus.fit_resample(X_train, y_train) 
-           
             
             return X_train,X_val,X_test,y_train,y_val,y_test
         except Exception as e:
