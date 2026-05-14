@@ -64,3 +64,12 @@ def save_object(file_path, obj):
             logging.info(f"Object saved successfully at {file_path}")  #logging the file path where the object is saved
     except Exception as e:
         raise CustomError(e, sys)
+
+
+def load_object(file_path): #loading the trained objects 
+    try:
+        with open(file_path, 'rb') as file_obj:
+            logging.info(f"Loading object from {file_path}")  #logging the file path from which the object is being loaded
+            return dill.load(file_obj)  # Using dill to deserialize the object
+    except Exception as e:
+        raise CustomError(e, sys)
