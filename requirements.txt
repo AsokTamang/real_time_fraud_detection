@@ -31,5 +31,7 @@ pyngrok
 
 #for data_validation
 great_expectations
+#for saving the pickle files
+dill
 
 python-dotenv
