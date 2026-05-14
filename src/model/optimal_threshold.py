@@ -17,10 +17,10 @@ class initiate_threshold_tuning:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig().trained_model_path  #storing the path where we save the trained model
 
-    def model_with_optimal_threshold(self,X_train,X_val,X_test,y_train,y_val,y_test,results):
+    def model_with_optimal_threshold(self,X_train,X_val,X_test,y_train,y_val,y_test,hyperparameter_tuned_models):
         thresholds = {}
         fitted_model = {}
-        for name, best_params in results.items():
+        for name, best_params in hyperparameter_tuned_models.items():
             if name == 'Random Forest':
                 model = RandomForestClassifier(**best_params)
             elif name == 'XGBoost': 
@@ -29,6 +29,7 @@ class initiate_threshold_tuning:
                 model = LGBMClassifier(**best_params)       
 
             model.fit(X_train, y_train)  #fitting the model on the training data
+            y_prob = model.predict_proba(X_val)[:, 1]  #only extracting the probability of the positive class (fraud)
                 
             fitted_model[name] = model   
             print(f'saved the trained model {name}')
@@ -53,4 +54,4 @@ class initiate_threshold_tuning:
                 'Recall': round(recall_score(y_val, y_pred), 4),
                 'Precision': round(precision_score(y_val, y_pred), 4)
             }
-         
+

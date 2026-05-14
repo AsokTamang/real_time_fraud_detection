@@ -11,7 +11,7 @@ optuna.logging.set_verbosity(optuna.logging.WARNING)
 
 def optimize_model_cv(X_train,X_val,X_test,y_train,y_val,y_test, models,n_trials=25):
     cv = TimeSeriesSplit(n_splits=5) 
-    results = {}
+    hyperparameter_tuned_models = {}
     for model_name in models:
         def objective(trial):
             SEED = 42
@@ -102,8 +102,8 @@ def optimize_model_cv(X_train,X_val,X_test,y_train,y_val,y_test, models,n_trials
             n_trials=n_trials,
             n_jobs=1 
         )
-        results[model_name] = study.best_params  #storing the model with their corresponding best hyperparameter
-    return X_train,X_val,X_test,y_train,y_val,y_test,results
+        hyperparameter_tuned_models[model_name] = study.best_params  #storing the model with their corresponding best hyperparameter
+    return X_train,X_val,X_test,y_train,y_val,y_test,hyperparameter_tuned_models
 
  
         
