@@ -1,6 +1,6 @@
 import os
 import sys
-import logging
+from src.logger import logging
 
 def get_error_message(message,error_detail:sys):
     _,_,exec_tb = error_detail.exc_info()

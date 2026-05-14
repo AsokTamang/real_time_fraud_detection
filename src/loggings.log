@@ -1,2 +1,8 @@
 2026-05-14 12:40:09,176 - root - INFO - Read data from the filepath
 2026-05-14 12:44:14,598 - root - INFO - Read data from the filepath
+2026-05-14 12:46:51,311 - root - INFO - Read data from the filepath
+2026-05-14 12:52:02,866 - root - INFO - Read data from the filepath
+2026-05-14 12:52:16,537 - root - INFO - Validating schema and required columns
+2026-05-14 12:56:13,572 - root - INFO - Read data from the filepath
+2026-05-14 12:56:33,376 - root - INFO - Validating schema and required columns
+2026-05-14 12:56:35,502 - great_expectations.data_asset.data_asset - INFO - 	11 expectation(s) included in expectation_suite.
