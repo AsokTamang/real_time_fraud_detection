@@ -8,15 +8,17 @@ from src.data.preprocess import preprocess_data
 
 def build_features(df: pd.DataFrame) -> pd.DataFrame:
     # AMOUNT FEATURE
+    df=df.sort_values('step').reset_index(drop=True)  #sorting the dataframe based on time step
     df["log_amount"] = np.log1p(df["amount"])
     df["critical_transaction"] = (df["amount"] > 200000).astype(
         int
     )  # creating a new feature critical_amount which indicates whether the transaction amount is greater than 200000 or not, as we can see from the boxplot that there are some transactions with very high amounts which are likely to be fraudulent
-    df["is_round"] = (df["amount"] % 1000 == 0).astype(int)
+    df["is_round_amount"] = (df["amount"] % 1000 == 0).astype(int)
     df = df.sort_values("step").reset_index(
         drop=True
     )  # sorting the dataframe based on time step
     # here we are measuring the frequency of transaction done by each account user till current time
+
     df["txn_count_per_account"] = df.groupby("nameorig").cumcount() + 1
 
     
@@ -25,7 +27,7 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
     df["is_transfer"] = (df["type"] == "TRANSFER").astype(
         int
     )  # creating a new feature is_transfer which indicates whether the transaction type is a transfer or not
-    df["is_cash_out"] = (df["type"] == "CASH_OUT").astype(
+    df["is_cashout"] = (df["type"] == "CASH_OUT").astype(
         int
     )  # creating a new feature is_cash_out which indicates whether the transaction type is a cash out or not
     df["is_merchant_dest"] = (df["dest_type"] == "Merchant").astype(

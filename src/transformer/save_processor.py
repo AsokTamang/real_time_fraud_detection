@@ -1,11 +1,15 @@
 from sklearn.preprocessing import RobustScaler
 from sklearn.model_selection import train_test_split, cross_val_score, StratifiedKFold
+from src.data.validate_data import validate_data
+from src.data.load_data import load_data
+from src.data.preprocess import preprocess_data
+from src.features.feature_engineering import build_features
 from src.logger import logging
 from src.exception import CustomError
 from src.utils import save_object
 import pandas as pd
 import os
-from imblearn.under_sampling import RandomUnderSampler
+import sys
 
 
 class Datascalar:
@@ -16,12 +20,8 @@ class Datascalar:
         try:
             
             df1=df.sort_values('step').reset_index(drop=True)  #sorting the dataframe based on time step
-            features=['amount', 'log_amount',
-                'is_round_amount', 'day_of_week',
-                'is_transfer', 'is_cashout', 'is_night_transaction', 'is_merchant_dest',
-                ]
-            X=df1[features]
-            y=df1['is_fraud']      
+            X=df1.drop(columns = ['isfraud'])
+            y=df1['isfraud']    
             
             
             #for steps to split dataset into training, cross_Validation and test dataset
@@ -72,9 +72,22 @@ class Datascalar:
             logging.info('Scalar saved as pickle file')
              
             
-            return train_account_mean,global_mean
+            return X_train,X_val,X_test,y_train,y_val,y_test
         except Exception as e:
-            raise CustomError(e)
+            raise CustomError(e,sys)
+
+if __name__ == '__main__':
+    datascalar = Datascalar()
+    df = load_data('data/pay_sim.csv')  #loading the data
+    print('1. Data loaded')
+    preprocessed_df = preprocess_data(df)  #preprocessing the data
+    print('2. Preprocessed data')
+    print(validate_data(preprocessed_df))  #validation the data
+    print('3. Validated data')
+    engineered_df = build_features(preprocessed_df)  #applied the feature engineering on preprocessed data
+    print('4. Applied feature engineering')
+    print(datascalar.split_data(engineered_df))
+    print('5. preprocessor saved as pickle file')
 
 
 
