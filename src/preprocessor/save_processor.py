@@ -63,11 +63,16 @@ class Datascalar:
             X_test[continuous_features] = scalar.transform(X_test[continuous_features])
                         
             #saving the preprocessor object
-            save_object(self.preprocessor_file_path,scalar)  #saving the trained scalar preprocessor
+            save_object(self.preprocessor_file_path,{
+                'scalar':scalar,
+                'train_account_mean':train_account_mean,
+                'global_mean':global_mean
+
+            })  #saving the trained scalar preprocessor
             logging.info('Scalar saved as pickle file')
              
             
-            return X_train,X_val,X_test,y_train,y_val,y_test
+            return train_account_mean,global_mean
         except Exception as e:
             raise CustomError(e)
 
