@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedKFold, cross_val_score
 from xgboost import XGBClassifier
 optuna.logging.set_verbosity(optuna.logging.WARNING)  # ✅ cleaner output
-from optuna.pruners import MedianPruner  #for stopping the bad tuning
+
 
 
 #this class is for stopping the hyperparameter tuning when the cross_validation score stops converging
@@ -96,7 +96,7 @@ def optimize_model_cv(X_train,X_val,X_test,y_train,y_val,y_test, models,n_trials
         study = optuna.create_study(
             direction='maximize',
             sampler=TPESampler(seed=42),
-            pruner=MedianPruner()          # avoiding the bad tunning
+
         )
         early_stop = EarlyStoppingCallback(patience=10)
 
