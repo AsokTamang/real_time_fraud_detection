@@ -1,6 +1,10 @@
 import pandas as pd
 import numpy as np
 
+from src.data.validate_data import validate_data
+from src.data.load_data import load_data
+from src.data.preprocess import preprocess_data
+
 
 def build_features(df: pd.DataFrame) -> pd.DataFrame:
     # AMOUNT FEATURE
@@ -15,7 +19,9 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
     # here we are measuring the frequency of transaction done by each account user till current time
     df["txn_count_per_account"] = df.groupby("nameorig").cumcount() + 1
 
+    
     # TRANSACTION TYPE
+    df['dest_type'] = np.where(df['namedest'].str.startswith('M'), 'Merchant', 'Customer')
     df["is_transfer"] = (df["type"] == "TRANSFER").astype(
         int
     )  # creating a new feature is_transfer which indicates whether the transaction type is a transfer or not
@@ -26,6 +32,7 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
         int
     )  # creating a new feature is_merchant_dest which indicates whether the destination account is a merchant or not based on the dest_type column
 
+    
     #TIME FEATURES
     df["day"] = np.ceil(df["step"] / 24).astype(
         int
@@ -49,7 +56,13 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
         "hour_of_day",
         "day",
         "dest_type",
-        "day_name",
     ]
     df = df.drop(columns=drop_cols)
     return df
+
+
+if __name__ == '__main__':
+    df = load_data('data/pay_sim.csv')
+    preprocessed_df = preprocess_data(df)
+    print(validate_data(preprocessed_df))
+    print(build_features(preprocessed_df))  #applied the feature engineering on preprocessed data
