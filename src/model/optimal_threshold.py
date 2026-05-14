@@ -17,10 +17,10 @@ class initiate_threshold_tuning:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig().trained_model_path  #storing the path where we save the trained model
 
-    def model_with_optimal_threshold(self,X_train,X_val,X_test,y_train,y_val,y_test,results,models):
+    def model_with_optimal_threshold(self,X_train,X_val,X_test,y_train,y_val,y_test,results):
         thresholds = {}
         fitted_model = {}
-        for name, best_params in models.items():
+        for name, best_params in results.items():
             if name == 'Random Forest':
                 model = RandomForestClassifier(**best_params)
             elif name == 'XGBoost': 
