@@ -6,6 +6,7 @@ from src.data.load_data import load_data
 from src.data.preprocess import preprocess_data
 from src.data.validate_data import validate_data
 from src.features.feature_engineering import build_features
+from src.model.evaluate_model import model_evaluation
 from src.transformer.save_processor import Datascalar
 from src.utils import save_object
 from src.exception import CustomError
@@ -42,7 +43,9 @@ class ModelTrainer:
             X_train,X_val,X_test,y_train,y_val,y_test,hyperparameter_tuned_models= optimize_model_cv(X_train,X_val,X_test,y_train,y_val,y_test, models,n_trials=25)
             logging.info('hyperparameter tuned')
             #optimal threshold tuning
-            best_model_info = initiate_threshold_tuning.model_with_optimal_threshold(X_train,X_val,X_test,y_train,y_val,y_test,hyperparameter_tuned_models)
+            fitted_model,thresholds = initiate_threshold_tuning.model_with_optimal_threshold(X_train,X_val,X_test,y_train,y_val,y_test,hyperparameter_tuned_models)
+            #model evaluation
+            best_model_info = model_evaluation(fitted_model,thresholds,X_train, X_val, X_test, y_train, y_val, y_test):
             save_object(self.model_trainer_config,best_model_info)
             logging.info('Best model with corresponding optimal threshold saved')
             return best_model_info
