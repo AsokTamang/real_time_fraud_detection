@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
 
-from src.data.validate_data import validate_data
-from src.data.load_data import load_data
-from src.data.preprocess import preprocess_data
+from src.initial_data_phase.validate_data import validate_data
+from src.initial_data_phase.load_data import load_data
+from src.initial_data_phase.preprocess import preprocess_data
 
 
 def build_features(df: pd.DataFrame) -> pd.DataFrame:
