@@ -1,23 +1,16 @@
-from dataclasses import dataclass
-import os
+from src.utils import save_object
 
 from lightgbm import LGBMClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import average_precision_score, f1_score, precision_recall_curve, precision_score, recall_score, roc_auc_score
 from xgboost import XGBClassifier
 
-@dataclass
-class ModelTrainerConfig:
-    trained_model_path:str = os.path.join('artifacts','model.pkl')
 
 
 
 
 class initiate_threshold_tuning:
-    def __init__(self):
-        self.model_trainer_config = ModelTrainerConfig().trained_model_path  #storing the path where we save the trained model
-
-    def model_with_optimal_threshold(self,X_train,X_val,X_test,y_train,y_val,y_test,hyperparameter_tuned_models):
+   def model_with_optimal_threshold(X_train,X_val,X_test,y_train,y_val,y_test,hyperparameter_tuned_models):
         thresholds = {}
         fitted_model = {}
         for name, best_params in hyperparameter_tuned_models.items():
@@ -54,4 +47,24 @@ class initiate_threshold_tuning:
                 'Recall': round(recall_score(y_val, y_pred), 4),
                 'Precision': round(precision_score(y_val, y_pred), 4)
             }
+        # Both metrics matter — use weighted average
+        best_model_name = max(result, key=lambda name:
+            0.4 * result[name]['F1'] + 0.6 * result[name]['PR-AUC']
+        )
+
+        best_model = fitted_model[best_model_name]  #trained model
+        best_threshold = thresholds[best_model_name]
+
+        print(f"Best Model  : {best_model_name}")
+        print(f"F1          : {result[best_model_name]['F1']}")
+        print(f"PR-AUC      : {result[best_model_name]['PR-AUC']}")
+        print(f"Threshold   : {best_threshold:.4f}")
+        best_model_info = {
+            'model': best_model,
+            'threshold': best_threshold,
+            'model_name': best_model_name,
+            'metrics': result[best_model_name]   
+        }
+        return best_model_info
+ 
 
