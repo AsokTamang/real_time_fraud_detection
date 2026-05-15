@@ -1,8 +1,8 @@
 from sklearn.preprocessing import RobustScaler
 from sklearn.model_selection import train_test_split, cross_val_score, StratifiedKFold
-from src.data.validate_data import validate_data
-from src.data.load_data import load_data
-from src.data.preprocess import preprocess_data
+from src.initial_data_phase.validate_data import validate_data
+from src.initial_data_phase.load_data import load_data
+from src.initial_data_phase.preprocess import preprocess_data
 from src.features.feature_engineering import build_features
 from src.logger import logging
 from src.exception import CustomError

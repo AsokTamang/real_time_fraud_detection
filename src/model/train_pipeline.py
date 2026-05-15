@@ -2,9 +2,9 @@ import os
 from dataclasses import dataclass
 import sys
 from lightgbm import LGBMClassifier
-from src.data.load_data import load_data
-from src.data.preprocess import preprocess_data
-from src.data.validate_data import validate_data
+from src.initial_data_phase.load_data import load_data
+from src.initial_data_phase.preprocess import preprocess_data
+from src.initial_data_phase.validate_data import validate_data
 from src.features.feature_engineering import build_features
 from src.model.evaluate_model import model_evaluation
 from src.transformer.save_processor import Datascalar
