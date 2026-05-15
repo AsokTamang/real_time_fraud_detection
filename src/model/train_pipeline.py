@@ -25,7 +25,7 @@ class ModelTrainerConfig:
 
 class ModelTrainer:
     def __init__(self):
-        self.model_trainer_config = ModelTrainerConfig().trained_model_path  #storing the path where we save the trained model
+        self.model_trainer_config = ModelTrainerConfig()  #storing the path where we save the trained model
     def train_model(self,X_train,X_val,X_test,y_train,y_val,y_test):
         try:
             neg = (y_train == 0).sum()
@@ -45,8 +45,8 @@ class ModelTrainer:
             #optimal threshold tuning
             fitted_model,thresholds = initiate_threshold_tuning.model_with_optimal_threshold(X_train,X_val,X_test,y_train,y_val,y_test,hyperparameter_tuned_models)
             #model evaluation
-            best_model_info = model_evaluation(fitted_model,thresholds,X_train, X_val, X_test, y_train, y_val, y_test):
-            save_object(self.model_trainer_config,best_model_info)
+            best_model_info = model_evaluation(fitted_model,thresholds,X_train, X_val, X_test, y_train, y_val, y_test)
+            save_object(self.model_trainer_config.trained_model_path,best_model_info)
             logging.info('Best model with corresponding optimal threshold saved')
             return best_model_info
             
