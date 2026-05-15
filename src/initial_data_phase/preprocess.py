@@ -1,6 +1,6 @@
 import pandas as pd
 from src.utils import reduce_memory
-from src.data.load_data import load_data
+from src.initial_data_phase.load_data import load_data
 import numpy as np
 
 def preprocess_data(df:pd.DataFrame):
