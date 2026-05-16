@@ -493,3 +493,11 @@
 2026-05-16 04:35:58,032 - root - INFO - Object saved successfully at artifacts/preprocessor.pkl
 2026-05-16 04:35:58,042 - root - INFO - Scalar saved as pickle file
 2026-05-16 04:45:13,723 - root - INFO - hyperparameter tuned
+2026-05-16 04:49:46,721 - root - INFO - Read data from the filepath
+2026-05-16 04:49:59,398 - root - INFO - Validating schema and required columns
+2026-05-16 04:50:49,481 - root - INFO - Object saved successfully at artifacts/preprocessor.pkl
+2026-05-16 04:50:49,490 - root - INFO - Scalar saved as pickle file
+2026-05-16 04:59:41,237 - root - INFO - hyperparameter tuned
+2026-05-16 05:00:12,410 - root - INFO - Object saved successfully at artifacts/model.pkl
+2026-05-16 05:00:12,410 - root - INFO - Best model with corresponding optimal threshold saved
+2026-05-16 05:00:12,412 - root - INFO - Best model info saved as pickle file.
