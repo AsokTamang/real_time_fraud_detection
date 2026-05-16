@@ -37,9 +37,7 @@ class initiate_threshold_tuning:
             "scale_pos_weight": scale_pos_weight,
             "random_state": SEED,
             "device": "cuda",
-            "tree_method": "hist",
-            "subsample": 0.9,         # high for time series
-            "colsample_bynode": 0.8,
+            "tree_method": "hist"
         }
 
         XG_fixed_params = {
@@ -54,7 +52,7 @@ class initiate_threshold_tuning:
         LGM_fixed_params = {
             "scale_pos_weight": scale_pos_weight,
             "random_state": SEED,
-            "device": "gpu",
+            "n_jobs":-1
         }
 
         mlflow.set_experiment("threshold_tuning_experiment")

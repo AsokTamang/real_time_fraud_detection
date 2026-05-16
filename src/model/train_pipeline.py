@@ -37,7 +37,7 @@ class ModelTrainer:
                     scale_pos_weight=ratio,       #  using scale_pos_weight instead of class_weight
                     n_estimators=100,
                     random_state=42,
-                    device='gpu'                  
+                    n_jobs = -1                  
                 ),
                 'XGBoost': XGBClassifier(
                     scale_pos_weight=ratio,

@@ -91,7 +91,7 @@ def optimize_model_cv(
                             # fixed params
                             "scale_pos_weight": scale_pos_weight,
                             "random_state": SEED,
-                            "device": "gpu",
+                            "n_jobs":-1,
                         }
                         model = LGBMClassifier(**params)
                         model.fit(
