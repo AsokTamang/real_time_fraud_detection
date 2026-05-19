@@ -30,11 +30,9 @@ mlflow                  # track model experiments and metrics
 pyngrok
 
 #for data_validation
-great_expectations
+pandera
 #for saving the pickle files
 dill
 
 python-dotenv
 
-
-cuml-cu11

@@ -14,7 +14,7 @@ import sys
 
 class Datascalar:
     def __init__(self):
-        self.preprocessor_file_path = os.path.join('artifacts','preprocessor.pkl')
+        self.preprocessor_file_path = os.path.join('artifacts','preprocessors.pkl')
 
     def split_data(self,df:pd.DataFrame):
         try:

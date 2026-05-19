@@ -18,7 +18,7 @@ from src.model.optimal_threshold import initiate_threshold_tuning
 
 @dataclass
 class ModelTrainerConfig:
-    trained_model_path: str = os.path.join('artifacts', 'model.pkl')
+    trained_model_path: str = os.path.join('artifacts', 'best_model_info.pkl')
 
 
 class ModelTrainer:
