@@ -64,7 +64,7 @@ class initiate_threshold_tuning:
                 # Model selection
                 # -------------------------
                 if name == "Random Forest":
-                    # ✅ filter only XGBRFClassifier supported params from optuna
+                    #filtering only XGBRFClassifier supported params from optuna
                     supported_rf_params = {
                         k: v for k, v in best_params.items()
                         if k in ["n_estimators", "max_depth", "subsample",
@@ -106,6 +106,7 @@ class initiate_threshold_tuning:
                 # -------------------------
                 # Metrics
                 # -------------------------
+                #evaluation on cross_validation dataset
                 pr_auc = average_precision_score(y_val_pd, y_prob)
                 roc_auc = roc_auc_score(y_val_pd, y_prob)
 

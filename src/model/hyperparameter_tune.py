@@ -100,16 +100,17 @@ def optimize_model_cv(
                             callbacks=[early_stopping(stopping_rounds=15, verbose=False)],
                         )
 
-                    y_pred_proba = model.predict_proba(X_fold_val)[:, 1]
+                    y_pred_proba = model.predict_proba(X_fold_val)[:, 1]  #here we are extracting the probability of the fraud transaction
                     score = average_precision_score(y_fold_val, y_pred_proba)
                     fold_scores.append(score)
 
-                    trial.report(np.mean(fold_scores), fold)
+                    trial.report(np.mean(fold_scores), fold)   #if the current trial score is not better than the previous ones, then we stop the trial
                     if trial.should_prune():
                         raise optuna.TrialPruned()
 
                 return np.mean(fold_scores)
-
+            
+            #here we are using maximize in direction inorder for the algorithm to approach the maximum value of average precision score
             study = optuna.create_study(
                 direction="maximize",
                 sampler=TPESampler(seed=SEED),

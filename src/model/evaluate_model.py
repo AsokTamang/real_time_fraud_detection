@@ -5,7 +5,7 @@ from sklearn.metrics import average_precision_score, f1_score, precision_score, 
 def model_evaluation(fitted_model,thresholds,X_train, X_val, X_test, y_train, y_val, y_test):
         result = {}
         for name, model in fitted_model.items():
-            y_prob = model.predict_proba(X_val)[
+            y_prob = model.predict_proba(X_test)[
                 :, 1
             ]  # only extracting the probability of the positive class (fraud)
             y_pred = (y_prob >= thresholds[name]).astype(
@@ -13,11 +13,11 @@ def model_evaluation(fitted_model,thresholds,X_train, X_val, X_test, y_train, y_
             )  # then based on the optimal threshold, we are finding the prediction done by each trained model
 
             result[name] = {
-                "F1": round(f1_score(y_val, y_pred), 4),
-                "ROC-AUC": round(roc_auc_score(y_val, y_prob), 4),
-                "PR-AUC": round(average_precision_score(y_val, y_prob), 4),
-                "Recall": round(recall_score(y_val, y_pred), 4),
-                "Precision": round(precision_score(y_val, y_pred), 4),
+                "F1": round(f1_score(y_test, y_pred), 4),
+                "ROC-AUC": round(roc_auc_score(y_test, y_prob), 4),
+                "PR-AUC": round(average_precision_score(y_test, y_prob), 4),
+                "Recall": round(recall_score(y_test, y_pred), 4),
+                "Precision": round(precision_score(y_test, y_pred), 4),
             }
         # Both metrics matter — use weighted average
         best_model_name = max(
