@@ -505,3 +505,5 @@
 2026-05-19 11:40:34,577 - root - INFO - Validating schema and required columns
 2026-05-19 11:43:04,690 - root - INFO - Object saved successfully at artifacts\preprocessors.pkl
 2026-05-19 11:43:04,698 - root - INFO - Scalar saved as pickle file
+2026-05-19 13:57:14,829 - root - INFO - Read data from the filepath
+2026-05-19 13:57:31,273 - root - INFO - Validating schema and required columns
