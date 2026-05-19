@@ -26,6 +26,7 @@ class CustomData:
                 'namedest':[self.namedest],
                 'oldbalanceorg':[self.oldbalanceorg],}
             df = pd.DataFrame(data_dict)
+            logging.info('Dataframe created from incoming features')
             return df
         except Exception as e:
             raise CustomError(e, sys)
