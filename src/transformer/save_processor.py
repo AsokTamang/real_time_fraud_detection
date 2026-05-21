@@ -44,8 +44,8 @@ class Datascalar:
             global_mean = X_train['amount'].mean()
 
             #here global mean is the fallback value, if the nameorig in validation or test dataset isnot found in training dataset
-            X_test['amount_vs_account_mean'] = X_test['amount'] / X_test['nameorig'].map(train_account_mean).fillna(global_mean)+ 1 
-            X_val['amount_vs_account_mean'] = X_val['amount'] / X_val['nameorig'].map(train_account_mean).fillna(global_mean) + 1
+            X_test['amount_vs_account_mean'] = X_test['amount'] / (X_test['nameorig'].map(train_account_mean).fillna(global_mean)+ 1) 
+            X_val['amount_vs_account_mean'] = X_val['amount'] / (X_val['nameorig'].map(train_account_mean).fillna(global_mean) + 1)
             
             train_transaction_counts = X_train.groupby('nameorig')['amount'].count()  #here we are calculating the transaction count for each account holder in the training dataset
             X_train['txn_count_per_account'] = X_train['nameorig'].map(train_transaction_counts).fillna(0) + 1  #here we are creating a new feature called transaction count per account which indicates how many transactions have been made by the account holder, based on the training dataset
