@@ -60,6 +60,7 @@ class Feature_engineering:
                 .fillna(self.preprocessors["global_mean"])
                 + 1
             )
+            #here we are creating a new feature called transaction count per account which indicates how many transactions have been made by the account holder, based on the training dataset
             df["txn_count_per_account"] = (
                 df["nameorig"].map(self.preprocessors["account_txn_counts"]).fillna(0)
                 + 1

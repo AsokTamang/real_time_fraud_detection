@@ -1,5 +1,4 @@
 from sklearn.preprocessing import RobustScaler
-from sklearn.model_selection import train_test_split, cross_val_score, StratifiedKFold
 from src.initial_data_phase.validate_data import validate_data
 from src.initial_data_phase.load_data import load_data
 from src.initial_data_phase.preprocess import preprocess_data
@@ -25,7 +24,7 @@ class Datascalar:
             
             
             #for steps to split dataset into training, cross_Validation and test dataset
-            train_step= 575    # day 1to 15, for the training dataset
+            train_step= 575    # day 1 to 15, for the training dataset
             val_step=647      # day 16 to 23, fot the cross_validation dataset
             #after day 23, we assign the test dataset
             
@@ -47,7 +46,11 @@ class Datascalar:
             #here global mean is the fallback value, if the nameorig in validation or test dataset isnot found in training dataset
             X_test['amount_vs_account_mean'] = X_test['amount'] / X_test['nameorig'].map(train_account_mean).fillna(global_mean)+ 1 
             X_val['amount_vs_account_mean'] = X_val['amount'] / X_val['nameorig'].map(train_account_mean).fillna(global_mean) + 1
-
+            
+            train_transaction_counts = X_train.groupby('nameorig')['amount'].count()  #here we are calculating the transaction count for each account holder in the training dataset
+            X_train['txn_count_per_account'] = X_train['nameorig'].map(train_transaction_counts).fillna(0) + 1  #here we are creating a new feature called transaction count per account which indicates how many transactions have been made by the account holder, based on the training dataset
+            X_val['txn_count_per_account'] = X_val['nameorig'].map(train_transaction_counts).fillna(0) + 1  #same here for validation dataset
+            X_test['txn_count_per_account'] = X_test['nameorig'].map(train_transaction_counts).fillna(0) + 1  #same here for test dataset
 
             X_train = X_train.drop(columns = ['amount','nameorig'])
             X_val = X_val.drop(columns = ['amount','nameorig'])
@@ -69,7 +72,7 @@ class Datascalar:
                 'scalar':scalar,
                 'train_account_mean':train_account_mean,
                 'global_mean':global_mean,
-                'account_txn_counts':X_train.groupby('nameorig')['amount'].count()
+                'account_txn_counts':train_transaction_counts
 
 
             })  #saving the trained scalar preprocessor
