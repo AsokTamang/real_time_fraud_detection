@@ -17,29 +17,28 @@ app.mount('/static', StaticFiles(directory='statics'), name='statics')
 feature_engineering_pipeline = Feature_engineering()
 predict_pipeline = PredictPipeline()  #calling the predict pipeline class
 
-@app.get('/')
-def root():
-    return FileResponse('statics/home.html')
 
 
 class PredictRequest(BaseModel):  #class for defining the input data for prediction
-    type: Union[str, None] = None,
-    amount: Union[int, None] = None,
-    nameorig: Union[str, None] = None,
-    namedest: Union[str, None] = None,
-    oldbalanceorg: Union[int, None] = None
+    step:Union[int,None] = None
+    type: Union[str, None] = None
+    amount: Union[float, None] = None
+    nameorig: Union[str, None] = None
+    namedest: Union[str, None] = None
+    oldbalanceorg: Union[float, None] = None
 
 
 
-@app.get('/prediction_form')
+@app.get('/')
 def prediction_form():
-    return FileResponse('statics/index.html')
+    return FileResponse('statics/fraud_detection_form.html')
 
 
 @app.post('/predict')
 def predict(data: PredictRequest):
     try:
         features = CustomData(
+        step= data.step,    
         type = data.type,
         amount = data.amount,
         nameorig = data.nameorig,

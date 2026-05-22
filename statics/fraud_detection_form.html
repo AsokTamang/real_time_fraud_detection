@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fraud Transaction Detector</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink: #0a2540;
+    --paper: #f0f7ff;
+    --cream: #ddeeff;
+    --accent: #1a7f5a;
+    --accent-light: #e1f5ee;
+    --blue: #1565c0;
+    --blue-light: #e3f0ff;
+    --teal: #00796b;
+    --teal-light: #e0f2f1;
+    --coral: #e53935;
+    --coral-light: #fdecea;
+    --gold: #f9a825;
+    --border: #90caf9;
+    --muted: #3a6186;
+    --shadow: rgba(10,37,64,0.12);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: linear-gradient(135deg, #e3f0ff 0%, #e0f2f1 50%, #e8f5e9 100%);
+    background-attachment: fixed;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 80px;
+  }
+  header {
+    background: linear-gradient(90deg, #0a2540 0%, #1565c0 60%, #00796b 100%);
+    color: #fff;
+    padding: 32px 48px 28px;
+    display: flex;
+    align-items: flex-end;
+    gap: 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 24px var(--shadow);
+  }
+  .header-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #7dd3b0;
+    margin-bottom: 6px;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  header h1 span { color: #f9a825; }
+  .header-sub {
+    font-size: 0.82rem;
+    color: #90caf9;
+    margin-top: 6px;
+    font-weight: 300;
+  }
+  .header-badge {
+    margin-left: auto;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid #90caf9;
+    color: #90caf9;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    padding: 6px 14px;
+    border-radius: 2px;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+  .wrapper { max-width: 900px; margin: 0 auto; padding: 48px 32px 0; }
+
+  #result-banner {
+    display: none;
+    border-radius: 8px;
+    padding: 36px 48px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+    animation: slideDown 0.4s ease;
+  }
+  #result-banner.fraud {
+    background: linear-gradient(135deg, #1a0a0a 0%, #3b0f0f 100%);
+    color: #fff;
+    border-left: 6px solid var(--coral);
+  }
+  #result-banner.valid {
+    background: linear-gradient(135deg, #0a1f14 0%, #0f3d28 100%);
+    color: #fff;
+    border-left: 6px solid #4caf78;
+  }
+  .result-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  #result-banner.fraud .result-label { color: #f08080; }
+  #result-banner.valid .result-label { color: #7de0a0; }
+  .result-verdict {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+  #result-banner.fraud .result-verdict { color: #f08080; }
+  #result-banner.valid .result-verdict { color: #7de0a0; }
+  .result-note { margin-top: 10px; font-size: 0.82rem; color: #b0c8d8; font-weight: 300; }
+  .close-btn {
+    position: absolute; top: 16px; right: 20px;
+    background: none; border: none; color: #90a8b8; cursor: pointer;
+    font-size: 1.2rem; font-family: 'DM Mono', monospace;
+  }
+  .close-btn:hover { color: #fff; }
+
+  #error-banner {
+    display: none;
+    background: var(--coral-light);
+    border: 1px solid var(--coral);
+    border-left: 5px solid var(--coral);
+    color: #b71c1c;
+    border-radius: 6px;
+    padding: 18px 24px;
+    margin-bottom: 32px;
+    font-size: 0.88rem;
+    font-family: 'DM Mono', monospace;
+    animation: slideDown 0.3s ease;
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .progress-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.15em;
+    color: var(--muted); margin-bottom: 8px; text-transform: uppercase;
+  }
+  .progress-bar-wrap {
+    height: 5px; background: #c5dff8;
+    border-radius: 99px; margin-bottom: 40px; overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #1565c0, #00796b, #f9a825);
+    border-radius: 99px; transition: width 0.4s ease;
+  }
+
+  .section { margin-bottom: 48px; }
+  .section-header {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 24px; padding-bottom: 14px;
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(90deg, #1565c0, #00796b) 1;
+  }
+  .section-number {
+    font-family: 'DM Mono', monospace; font-size: 0.65rem;
+    letter-spacing: 0.2em; color: #fff;
+    background: linear-gradient(135deg, #1565c0, #00796b);
+    padding: 4px 10px; border-radius: 2px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700;
+    color: var(--blue);
+  }
+  .section-icon { margin-left: auto; font-size: 1.3rem; opacity: 0.7; }
+
+  .fields-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 18px 24px;
+  }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label {
+    font-size: 0.75rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+  }
+  .field label .req { color: var(--coral); margin-left: 2px; }
+  .field input, .field select {
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px; background: #fff;
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--ink);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none; appearance: none; -webkit-appearance: none;
+  }
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%233a6186' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 12px center;
+    padding-right: 32px; cursor: pointer;
+  }
+  .field input:focus, .field select:focus {
+    border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,121,107,0.15);
+  }
+  .field input.invalid, .field select.invalid {
+    border-color: var(--coral); box-shadow: 0 0 0 3px rgba(229,57,53,0.12);
+  }
+  .field .hint { font-size: 0.68rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+  .info-box {
+    background: var(--blue-light);
+    border: 1px solid #90caf9;
+    border-left: 4px solid var(--blue);
+    border-radius: 6px; padding: 16px 20px; margin-bottom: 32px;
+    font-size: 0.82rem; color: var(--blue); font-family: 'DM Mono', monospace;
+    line-height: 1.6;
+  }
+  .info-box strong { color: var(--ink); }
+
+  .actions {
+    display: flex; align-items: center; gap: 16px;
+    padding: 32px 0 0;
+    border-top: 2px solid transparent;
+    border-image: linear-gradient(90deg, #1565c0, #00796b, #f9a825) 1;
+    margin-top: 8px;
+  }
+  .btn-predict {
+    background: linear-gradient(135deg, #1565c0, #00796b);
+    color: #fff;
+    border: none; padding: 14px 40px;
+    font-family: 'DM Mono', monospace; font-size: 0.82rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    cursor: pointer; border-radius: 6px;
+    transition: opacity 0.2s, transform 0.1s;
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 4px 14px rgba(21,101,192,0.3);
+  }
+  .btn-predict:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
+  .btn-predict:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-reset {
+    background: transparent; color: var(--muted);
+    border: 1.5px solid var(--border); padding: 14px 24px;
+    font-family: 'DM Mono', monospace; font-size: 0.78rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; border-radius: 6px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-reset:hover { color: var(--coral); border-color: var(--coral); }
+  .actions-note { margin-left: auto; font-size: 0.75rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+  .spinner {
+    width: 14px; height: 14px;
+    border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
+    border-radius: 50%; animation: spin 0.7s linear infinite; display: none;
+  }
+  .btn-predict.loading .spinner { display: block; }
+  .btn-predict.loading .btn-text { opacity: 0.7; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 768px) {
+    header { padding: 24px 20px; flex-wrap: wrap; }
+    header h1 { font-size: 1.8rem; }
+    .header-badge { display: none; }
+    .wrapper { padding: 28px 16px 0; }
+    .fields-grid { grid-template-columns: 1fr 1fr; }
+    .result-verdict { font-size: 2.2rem; }
+  }
+  @media (max-width: 480px) {
+    .fields-grid { grid-template-columns: 1fr; }
+    .actions { flex-wrap: wrap; }
+    .actions-note { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="header-eyebrow">ML Classification Model · Financial Transactions</div>
+    <h1>Fraud <span>Detection</span> System</h1>
+    <div class="header-sub">Gradient Boosting · Threshold-optimised · Probability Scoring</div>
+  </div>
+  <div class="header-badge">API · 127.0.0.1:8000</div>
+</header>
+
+<div class="wrapper">
+
+  <div id="result-banner">
+    <button class="close-btn" onclick="closeResult()">✕</button>
+    <div class="result-label" id="result-label">Analysis Complete</div>
+    <div class="result-verdict" id="result-verdict">—</div>
+    <div class="result-note" id="result-note">Based on transaction features · Trained on PaySim dataset</div>
+  </div>
+
+  <div id="error-banner"></div>
+
+  <div class="info-box">
+    <strong>How it works:</strong> Enter the transaction details below. The model analyses the amount, account balances, and transaction type to determine whether the transaction is likely <strong>fraudulent</strong> or <strong>valid</strong>. Fields marked <span style="color:var(--coral)">*</span> are required.
+  </div>
+
+  <div class="progress-label">Form completion</div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+  </div>
+
+  <form id="predict-form" novalidate>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-number">01</span>
+        <span class="section-title">Transaction Details</span>
+        <span class="section-icon">💳</span>
+      </div>
+      <div class="fields-grid">
+        <div class="field">
+          <label>Transaction Step <span class="req">*</span></label>
+          <input type="number" name="step" min="1" placeholder="e.g. 1" required/>
+          <span class="hint">1 step = 1 hour of simulated time</span>
+        </div>
+        <div class="field">
+          <label>Transaction Type <span class="req">*</span></label>
+          <select name="type" required>
+            <option value="">— select —</option>
+            <option>CASH_IN</option>
+            <option>CASH_OUT</option>
+            <option>DEBIT</option>
+            <option>PAYMENT</option>
+            <option>TRANSFER</option>
+          </select>
+          <span class="hint">Type of financial transaction</span>
+        </div>
+        <div class="field">
+          <label>Amount ($) <span class="req">*</span></label>
+          <input type="number" name="amount" step="0.01" min="0" placeholder="e.g. 9839.64" required/>
+          <span class="hint">Transaction amount in local currency</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-number">02</span>
+        <span class="section-title">Account Information</span>
+        <span class="section-icon">🏦</span>
+      </div>
+      <div class="fields-grid">
+        <div class="field">
+          <label>Origin Account ID <span class="req">*</span></label>
+          <input type="text" name="nameorig" placeholder="e.g. C1231006815" required/>
+          <span class="hint">Customer account initiating transaction</span>
+        </div>
+        <div class="field">
+          <label>Destination Account ID <span class="req">*</span></label>
+          <input type="text" name="namedest" placeholder="e.g. M1979787155" required/>
+          <span class="hint">Recipient account (C = customer, M = merchant)</span>
+        </div>
+        <div class="field">
+          <label>Origin Balance Before ($) <span class="req">*</span></label>
+          <input type="number" name="oldbalanceorg" step="0.01" min="0" placeholder="e.g. 170136.00" required/>
+          <span class="hint">Origin account balance before transaction</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn-predict" id="submit-btn">
+        <div class="spinner"></div>
+        <span class="btn-text">Analyse Transaction</span>
+      </button>
+      <button type="button" class="btn-reset" onclick="resetForm()">Reset All</button>
+      <span class="actions-note">* Required fields must be filled</span>
+    </div>
+
+  </form>
+</div>
+
+<script>
+  function updateProgress() {
+    const all = document.querySelectorAll('#predict-form input, #predict-form select');
+    const filled = [...all].filter(f => f.value.trim() !== '').length;
+    document.getElementById('progress-fill').style.width = Math.round((filled / all.length) * 100) + '%';
+  }
+  document.querySelectorAll('#predict-form input, #predict-form select')
+    .forEach(f => { f.addEventListener('change', updateProgress); f.addEventListener('input', updateProgress); });
+
+  function validateRequired() {
+    const required = document.querySelectorAll('#predict-form [required]');
+    let valid = true;
+    required.forEach(f => {
+      f.classList.remove('invalid');
+      if (!f.value.trim()) { f.classList.add('invalid'); valid = false; }
+    });
+    return valid;
+  }
+
+  function collectPayload() {
+    const fd = new FormData(document.getElementById('predict-form'));
+    const payload = {};
+    const intFields = new Set(['step']);
+    const floatFields = new Set(['amount', 'oldbalanceorg']);
+    for (const [key, val] of fd.entries()) {
+      if (val === '' || val === null) { payload[key] = null; }
+      else if (intFields.has(key)) { const n = parseInt(val, 10); payload[key] = isNaN(n) ? null : n; }
+      else if (floatFields.has(key)) { const n = parseFloat(val); payload[key] = isNaN(n) ? null : n; }
+      else { payload[key] = val; }
+    }
+    return payload;
+  }
+
+  document.getElementById('predict-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    document.getElementById('result-banner').style.display = 'none';
+    document.getElementById('error-banner').style.display = 'none';
+    if (!validateRequired()) {
+      showError('⚠ Please fill in all required fields (marked with *).');
+      window.scrollTo({ top: 0, behavior: 'smooth' }); return;
+    }
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true; btn.classList.add('loading');
+    btn.querySelector('.btn-text').textContent = 'Analysing…';
+    try {
+      const payload = collectPayload();
+      const res = await fetch('/predict', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || data.error || `Server error ${res.status}`);
+      if (!data.result) throw new Error('No result returned from server.');
+      showResult(data.result);
+    } catch (err) { showError('⚠ ' + err.message); }
+    finally {
+      btn.disabled = false; btn.classList.remove('loading');
+      btn.querySelector('.btn-text').textContent = 'Analyse Transaction';
+    }
+  });
+
+  function showResult(result) {
+    const banner = document.getElementById('result-banner');
+    const isFraud = result.toLowerCase().includes('fraud');
+    banner.className = isFraud ? 'fraud' : 'valid';
+    document.getElementById('result-label').textContent = isFraud ? '⚠ Alert — Suspicious Activity Detected' : '✓ Transaction Cleared';
+    document.getElementById('result-verdict').textContent = result;
+    document.getElementById('result-note').textContent = isFraud
+      ? 'This transaction has been flagged as potentially fraudulent. Review recommended.'
+      : 'No fraud indicators detected. Transaction appears to be legitimate.';
+    banner.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('error-banner');
+    el.textContent = msg; el.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function closeResult() { document.getElementById('result-banner').style.display = 'none'; }
+
+  function resetForm() {
+    document.getElementById('predict-form').reset();
+    document.getElementById('result-banner').style.display = 'none';
+    document.getElementById('error-banner').style.display = 'none';
+    document.querySelectorAll('.invalid').forEach(f => f.classList.remove('invalid'));
+    updateProgress();
+  }
+</script>
+</body>
+</html>

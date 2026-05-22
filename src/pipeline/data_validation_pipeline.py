@@ -5,12 +5,14 @@ import sys
 import pandas as pd
 class CustomData:
     def __init__(self,
+                 step:Union[int, None] = None,
                  type: Union[str, None] = None,
                  amount: Union[int, None] = None,
                  nameorig: Union[str, None] = None,
                  namedest: Union[str, None] = None,
                  oldbalanceorg: Union[int, None] = None,
     ):
+        self.step = step
         self.type = type
         self.amount = amount
         self.nameorig = nameorig
@@ -20,6 +22,7 @@ class CustomData:
     def get_data_as_dataframe(self):
         try:
             data_dict = {
+                'step':[self.step],
                 'type':[self.type],
                 'amount':[self.amount],
                 'nameorig':[self.nameorig],

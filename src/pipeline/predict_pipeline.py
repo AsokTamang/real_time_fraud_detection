@@ -18,10 +18,12 @@ class PredictPipeline:
             y_pred = (y_prob >= threshold).astype(
                 int
             )     
-            logging.info(f"The passed transaction is: {y_pred}")  #logging the predicted price of the house
-            if y_pred == 1:
+           
+            if y_pred[0] == 1:
+                logging.info('The given transaction is fraud')
                 return {'result': 'Fraud Transaction'}
             else:
+                logging.info('The given transaction is valid')
                 return {'result': 'Valid Transaction'}
         except Exception as e:
             import traceback

@@ -23,7 +23,7 @@ class Feature_engineering:
                 int
             )  # creating a new feature critical_amount which indicates whether the transaction amount is greater than 200000 or not, as we can see from the boxplot that there are some transactions with very high amounts which are likely to be fraudulent
             # and the amount greater than 200000 is the critical amount
-            df["is_round_amount"] = (df["amount"] % 1000 == 0).astype(
+            df["is_round"] = (df["amount"] % 1000 == 0).astype(
                 int
             )  # as most of the valid transaction is never a fixed number, so we are making a feature called is_round_amount
 
@@ -34,7 +34,7 @@ class Feature_engineering:
             df["is_transfer"] = (df["type"] == "TRANSFER").astype(
                 int
             )  # creating a new feature is_transfer which indicates whether the transaction type is a transfer or not
-            df["is_cashout"] = (df["type"] == "CASH_OUT").astype(
+            df["is_cash_out"] = (df["type"] == "CASH_OUT").astype(
                 int
             )  # creating a new feature is_cash_out which indicates whether the transaction type is a cash out or not
             df["is_merchant_dest"] = (df["dest_type"] == "Merchant").astype(
@@ -61,14 +61,14 @@ class Feature_engineering:
                 + 1
             )
             #here we are creating a new feature called transaction count per account which indicates how many transactions have been made by the account holder, based on the training dataset
-            df["txn_count_per_account"] = (
+            df["account_txn_counts"] = (
                 df["nameorig"].map(self.preprocessors["account_txn_counts"]).fillna(0)
                 + 1
             )
             continuous_features = [
                 "log_amount",
                 "amount_vs_account_mean",
-                "txn_count_per_account",
+                "account_txn_counts",
                 "step",
             ]
             df[continuous_features] = self.preprocessors["scalar"].transform(df[continuous_features])
@@ -88,7 +88,7 @@ class Feature_engineering:
                 "amount",
                 "nameorig",
             ]
-            df = df.drop(columns=drop_cols)
+            df = df.drop(columns=[col for col in df.columns if col in drop_cols])
             return df
         except Exception as e:
             raise CustomError(e, sys)

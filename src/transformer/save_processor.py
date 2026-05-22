@@ -48,10 +48,11 @@ class Datascalar:
             X_val['amount_vs_account_mean'] = X_val['amount'] / (X_val['nameorig'].map(train_account_mean).fillna(global_mean) + 1)
             
             train_transaction_counts = X_train.groupby('nameorig')['amount'].count()  #here we are calculating the transaction count for each account holder in the training dataset
-            X_train['txn_count_per_account'] = X_train['nameorig'].map(train_transaction_counts).fillna(0) + 1  #here we are creating a new feature called transaction count per account which indicates how many transactions have been made by the account holder, based on the training dataset
-            X_val['txn_count_per_account'] = X_val['nameorig'].map(train_transaction_counts).fillna(0) + 1  #same here for validation dataset
-            X_test['txn_count_per_account'] = X_test['nameorig'].map(train_transaction_counts).fillna(0) + 1  #same here for test dataset
-
+            X_train['account_txn_counts'] = X_train['nameorig'].map(train_transaction_counts).fillna(0) + 1  #here we are creating a new feature called transaction count per account which indicates how many transactions have been made by the account holder, based on the training dataset
+            X_val['account_txn_counts'] = X_val['nameorig'].map(train_transaction_counts).fillna(0) + 1  #same here for validation dataset
+            X_test['account_txn_counts'] = X_test['nameorig'].map(train_transaction_counts).fillna(0) + 1  #same here for test dataset
+            
+            #dropping the final list of columns which are amount and nameorig
             X_train = X_train.drop(columns = ['amount','nameorig'])
             X_val = X_val.drop(columns = ['amount','nameorig'])
             X_test = X_test.drop(columns = ['amount','nameorig'])
@@ -59,7 +60,7 @@ class Datascalar:
 
             #scaling pipeline
             scalar = RobustScaler()
-            continuous_features = ['log_amount','amount_vs_account_mean','txn_count_per_account', 'step']
+            continuous_features = ['log_amount','amount_vs_account_mean','account_txn_counts', 'step']
 
             X_train[continuous_features] = scalar.fit_transform(X_train[continuous_features])
             X_val[continuous_features] = scalar.transform(X_val[continuous_features])
@@ -76,8 +77,16 @@ class Datascalar:
 
 
             })  #saving the trained scalar preprocessor
+
+            print('The saved preprocessor is:', {
+                'scalar':scalar,
+                'train_account_mean':train_account_mean,
+                'global_mean':global_mean,
+                'account_txn_counts':train_transaction_counts
+
+
+            })
             logging.info('Scalar saved as pickle file')
-             
             
             return X_train,X_val,X_test,y_train,y_val,y_test
         except Exception as e:

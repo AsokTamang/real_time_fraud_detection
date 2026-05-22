@@ -511,3 +511,425 @@
 2026-05-21 17:21:56,924 - root - INFO - Validating schema and required columns
 2026-05-21 17:30:08,658 - root - INFO - Object saved successfully at artifacts\preprocessors.pkl
 2026-05-21 17:30:08,676 - root - INFO - Scalar saved as pickle file
+2026-05-21 17:47:22,570 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 17:47:27,660 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 17:47:28,158 - uvicorn.error - INFO - Will watch for changes in these directories: ['C:\\pythonprojects\\Machine learning\\resume_projects\\real_time_fraud_detection']
+2026-05-21 17:47:28,164 - uvicorn.error - INFO - Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+2026-05-21 17:47:28,165 - uvicorn.error - INFO - Started reloader process [11704] using WatchFiles
+2026-05-21 17:47:29,990 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 17:47:36,317 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 17:47:36,564 - uvicorn.error - INFO - Started server process [2728]
+2026-05-21 17:47:36,571 - uvicorn.error - INFO - Waiting for application startup.
+2026-05-21 17:47:36,574 - uvicorn.error - INFO - Application startup complete.
+2026-05-21 17:47:41,761 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:47:41,767 - uvicorn.error - WARNING - WatchFiles detected changes in 'main.py'. Reloading...
+2026-05-21 17:47:41,859 - uvicorn.error - INFO - Shutting down
+2026-05-21 17:47:41,976 - uvicorn.error - INFO - Waiting for application shutdown.
+2026-05-21 17:47:41,977 - uvicorn.error - INFO - Application shutdown complete.
+2026-05-21 17:47:41,978 - uvicorn.error - INFO - Finished server process [2728]
+2026-05-21 17:47:43,226 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:47:43,630 - watchfiles.main - INFO - 5 changes detected
+2026-05-21 17:47:44,278 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 17:47:48,421 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 17:47:48,733 - uvicorn.error - INFO - Started server process [10376]
+2026-05-21 17:47:48,746 - uvicorn.error - INFO - Waiting for application startup.
+2026-05-21 17:47:48,751 - uvicorn.error - INFO - Application startup complete.
+2026-05-21 17:47:53,468 - uvicorn.error - ERROR - Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\responses.py", line 349, in __call__
+    stat_result = await anyio.to_thread.run_sync(os.stat, self.path)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+FileNotFoundError: [WinError 2] The system cannot find the file specified: 'statics/home.html'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 421, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 56, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\fastapi\applications.py", line 1159, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\fastapi\routing.py", line 121, in app
+    await response(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\responses.py", line 352, in __call__
+    raise RuntimeError(f"File at path {self.path} does not exist.")
+RuntimeError: File at path statics/home.html does not exist.
+2026-05-21 17:48:06,241 - uvicorn.error - INFO - Shutting down
+2026-05-21 17:48:06,343 - uvicorn.error - INFO - Waiting for application shutdown.
+2026-05-21 17:48:06,345 - uvicorn.error - INFO - Application shutdown complete.
+2026-05-21 17:48:06,347 - uvicorn.error - INFO - Finished server process [10376]
+2026-05-21 17:48:07,213 - uvicorn.error - INFO - Stopping reloader process [11704]
+2026-05-21 17:48:23,172 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 17:48:26,680 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 17:48:26,779 - uvicorn.error - INFO - Will watch for changes in these directories: ['C:\\pythonprojects\\Machine learning\\resume_projects\\real_time_fraud_detection']
+2026-05-21 17:48:26,782 - uvicorn.error - INFO - Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+2026-05-21 17:48:26,783 - uvicorn.error - INFO - Started reloader process [4684] using WatchFiles
+2026-05-21 17:48:27,757 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 17:48:33,232 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 17:48:33,446 - uvicorn.error - INFO - Started server process [12736]
+2026-05-21 17:48:33,461 - uvicorn.error - INFO - Waiting for application startup.
+2026-05-21 17:48:33,465 - uvicorn.error - INFO - Application startup complete.
+2026-05-21 17:50:22,921 - root - INFO - Dataframe created from incoming features
+2026-05-21 17:50:22,937 - uvicorn.error - ERROR - Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\src\pipeline\feature_engineering_pipeline.py", line 18, in feature_engineering
+    df = df.sort_values("step").reset_index(
+         ~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\pandas\core\frame.py", line 7211, in sort_values
+    k = self._get_label_or_level_values(by[0], axis=axis)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\pandas\core\generic.py", line 1914, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'step'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\main.py", line 50, in predict
+    df_features = feature_engineering_pipeline.feature_engineering(df_features)  #applying the feature engineering pipeline
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\src\pipeline\feature_engineering_pipeline.py", line 94, in feature_engineering
+    raise CustomError(e, sys)
+src.exception.CustomError: 'step' error occured in C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\src\pipeline\feature_engineering_pipeline.py at line 18
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 421, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 56, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\fastapi\applications.py", line 1159, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\fastapi\routing.py", line 134, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\fastapi\routing.py", line 674, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\fastapi\routing.py", line 330, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\starlette\concurrency.py", line 32, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\anyio\to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2518, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1002, in run
+    result = context.run(func, *args)
+  File "C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\main.py", line 56, in predict
+    raise CustomError(e,sys)
+src.exception.CustomError: 'step' error occured in C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\src\pipeline\feature_engineering_pipeline.py at line 18 error occured in C:\pythonprojects\Machine learning\resume_projects\real_time_fraud_detection\main.py at line 50
+2026-05-21 17:50:43,257 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:50:43,271 - uvicorn.error - WARNING - WatchFiles detected changes in 'main.py'. Reloading...
+2026-05-21 17:50:43,357 - uvicorn.error - INFO - Shutting down
+2026-05-21 17:50:43,463 - uvicorn.error - INFO - Waiting for application shutdown.
+2026-05-21 17:50:43,464 - uvicorn.error - INFO - Application shutdown complete.
+2026-05-21 17:50:43,465 - uvicorn.error - INFO - Finished server process [12736]
+2026-05-21 17:50:45,541 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:50:45,999 - watchfiles.main - INFO - 5 changes detected
+2026-05-21 17:50:47,116 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 17:50:51,521 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 17:50:51,800 - uvicorn.error - INFO - Started server process [2208]
+2026-05-21 17:50:51,812 - uvicorn.error - INFO - Waiting for application startup.
+2026-05-21 17:50:51,815 - uvicorn.error - INFO - Application startup complete.
+2026-05-21 17:51:03,570 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:51:03,571 - uvicorn.error - WARNING - WatchFiles detected changes in 'src\pipeline\predict_pipeline.py'. Reloading...
+2026-05-21 17:51:03,586 - uvicorn.error - INFO - Shutting down
+2026-05-21 17:51:03,700 - uvicorn.error - INFO - Waiting for application shutdown.
+2026-05-21 17:51:03,701 - uvicorn.error - INFO - Application shutdown complete.
+2026-05-21 17:51:03,702 - uvicorn.error - INFO - Finished server process [2208]
+2026-05-21 17:51:05,460 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:51:06,079 - watchfiles.main - INFO - 5 changes detected
+2026-05-21 17:51:06,637 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 17:51:12,588 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 17:51:12,699 - uvicorn.error - INFO - Started server process [11704]
+2026-05-21 17:51:12,704 - uvicorn.error - INFO - Waiting for application startup.
+2026-05-21 17:51:12,706 - uvicorn.error - INFO - Application startup complete.
+2026-05-21 17:51:21,572 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:51:21,573 - uvicorn.error - WARNING - WatchFiles detected changes in 'src\pipeline\data_validation_pipeline.py'. Reloading...
+2026-05-21 17:51:21,592 - uvicorn.error - INFO - Shutting down
+2026-05-21 17:51:21,707 - uvicorn.error - INFO - Waiting for application shutdown.
+2026-05-21 17:51:21,709 - uvicorn.error - INFO - Application shutdown complete.
+2026-05-21 17:51:21,710 - uvicorn.error - INFO - Finished server process [11704]
+2026-05-21 17:51:23,007 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:51:23,667 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 17:51:23,729 - watchfiles.main - INFO - 5 changes detected
+2026-05-21 17:51:29,271 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 17:51:29,436 - uvicorn.error - INFO - Started server process [12992]
+2026-05-21 17:51:29,443 - uvicorn.error - INFO - Waiting for application startup.
+2026-05-21 17:51:29,444 - uvicorn.error - INFO - Application startup complete.
+2026-05-21 17:51:29,765 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:51:29,765 - uvicorn.error - WARNING - WatchFiles detected changes in 'src\pipeline\data_validation_pipeline.py'. Reloading...
+2026-05-21 17:51:29,864 - uvicorn.error - INFO - Shutting down
+2026-05-21 17:51:29,973 - uvicorn.error - INFO - Waiting for application shutdown.
+2026-05-21 17:51:29,975 - uvicorn.error - INFO - Application shutdown complete.
+2026-05-21 17:51:29,976 - uvicorn.error - INFO - Finished server process [12992]
+2026-05-21 17:51:31,274 - watchfiles.main - INFO - 2 changes detected
+2026-05-21 17:51:31,275 - uvicorn.error - WARNING - WatchFiles detected changes in 'src\pipeline\data_validation_pipeline.py'. Reloading...
+2026-05-21 17:51:32,139 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 17:51:39,525 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 17:51:39,721 - uvicorn.error - INFO - Started server process [14384]
+2026-05-21 17:51:39,740 - uvicorn.error - INFO - Waiting for application startup.
+2026-05-21 17:51:39,745 - uvicorn.error - INFO - Application startup complete.
+2026-05-21 17:51:39,746 - uvicorn.error - INFO - Shutting down
+2026-05-21 17:51:39,855 - uvicorn.error - INFO - Waiting for application shutdown.
+2026-05-21 17:51:39,856 - uvicorn.error - INFO - Application shutdown complete.
+2026-05-21 17:51:39,857 - uvicorn.error - INFO - Finished server process [14384]
+2026-05-21 17:51:41,346 - watchfiles.main - INFO - 7 changes detected
+2026-05-21 17:51:41,346 - uvicorn.error - WARNING - WatchFiles detected changes in 'src\pipeline\data_validation_pipeline.py'. Reloading...
+2026-05-21 17:51:42,665 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 17:51:42,750 - watchfiles.main - INFO - 5 changes detected
+2026-05-21 17:51:46,088 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 17:51:46,307 - uvicorn.error - INFO - Started server process [8348]
+2026-05-21 17:51:46,338 - uvicorn.error - INFO - Waiting for application startup.
+2026-05-21 17:51:46,341 - uvicorn.error - INFO - Application startup complete.
+2026-05-21 17:51:47,807 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:51:47,808 - uvicorn.error - WARNING - WatchFiles detected changes in 'src\pipeline\data_validation_pipeline.py'. Reloading...
+2026-05-21 17:51:47,874 - uvicorn.error - INFO - Shutting down
+2026-05-21 17:51:47,989 - uvicorn.error - INFO - Waiting for application shutdown.
+2026-05-21 17:51:47,990 - uvicorn.error - INFO - Application shutdown complete.
+2026-05-21 17:51:47,991 - uvicorn.error - INFO - Finished server process [8348]
+2026-05-21 17:51:49,109 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:51:49,666 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 17:51:49,718 - watchfiles.main - INFO - 5 changes detected
+2026-05-21 17:51:53,922 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 17:51:54,013 - uvicorn.error - INFO - Started server process [6556]
+2026-05-21 17:51:54,019 - uvicorn.error - INFO - Waiting for application startup.
+2026-05-21 17:51:54,021 - uvicorn.error - INFO - Application startup complete.
+2026-05-21 17:51:54,853 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:51:54,853 - uvicorn.error - WARNING - WatchFiles detected changes in 'src\pipeline\predict_pipeline.py'. Reloading...
+2026-05-21 17:51:54,908 - uvicorn.error - INFO - Shutting down
+2026-05-21 17:51:55,022 - uvicorn.error - INFO - Waiting for application shutdown.
+2026-05-21 17:51:55,023 - uvicorn.error - INFO - Application shutdown complete.
+2026-05-21 17:51:55,023 - uvicorn.error - INFO - Finished server process [6556]
+2026-05-21 17:51:56,361 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:51:56,868 - watchfiles.main - INFO - 5 changes detected
+2026-05-21 17:51:57,222 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 17:52:00,902 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 17:52:01,139 - uvicorn.error - INFO - Started server process [14284]
+2026-05-21 17:52:01,164 - uvicorn.error - INFO - Waiting for application startup.
+2026-05-21 17:52:01,166 - uvicorn.error - INFO - Application startup complete.
+2026-05-21 17:52:15,891 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:52:15,893 - uvicorn.error - WARNING - WatchFiles detected changes in 'main.py'. Reloading...
+2026-05-21 17:52:15,957 - uvicorn.error - INFO - Shutting down
+2026-05-21 17:52:16,065 - uvicorn.error - INFO - Waiting for application shutdown.
+2026-05-21 17:52:16,066 - uvicorn.error - INFO - Application shutdown complete.
+2026-05-21 17:52:16,067 - uvicorn.error - INFO - Finished server process [14284]
+2026-05-21 17:52:17,281 - watchfiles.main - INFO - 6 changes detected
+2026-05-21 17:52:18,093 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 17:52:22,591 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 17:52:22,974 - uvicorn.error - INFO - Started server process [15160]
+2026-05-21 17:52:22,986 - uvicorn.error - INFO - Waiting for application startup.
+2026-05-21 17:52:22,992 - uvicorn.error - INFO - Application startup complete.
+2026-05-21 17:52:31,889 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:52:31,890 - uvicorn.error - WARNING - WatchFiles detected changes in 'main.py'. Reloading...
+2026-05-21 17:52:31,942 - uvicorn.error - INFO - Shutting down
+2026-05-21 17:52:32,055 - uvicorn.error - INFO - Waiting for application shutdown.
+2026-05-21 17:52:32,056 - uvicorn.error - INFO - Application shutdown complete.
+2026-05-21 17:52:32,057 - uvicorn.error - INFO - Finished server process [15160]
+2026-05-21 17:52:33,342 - watchfiles.main - INFO - 7 changes detected
+2026-05-21 17:52:33,343 - uvicorn.error - WARNING - WatchFiles detected changes in 'main.py'. Reloading...
+2026-05-21 17:52:34,095 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 17:52:37,864 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 17:52:38,000 - uvicorn.error - INFO - Started server process [5680]
+2026-05-21 17:52:38,005 - uvicorn.error - INFO - Waiting for application startup.
+2026-05-21 17:52:38,007 - uvicorn.error - INFO - Application startup complete.
+2026-05-21 17:52:38,008 - uvicorn.error - INFO - Shutting down
+2026-05-21 17:52:38,117 - uvicorn.error - INFO - Waiting for application shutdown.
+2026-05-21 17:52:38,118 - uvicorn.error - INFO - Application shutdown complete.
+2026-05-21 17:52:38,119 - uvicorn.error - INFO - Finished server process [5680]
+2026-05-21 17:52:39,138 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:52:40,186 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 17:52:47,414 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 17:52:48,213 - uvicorn.error - INFO - Started server process [7564]
+2026-05-21 17:52:48,223 - uvicorn.error - INFO - Waiting for application startup.
+2026-05-21 17:52:48,226 - uvicorn.error - INFO - Application startup complete.
+2026-05-21 17:58:34,148 - watchfiles.main - INFO - 3 changes detected
+2026-05-21 17:58:45,085 - watchfiles.main - INFO - 2 changes detected
+2026-05-21 17:58:56,013 - watchfiles.main - INFO - 2 changes detected
+2026-05-21 17:59:00,159 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:59:03,427 - watchfiles.main - INFO - 1 change detected
+2026-05-21 17:59:11,972 - uvicorn.error - INFO - Shutting down
+2026-05-21 17:59:12,113 - uvicorn.error - INFO - Waiting for application shutdown.
+2026-05-21 17:59:12,117 - uvicorn.error - INFO - Application shutdown complete.
+2026-05-21 17:59:12,119 - uvicorn.error - INFO - Finished server process [7564]
+2026-05-21 17:59:13,581 - uvicorn.error - INFO - Stopping reloader process [4684]
+2026-05-21 18:00:29,661 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 18:00:33,691 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 18:00:33,962 - uvicorn.error - INFO - Will watch for changes in these directories: ['C:\\pythonprojects\\Machine learning\\resume_projects\\real_time_fraud_detection']
+2026-05-21 18:00:33,969 - uvicorn.error - INFO - Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+2026-05-21 18:00:33,972 - uvicorn.error - INFO - Started reloader process [2380] using WatchFiles
+2026-05-21 18:00:35,636 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 18:00:41,888 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 18:00:42,068 - uvicorn.error - INFO - Started server process [15688]
+2026-05-21 18:00:42,075 - uvicorn.error - INFO - Waiting for application startup.
+2026-05-21 18:00:42,077 - uvicorn.error - INFO - Application startup complete.
+2026-05-21 18:01:05,535 - watchfiles.main - INFO - 1 change detected
+2026-05-21 18:01:06,145 - watchfiles.main - INFO - 1 change detected
+2026-05-21 18:01:09,183 - watchfiles.main - INFO - 1 change detected
+2026-05-21 18:01:09,789 - watchfiles.main - INFO - 1 change detected
+2026-05-21 18:01:12,618 - watchfiles.main - INFO - 1 change detected
+2026-05-21 18:01:12,976 - watchfiles.main - INFO - 1 change detected
+2026-05-21 18:25:16,709 - watchfiles.main - INFO - 1 change detected
+2026-05-21 18:25:18,345 - uvicorn.error - INFO - Shutting down
+2026-05-21 18:25:18,510 - uvicorn.error - INFO - Waiting for application shutdown.
+2026-05-21 18:25:18,518 - uvicorn.error - INFO - Application shutdown complete.
+2026-05-21 18:25:18,521 - uvicorn.error - INFO - Finished server process [15688]
+2026-05-21 21:31:28,894 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 21:31:35,175 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 21:32:04,306 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 21:32:09,433 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 21:33:46,193 - root - INFO - Dataframe created from incoming features
+2026-05-21 21:37:32,222 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 21:37:36,524 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 21:41:13,604 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 21:41:21,917 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 21:41:26,373 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 21:41:33,581 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 21:42:00,822 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 21:42:04,022 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 21:44:53,421 - root - INFO - Read data from the filepath
+2026-05-21 21:45:48,023 - root - INFO - Validating schema and required columns
+2026-05-21 21:52:40,452 - root - INFO - Object saved successfully at artifacts\preprocessors.pkl
+2026-05-21 21:52:40,637 - root - INFO - Scalar saved as pickle file
+2026-05-21 22:18:36,269 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:18:43,792 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:18:53,864 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:18:59,156 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:18:59,387 - root - INFO - Dataframe created from incoming features
+2026-05-21 22:23:12,608 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:23:17,699 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:23:20,341 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:23:24,654 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:23:29,297 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:23:33,404 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:23:38,899 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:23:44,215 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:23:59,831 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:24:03,089 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:24:05,102 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:24:08,861 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:24:11,141 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:24:14,416 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:25:08,514 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:25:11,796 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:25:24,401 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:25:27,719 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:26:14,499 - root - INFO - Dataframe created from incoming features
+2026-05-21 22:27:28,065 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:27:31,461 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:28:48,244 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:28:53,050 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:29:07,058 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:29:11,067 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:29:49,605 - root - INFO - Dataframe created from incoming features
+2026-05-21 22:32:28,374 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:32:33,691 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:32:36,418 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:32:42,928 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:33:03,268 - root - INFO - Dataframe created from incoming features
+2026-05-21 22:35:21,700 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:35:26,548 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:36:01,134 - root - INFO - Dataframe created from incoming features
+2026-05-21 22:37:46,256 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:37:51,390 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:37:53,547 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:37:57,394 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:37:59,128 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:38:02,945 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:38:05,291 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:38:09,072 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:38:13,630 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:38:20,755 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 22:43:17,451 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:43:32,872 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:43:40,860 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:44:03,439 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 22:44:52,026 - root - INFO - Loading object from artifacts\preprocessors.pkl
