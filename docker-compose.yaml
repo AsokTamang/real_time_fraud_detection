@@ -1,0 +1,25 @@
+version: '3.8'  #version of docker
+
+services:
+  kafka:
+   image: confluentinc/cp-kafka:8.1.3   #version of cp-kafka 
+   container_name: kafka
+   ports:
+     -"9092:9092"   #port where our kafka is available
+   environment:
+    KAFKA_KRAFT_MODE: 'true'  #activation of KRAFT
+    CLUSTER_ID: '1ABGTHI-eAL--X255'
+    KAFKA_NODE_ID: 1
+
+    KAFKA_PROCESS_ROLES: broker,controller    #here we are assigning the role of kafka node in kafka cluster
+    KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093     #this vote decides, which node will act as the controller in kafka cluster
+    KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    
+    KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093  #here the first endpoint is for the producer and consumer endpoint accessible port, and the second endpoint is for the controller accessible port of this kafka cluster
+    KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+    KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+    
+
+
+
+
