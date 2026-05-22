@@ -933,3 +933,57 @@ src.exception.CustomError: 'step' error occured in C:\pythonprojects\Machine lea
 2026-05-21 22:43:40,860 - root - INFO - Loading object from artifacts\preprocessors.pkl
 2026-05-21 22:44:03,439 - root - INFO - Loading object from artifacts\preprocessors.pkl
 2026-05-21 22:44:52,026 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 23:37:56,502 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 23:38:35,707 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 23:38:48,203 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 23:40:18,884 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 23:40:58,864 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 23:46:57,453 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 23:47:58,107 - root - INFO - Read data from the filepath
+2026-05-21 23:48:13,220 - root - INFO - Validating schema and required columns
+2026-05-21 23:50:20,218 - root - INFO - Object saved successfully at artifacts\preprocessors.pkl
+2026-05-21 23:50:20,306 - root - INFO - Scalar saved as pickle file
+2026-05-21 23:51:31,816 - root - INFO - Read data from the filepath
+2026-05-21 23:51:45,971 - root - INFO - Validating schema and required columns
+2026-05-21 23:53:43,429 - root - INFO - Object saved successfully at artifacts\preprocessors.pkl
+2026-05-21 23:53:43,523 - root - INFO - Scalar saved as pickle file
+2026-05-21 23:54:06,418 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-21 23:54:08,860 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-21 23:54:51,450 - root - INFO - Dataframe created from incoming features
+2026-05-22 00:40:28,659 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-22 00:40:32,368 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-22 00:41:17,446 - root - INFO - Dataframe created from incoming features
+2026-05-22 09:42:53,960 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-22 09:42:56,925 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-22 09:43:42,035 - root - INFO - Dataframe created from incoming features
+2026-05-22 09:43:45,256 - root - INFO - Dataframe created from incoming features
+2026-05-22 09:46:17,522 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-22 09:46:21,117 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-22 09:49:20,294 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-22 09:49:23,319 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-22 09:49:26,800 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-22 09:49:32,843 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-22 09:50:28,417 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-22 09:50:30,893 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-22 09:50:58,638 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-22 09:51:02,187 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-22 09:51:18,803 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-22 09:51:22,575 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-22 09:51:26,035 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-22 09:51:31,481 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-22 09:53:51,003 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-22 09:53:53,439 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-22 09:53:56,037 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-22 09:53:58,525 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-22 09:54:50,507 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-22 09:54:53,085 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-22 09:54:58,576 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-22 09:55:02,854 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-22 09:56:02,370 - root - INFO - Dataframe created from incoming features
+2026-05-22 09:56:07,879 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-05-22 09:56:07,902 - root - INFO - The given transaction is fraud
+2026-05-22 09:57:08,882 - root - INFO - Dataframe created from incoming features
+2026-05-22 09:57:08,900 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-05-22 09:57:08,907 - root - INFO - The given transaction is valid
+2026-05-22 09:57:31,898 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-22 09:57:34,312 - root - INFO - Loading object from artifacts\best_model_info.pkl

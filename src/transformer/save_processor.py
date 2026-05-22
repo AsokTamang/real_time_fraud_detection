@@ -40,7 +40,7 @@ class Datascalar:
             #feature engineering based on training dataset
             #inorder to prevent the dataleakage, we are using the transaction mean based on training dataset only
             train_account_mean = X_train.groupby('nameorig')['amount'].mean() #finding the mean of all the transaction amounts based on the account holder name
-            X_train['amount_vs_account_mean'] = X_train['amount'] / (train_account_mean + 1) #checking how much the current transaction amount is different from the usual transaction amount of the user, can be effective feature for fraud detection
+            X_train['amount_vs_account_mean'] = X_train['amount'] / (X_train['nameorig'].map(train_account_mean)+ 1) #checking how much the current transaction amount is different from the usual transaction amount of the user, can be effective feature for fraud detection
             global_mean = X_train['amount'].mean()
 
             #here global mean is the fallback value, if the nameorig in validation or test dataset isnot found in training dataset

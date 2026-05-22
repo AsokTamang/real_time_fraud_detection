@@ -5,6 +5,8 @@ from pandas.api.types import is_numeric_dtype
 from src.logger import logging
 from src.exception import CustomError
 import dill
+from sklearn.preprocessing import RobustScaler
+
 
 
 class EarlyStoppingCallback:
@@ -67,6 +69,7 @@ def save_object(file_path, obj):
 
 
 def load_object(file_path): #loading the trained objects 
+    
     try:
         with open(file_path, 'rb') as file_obj:
             logging.info(f"Loading object from {file_path}")  #logging the file path from which the object is being loaded
