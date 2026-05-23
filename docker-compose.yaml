@@ -16,12 +16,21 @@ services:
     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1   #this denotes the number of copy of metadata 
     
     KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093  #here the first endpoint is for the producer and consumer endpoint accessible port, and the second endpoint is for the controller accessible port of this kafka cluster
-    KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092  #this port is for the client to communicate with the kafka
+    KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092  #this port is for our app to communicate with the kafka,
     KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
     
     KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
    volumes:
      - kafka_kraft:/var/lib/kafka/data  
+  app:
+    build: .
+    container_name: fraud_detection_system
+    ports:
+      - "8000:8000"
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092  #our app communicate with kafka via this port  
 
 
 volumes:
