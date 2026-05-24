@@ -17,7 +17,7 @@ services:
     
     KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093  #here the first endpoint is for the producer and consumer endpoint accessible port, and the second endpoint is for the controller accessible port of this kafka cluster
     KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092  #this port is for our app to communicate with the kafka,
-    KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+    KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER  #kafka uses the CONTROLLER listener for controller operations 
     
     KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
    volumes:
@@ -28,11 +28,18 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - kafka
+      kafka:
+      condition: service_healthy  #wait for the kafka to be ready
     environment:
-      KAFKA_BOOTSTRAP_SERVERS: kafka:9092  #our app communicate with kafka via this port  
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092  #our app communicates with kafka via this port and bootstrap is for initial kafka connection
+      KAFKA_TRANSACTION_TOPIC: transactions  #the topic where the datas from the frontend is passed into kafka
+      KAFKA_FRAUD_RESULT_TOPIC: fraud_results   #the topic where the result of whether the passed transaction data is fraud or not is stored
+      KAFKA_DLQ_TOPIC: transactions_dlq  #the topic where error and message saying why the detection system crashed is stored allowing us to debug problematic transactions later without stopping the rest of the pipeline.
+      KAFKA_CONSUMER_GROUP_ID: fraud_detection_group
+      KAFKA_NUM_PARTITIONS: "3"
+      KAFKA_REPLICATION_FACTOR: "1"  
 
-
+  
 volumes:
   kafka_kraft:
 
