@@ -987,3 +987,40 @@ src.exception.CustomError: 'step' error occured in C:\pythonprojects\Machine lea
 2026-05-22 09:57:08,907 - root - INFO - The given transaction is valid
 2026-05-22 09:57:31,898 - root - INFO - Loading object from artifacts\preprocessors.pkl
 2026-05-22 09:57:34,312 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-25 14:26:47,754 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-25 14:26:52,224 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-25 14:28:17,276 - root - INFO - Dataframe created from incoming features
+2026-05-25 14:28:25,120 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-05-25 14:28:25,653 - root - INFO - The given transaction is fraud
+2026-05-25 14:31:51,393 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-25 14:32:03,131 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-25 14:32:50,545 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-25 14:32:54,039 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-25 14:32:57,865 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-25 14:33:01,382 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-25 14:33:05,031 - root - INFO - Dataframe created from incoming features
+2026-05-25 14:33:10,681 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-05-25 14:33:10,793 - root - INFO - The given transaction is fraud
+2026-05-25 14:33:40,752 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-25 14:33:43,276 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-25 14:33:47,386 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-25 14:33:54,108 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-25 14:34:11,397 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-25 14:34:14,474 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-25 14:34:17,045 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-25 14:34:19,599 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-25 14:34:26,442 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-25 14:34:29,586 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-25 14:34:32,776 - root - INFO - Dataframe created from incoming features
+2026-05-25 14:34:39,140 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-05-25 14:34:39,159 - root - INFO - The given transaction is fraud
+2026-05-25 14:34:39,204 - root - INFO - Produced message to topic fraud_detection: key = prediction   value = Fraud Transaction
+2026-05-25 14:34:42,552 - root - INFO - Consumed message from topic fraud_detection: key = prediction   value = Fraud Transaction
+2026-05-25 14:34:42,552 - root - INFO - Consumed message from topic fraud_detection: key = prediction   value = Fraud Transaction
+2026-05-25 14:44:29,386 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-25 14:44:35,620 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-25 14:45:05,972 - root - INFO - Dataframe created from incoming features
+2026-05-25 14:45:12,878 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-05-25 14:45:12,907 - root - INFO - The given transaction is fraud
+2026-05-25 14:45:12,983 - root - INFO - Produced message to topic fraud_detection: key = prediction   value = Fraud Transaction
+2026-05-25 14:45:38,828 - root - INFO - Consumed message from topic fraud_detection: key = prediction   value = Fraud Transaction

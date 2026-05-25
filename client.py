@@ -9,7 +9,9 @@ def read_config():
         parameter, value = line.strip().split('=', 1)
         config[parameter] = value.strip()
   return config
-config = read_config()
+#we must separate the config for producer and consumer because they have different configurations for the Kafka client
+producer_config = read_config()
+consumer_config = read_config()
 topic = "fraud_detection"
 
 

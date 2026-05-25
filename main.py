@@ -12,7 +12,7 @@ from src.pipeline.feature_engineering_pipeline import Feature_engineering
 from pydantic import BaseModel
 from typing import Union
 import uvicorn
-from client import config, topic
+from client import producer_config, topic
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="statics"), name="statics")
@@ -55,41 +55,17 @@ def predict(data: PredictRequest):
 
         # Producer code to send the prediction result to the Kafka topic
 
-        producer = Producer(config)  # creating a new producer instance
+        producer = Producer(producer_config)  # creating a new producer instance
         producer.produce(
-            topic, key="prediction", value=result[0]
+            topic, key="prediction", value=result['result']
         )  # producing the prediction result to the Kafka topic
         logging.info(
-            f"Produced message to topic {topic}: key = {'prediction':12} value = {result[0]:12}"
+            f"Produced message to topic {topic}: key = {'prediction':12} value = {result['result']:12}"
         )
         # sending any outstanding or buffered messages to the Kafka broker
         producer.flush()
 
-        # consumer code to consume the prediction result from the Kafka topic
-        config["group.id"] = "python-group-1"
-        config["auto.offset.reset"] = "earliest"
-
-        # creating a new consumer instance
-        consumer = Consumer(config)
-
-        # subscribing to the specified topic for this current consumer
-        consumer.subscribe([topic])
-        try:
-            while True:
-                # consumer polls the topic and prints any incoming messages
-                msg = consumer.poll(1.0)
-                if msg is not None and msg.error() is None:
-                    key = msg.key().decode("utf-8")
-                    value = msg.value().decode("utf-8")
-                    logging.info(
-                        f"Consumed message from topic {topic}: key = {key:12} value = {value:12}"
-                    )
-        except KeyboardInterrupt:
-            pass
-        finally:
-            # closes the consumer connection
-            consumer.close()
-
+        
         return result
 
     except Exception as e:
