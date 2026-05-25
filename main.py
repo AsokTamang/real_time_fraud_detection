@@ -1,3 +1,7 @@
+
+import sys
+from contextlib import asynccontextmanager
+from confluent_kafka import Producer, Consumer
 from src.exception import CustomError
 from src.logger import logging
 from fastapi import FastAPI, Request
@@ -9,7 +13,8 @@ from src.pipeline.feature_engineering_pipeline import Feature_engineering
 from pydantic import BaseModel
 from typing import Union
 import uvicorn
-import sys
+from client import config,topic
+
 
 app = FastAPI()
 app.mount('/static', StaticFiles(directory='statics'), name='statics')
@@ -48,6 +53,26 @@ def predict(data: PredictRequest):
         df_features = features.get_data_as_dataframe() #converting into dataframe
         df_features = feature_engineering_pipeline.feature_engineering(df_features)  #applying the feature engineering pipeline
         result = predict_pipeline.predict(df_features)
+        
+        #Producer code to send the prediction result to the Kafka topic
+
+        producer = Producer(config)  #creating a new producer instance
+        producer.produce(topic, key='prediction', value=result[0])  #producing the prediction result to the Kafka topic
+        logging.info(f"Produced message to topic {topic}: key = {'prediction':12} value = {result[0]:12}")
+        # sending any outstanding or buffered messages to the Kafka broker
+        producer.flush()
+
+
+        #consumer code to consume the prediction result from the Kafka topic
+        config["group.id"] = "python-group-1"
+        config["auto.offset.reset"] = "earliest"
+
+        # creating a new consumer instance
+        consumer = Consumer(config)
+
+        # subscribing to the specified topic
+        consumer.subscribe([topic])
+
         
         return result
 

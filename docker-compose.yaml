@@ -2,7 +2,7 @@ version: '3.8'  #version of docker
 
 services:
   kafka:
-   image: confluentinc/cp-kafka:8.1.3   #version of cp-kafka 
+   image: confluentinc/cp-kafka:7.6.1   #version of cp-kafka 
    container_name: kafka
    ports:
      - "9092:9092"   #port where our kafka is available
@@ -20,6 +20,17 @@ services:
     KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER  #kafka uses the CONTROLLER listener for controller operations 
     
     KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
+
+    KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+    KAFKA_LOG_RETENTION_HOURS: 168
+    KAFKA_LOG_SEGMENT_BYTES: 1073741824   
+   healthcheck:
+      test: ["CMD", "kafka-topics", "--bootstrap-server", "localhost:9092", "--list"]
+      interval: 15s      # check every 15 seconds
+      timeout: 10s       
+      retries: 5         # marking unhealthy after 5 consecutive failures
+      start_period: 30s  # giving Kafka 30s to boot before first check
+                         # KRaft needs time to format storage on first run     
    volumes:
      - kafka_kraft:/var/lib/kafka/data  
   app:
