@@ -9,7 +9,7 @@ from fastapi.responses import FileResponse
 from src.pipeline.predict_pipeline import PredictPipeline
 from src.pipeline.data_validation_pipeline import CustomData
 from src.pipeline.feature_engineering_pipeline import Feature_engineering
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from typing import Optional, Union
 import uvicorn
 from kafka_client import producer_config, FRAUD_RESULT_TOPIC
@@ -45,8 +45,6 @@ app = FastAPI(
 )
 app.mount("/static", StaticFiles(directory="statics"), name="statics")
 
-feature_engineering_pipeline = Feature_engineering()
-predict_pipeline = PredictPipeline()  # calling the predict pipeline class
 
 
 class PredictRequest(BaseModel):  # class for defining the input data for prediction
@@ -56,6 +54,24 @@ class PredictRequest(BaseModel):  # class for defining the input data for predic
     nameorig: Union[str, None] = None
     namedest: Union[str, None] = None
     oldbalanceorg: Union[float, None] = None
+
+    #validation check for amount
+    @field_validator('amount')
+    def amount_must_be_positive(cls, v:float):
+        if v is not None and v<0 :
+            raise ValueError('Amount mustnot be negative')
+        return v
+    
+    #validation check for type
+    @field_validator('type')
+    def type_must_be_valid(cls, v:str):
+        valid_list = ["PAYMENT", "TRANSFER", "CASH_OUT", "DEBIT", "CASH_IN"]
+        if v is not None and v.upper() not in valid_list :
+            raise ValueError('Type must be valid')
+        return v
+    
+
+    
 
 
 
@@ -85,17 +101,14 @@ def predict(data: PredictRequest):
         result = predict_pipeline.predict(df_features)
 
         # Producer code to send the prediction result to the Kafka topic
-
-        producer = Producer(producer_config)  # creating a new producer instance
-        producer.produce(
-            FRAUD_RESULT_TOPIC, key="prediction", value=result['result']
+        #here we are using the nameorig of the transaction user as the key , so that the messages of the same account holder of transaction will be stored in the same partition
+        kafka_producer.produce(
+            FRAUD_RESULT_TOPIC, key=str(data.nameorig), value=result['result']
         )  # producing the prediction result to the Kafka topic, and as we stored the output of the prediction in the key called 'result', we are using result['result']
         logging.info(
             f"Produced message to topic {FRAUD_RESULT_TOPIC}: key = {'prediction':12} value = {result['result']:12}"
         )
-        # sending any outstanding or buffered messages to the Kafka broker
-        producer.flush()
-
+       
         
         return result
 
