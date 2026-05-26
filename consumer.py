@@ -1,11 +1,8 @@
 from confluent_kafka import Consumer
 from src.logger import logging
-from client import consumer_config, topic
+from kafka_client import consumer_config, FRAUD_RESULT_TOPIC
 
 def consumer(topic, consumer_config):
-        consumer_config["group.id"] = "fraud_detection_group"
-        consumer_config["auto.offset.reset"] = "earliest"
-
         # creating a new consumer instance
         consumer = Consumer(consumer_config)
 
@@ -14,7 +11,7 @@ def consumer(topic, consumer_config):
         try:
             while True:
                 # consumer polls the topic and prints any incoming messages
-                msg = consumer.poll(1.0)
+                msg = consumer.poll(1.0)  #our consumer waits for 1 second to recieve new events or messages, if new events or messages are not available at the moment
                 if msg is not None and msg.error() is None:
                     key = msg.key().decode("utf-8")
                     value = msg.value().decode("utf-8")
@@ -29,4 +26,4 @@ def consumer(topic, consumer_config):
             consumer.close()
 
 if __name__ == "__main__":
-    consumer(topic, consumer_config)
+    consumer(FRAUD_RESULT_TOPIC, consumer_config)

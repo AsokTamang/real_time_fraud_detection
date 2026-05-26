@@ -3,18 +3,46 @@ from contextlib import asynccontextmanager
 from confluent_kafka import Producer
 from src.exception import CustomError
 from src.logger import logging
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from src.pipeline.predict_pipeline import PredictPipeline
 from src.pipeline.data_validation_pipeline import CustomData
 from src.pipeline.feature_engineering_pipeline import Feature_engineering
 from pydantic import BaseModel
-from typing import Union
+from typing import Optional, Union
 import uvicorn
-from client import producer_config, topic
+from kafka_client import producer_config, FRAUD_RESULT_TOPIC
 
-app = FastAPI()
+
+
+#global variables for the expensive instances to be loaded at the time of app startup
+feature_engineering_pipeline: Optional[Feature_engineering] = None
+predict_pipeline: Optional[PredictPipeline] = None
+kafka_producer: Optional[Producer] = None
+
+#defining the lifespan of our fraud detection endpoint or app
+@asynccontextmanager
+async def lifespan_info(app:FastAPI):
+    feature_engineering_pipeline = Feature_engineering()
+    predict_pipeline = PredictPipeline()
+    logging.info('ML pipelines loaded successfully')
+    kafka_producer = Producer(producer_config)
+    logging.info('kafka producer configured')
+
+
+    yield
+    
+    logging.info('flushing kafka producer')
+    kafka_producer.flush()
+    logging.info('kafka producer flushed, shutdown complete')
+#defining the app with the defined lifespan above
+app = FastAPI(
+    title = 'Fraud Detection API',
+    description = 'Real-time fraud detection using ML + Kafka streaming',
+    version='1.0.0',
+    lifespan=lifespan_info 
+)
 app.mount("/static", StaticFiles(directory="statics"), name="statics")
 
 feature_engineering_pipeline = Feature_engineering()
@@ -28,6 +56,9 @@ class PredictRequest(BaseModel):  # class for defining the input data for predic
     nameorig: Union[str, None] = None
     namedest: Union[str, None] = None
     oldbalanceorg: Union[float, None] = None
+
+
+
 
 
 @app.get("/")
@@ -57,10 +88,10 @@ def predict(data: PredictRequest):
 
         producer = Producer(producer_config)  # creating a new producer instance
         producer.produce(
-            topic, key="prediction", value=result['result']
+            FRAUD_RESULT_TOPIC, key="prediction", value=result['result']
         )  # producing the prediction result to the Kafka topic, and as we stored the output of the prediction in the key called 'result', we are using result['result']
         logging.info(
-            f"Produced message to topic {topic}: key = {'prediction':12} value = {result['result']:12}"
+            f"Produced message to topic {FRAUD_RESULT_TOPIC}: key = {'prediction':12} value = {result['result']:12}"
         )
         # sending any outstanding or buffered messages to the Kafka broker
         producer.flush()

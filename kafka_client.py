@@ -31,4 +31,4 @@ FRAUD_RESULT_TOPIC = os.getenv(
     "KAFKA_FRAUD_RESULT_TOPIC"
 )  # our topic where the prediction done by the model reaches
 DLQ_TOPIC = os.getenv("KAFKA_DLQ_TOPIC")
-topic = FRAUD_RESULT_TOPIC
+FRAUD_RESULT_TOPIC
