@@ -3,13 +3,13 @@ from src.logger import logging
 from client import consumer_config, topic
 
 def consumer(topic, consumer_config):
-        consumer_config["group.id"] = "python-group-1"
+        consumer_config["group.id"] = "fraud_detection_group"
         consumer_config["auto.offset.reset"] = "earliest"
 
         # creating a new consumer instance
         consumer = Consumer(consumer_config)
 
-        # subscribing to the specified topic for this current consumer
+        # subscribing to the specified topic for this current consumer, then we only our consumer can consume the event from this specific topic
         consumer.subscribe([topic])
         try:
             while True:
@@ -25,6 +25,7 @@ def consumer(topic, consumer_config):
             pass
         finally:
             # closes the consumer connection
+            consumer.commit(msg)
             consumer.close()
 
 if __name__ == "__main__":

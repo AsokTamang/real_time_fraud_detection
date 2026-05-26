@@ -40,7 +40,7 @@ services:
       - "8000:8000"
     depends_on:
       kafka:
-      condition: service_healthy  #wait for the kafka to be ready
+       condition: service_healthy  #wait for the kafka to be ready
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092  #our app communicates with kafka via this port and bootstrap is for initial kafka connection
       KAFKA_TRANSACTION_TOPIC: transactions  #the topic where the datas from the frontend is passed into kafka

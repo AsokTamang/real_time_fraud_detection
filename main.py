@@ -1,6 +1,6 @@
 import sys
 from contextlib import asynccontextmanager
-from confluent_kafka import Producer, Consumer
+from confluent_kafka import Producer
 from src.exception import CustomError
 from src.logger import logging
 from fastapi import FastAPI, Request
@@ -50,7 +50,7 @@ def predict(data: PredictRequest):
         df_features = features.get_data_as_dataframe()  # converting into dataframe
         df_features = feature_engineering_pipeline.feature_engineering(
             df_features
-        )  # applying the feature engineering pipeline
+        )  # applying the feature engineering pipeline in the incoming transaction datas
         result = predict_pipeline.predict(df_features)
 
         # Producer code to send the prediction result to the Kafka topic
@@ -58,7 +58,7 @@ def predict(data: PredictRequest):
         producer = Producer(producer_config)  # creating a new producer instance
         producer.produce(
             topic, key="prediction", value=result['result']
-        )  # producing the prediction result to the Kafka topic
+        )  # producing the prediction result to the Kafka topic, and as we stored the output of the prediction in the key called 'result', we are using result['result']
         logging.info(
             f"Produced message to topic {topic}: key = {'prediction':12} value = {result['result']:12}"
         )

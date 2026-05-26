@@ -3,3 +3,4 @@ venv/
 artifacts/
 mlruns/
 client.properties
+.env
