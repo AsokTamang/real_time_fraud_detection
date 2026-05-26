@@ -12,7 +12,8 @@ from src.pipeline.feature_engineering_pipeline import Feature_engineering
 from pydantic import BaseModel, field_validator
 from typing import Optional, Union
 import uvicorn
-from kafka_client import producer_config, FRAUD_RESULT_TOPIC
+from kafka_client import producer_config, FRAUD_RESULT_TOPIC, delivery_report
+import json
 
 
 
@@ -26,7 +27,7 @@ kafka_producer: Optional[Producer] = None
 async def lifespan_info(app:FastAPI):
     #using the predefined global instances
     global feature_engineering_pipeline,predict_pipeline,kafka_producer
-    
+
     feature_engineering_pipeline = Feature_engineering()
     predict_pipeline = PredictPipeline()
     logging.info('ML pipelines loaded successfully')
@@ -102,11 +103,18 @@ def predict(data: PredictRequest):
             df_features
         )  # applying the feature engineering pipeline in the incoming transaction datas
         result = predict_pipeline.predict(df_features)
+        #creation of kafka payload
+        kafka_payload = {
+            'transaction':data.model_dump(),
+            'result':result['result'],
+            'is_fraud' :result["result"] == "Fraud Transaction"
+
+        }
 
         # Producer code to send the prediction result to the Kafka topic
         #here we are using the nameorig of the transaction user as the key , so that the messages of the same account holder of transaction will be stored in the same partition
         kafka_producer.produce(
-            FRAUD_RESULT_TOPIC, key=str(data.nameorig), value=result['result']
+            FRAUD_RESULT_TOPIC, key=str(data.nameorig), value=json.dumps(kafka_payload),on_delivery=delivery_report
         )  # producing the prediction result to the Kafka topic, and as we stored the output of the prediction in the key called 'result', we are using result['result']
         logging.info(
             f"Produced message to topic {FRAUD_RESULT_TOPIC}: key = {'prediction':12} value = {result['result']:12}"
