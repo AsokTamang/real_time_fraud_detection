@@ -15,40 +15,41 @@ import uvicorn
 from kafka_client import producer_config, FRAUD_RESULT_TOPIC, delivery_report
 import json
 
-
-
-#global variables for the expensive instances to be loaded at the time of app startup
+# global variables for the expensive instances to be loaded at the time of app startup
 feature_engineering_pipeline: Optional[Feature_engineering] = None
 predict_pipeline: Optional[PredictPipeline] = None
 kafka_producer: Optional[Producer] = None
 
-#defining the lifespan of our fraud detection endpoint or app
+
+# defining the lifespan of our fraud detection endpoint or app
 @asynccontextmanager
-async def lifespan_info(app:FastAPI):
-    #using the predefined global instances
-    global feature_engineering_pipeline,predict_pipeline,kafka_producer
+async def lifespan_info(app: FastAPI):
+    # using the predefined global instances
+    global feature_engineering_pipeline, predict_pipeline, kafka_producer
 
     feature_engineering_pipeline = Feature_engineering()
     predict_pipeline = PredictPipeline()
-    logging.info('ML pipelines loaded successfully')
+    logging.info("ML pipelines loaded successfully")
     kafka_producer = Producer(producer_config)
-    logging.info('kafka producer configured')
-
+    logging.info("kafka producer configured")
 
     yield
-    
-    logging.info('flushing kafka producer')
-    kafka_producer.flush()
-    logging.info('kafka producer flushed, shutdown complete')
-#defining the app with the defined lifespan above
-app = FastAPI(
-    title = 'Fraud Detection API',
-    description = 'Real-time fraud detection using ML + Kafka streaming',
-    version='1.0.0',
-    lifespan=lifespan_info 
-)
-app.mount("/static", StaticFiles(directory="statics"), name="statics")  #static directory to serve the UI
 
+    logging.info("flushing kafka producer")
+    kafka_producer.flush()
+    logging.info("kafka producer flushed, shutdown complete")
+
+
+# defining the app with the defined lifespan above
+app = FastAPI(
+    title="Fraud Detection API",
+    description="Real-time fraud detection using ML + Kafka streaming",
+    version="1.0.0",
+    lifespan=lifespan_info,
+)
+app.mount(
+    "/static", StaticFiles(directory="statics"), name="statics"
+)  # static directory to serve the UI
 
 
 class PredictRequest(BaseModel):  # class for defining the input data for prediction
@@ -59,29 +60,25 @@ class PredictRequest(BaseModel):  # class for defining the input data for predic
     namedest: Union[str, None] = None
     oldbalanceorg: Union[float, None] = None
 
-    #validation check for amount
-    @field_validator('amount')
-    def amount_must_be_positive(cls, v:float):
-        if v is not None and v<0 :
-            raise ValueError('Amount mustnot be negative')
+    # validation check for amount
+    @field_validator("amount")
+    def amount_must_be_positive(cls, v: float):
+        if v is not None and v < 0:
+            raise ValueError("Amount mustnot be negative")
         return v
-    
-    #validation check for type
-    @field_validator('type')
-    def type_must_be_valid(cls, v:str):
+
+    # validation check for type
+    @field_validator("type")
+    def type_must_be_valid(cls, v: str):
         valid_list = ["PAYMENT", "TRANSFER", "CASH_OUT", "DEBIT", "CASH_IN"]
-        if v is not None and v.upper() not in valid_list :
-            raise ValueError('Type must be valid')
+        if v is not None and v.upper() not in valid_list:
+            raise ValueError("Type must be valid")
         return v
-    
-
-    
-
 
 
 @app.get("/health")
 def health_check():
-    return {'status':'healthy','service':'fraud detection api'}
+    return {"status": "healthy", "service": "fraud detection api"}
 
 
 @app.get("/")
@@ -100,31 +97,41 @@ def predict(data: PredictRequest):
             namedest=data.namedest,
             oldbalanceorg=data.oldbalanceorg,
         )
+        if feature_engineering_pipeline is None or predict_pipeline is None:
+            raise HTTPException(status_code=500, detail="ML pipelines not initialized")
+        if kafka_producer is None:
+            raise HTTPException(
+                status_code=500, detail="Kafka producer not initialized"
+            )
 
         df_features = features.get_data_as_dataframe()  # converting into dataframe
         df_features = feature_engineering_pipeline.feature_engineering(
             df_features
         )  # applying the feature engineering pipeline in the incoming transaction datas
         result = predict_pipeline.predict(df_features)
-        #creation of kafka payload
+        # creation of kafka payload
         kafka_payload = {
-            'transaction':data.model_dump(),
-            'result':result['result'],
-            'is_fraud' :result["result"] == "Fraud Transaction"
-
+            "transaction": data.model_dump(),
+            "result": result["result"],
+            "is_fraud": result["result"] == "Fraud Transaction",
         }
 
         # Producer code to queue the prediction result to the Kafka topic
-        #here we are using the nameorig of the transaction user as the key , so that the messages of the same account holder of transaction will be stored in the same partition
+        # here we are using the nameorig of the transaction user as the key , so that the messages of the same account holder of transaction will be stored in the same partition
         kafka_producer.produce(
-            FRAUD_RESULT_TOPIC, key=str(data.nameorig), value=json.dumps(kafka_payload),on_delivery=delivery_report
+            FRAUD_RESULT_TOPIC,
+            key=str(data.nameorig),
+            value=json.dumps(kafka_payload),
+            on_delivery=delivery_report,
         )  # producing the prediction result to the Kafka topic, and as we stored the output of the prediction in the key called 'result', we are using result['result']
         logging.info(
-            f"Produced message to topic {FRAUD_RESULT_TOPIC}: key = {'prediction':12} value = {result['result']:12}"
+            f"Produced message to topic {FRAUD_RESULT_TOPIC}: key = {data.nameorig} value = {result['result']:12}"
         )
-        #finally sending the queued message to the Kafka topic
-        kafka_producer.poll(0)  # to trigger the delivery report callback function immediately after producing the message
-        
+        # finally sending the queued message to the Kafka topic
+        kafka_producer.poll(
+            0
+        )  # to trigger the delivery report callback function immediately after producing the message
+
         return result
     except HTTPException as http_exc:
         raise http_exc
