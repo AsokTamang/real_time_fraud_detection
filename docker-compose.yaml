@@ -1,38 +1,6 @@
 version: '3.8'  #version of docker
 
 services:
-  kafka:
-   image: confluentinc/cp-kafka:7.6.1   #version of cp-kafka 
-   container_name: kafka
-   ports:
-     - "9092:9092"   #port where our kafka is available
-   environment:
-    KAFKA_KRAFT_MODE: 'true'  #activation of KRAFT
-    CLUSTER_ID: 'B0wnu_bQRv62oOCZSptXtg'
-    KAFKA_NODE_ID: 1
-
-    KAFKA_PROCESS_ROLES: broker,controller    #here we are assigning the role of kafka node in kafka cluster
-    KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093     #this vote decides, which node will act as the controller in kafka cluster
-    KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1   #this denotes the number of copy of metadata 
-    
-    KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093  #here the first endpoint is for the producer and consumer endpoint accessible port, and the second endpoint is for the controller accessible port of this kafka cluster
-    KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092  #this port is for our app to communicate with the kafka,
-    KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER  #kafka uses the CONTROLLER listener for controller operations 
-    
-    KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
-
-    KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
-    KAFKA_LOG_RETENTION_HOURS: 168
-    KAFKA_LOG_SEGMENT_BYTES: 1073741824   
-   healthcheck:
-      test: ["CMD", "kafka-topics", "--bootstrap-server", "localhost:9092", "--list"]
-      interval: 15s      # check every 15 seconds
-      timeout: 10s       
-      retries: 5         # marking unhealthy after 5 consecutive failures
-      start_period: 30s  # giving Kafka 30s to boot before first check
-                         # KRaft needs time to format storage on first run     
-   volumes:
-     - kafka_kraft:/var/lib/kafka/data  
   app:
     build: .
     container_name: fraud_detection_system
@@ -42,16 +10,23 @@ services:
       kafka:
        condition: service_healthy  #wait for the kafka to be ready
     environment:
-      KAFKA_BOOTSTRAP_SERVERS: kafka:9092  #our app communicates with kafka via this port and bootstrap is for initial kafka connection
       KAFKA_TRANSACTION_TOPIC: transactions  #the topic where the datas from the frontend is passed into kafka
       KAFKA_FRAUD_RESULT_TOPIC: fraud_results   #the topic where the result of whether the passed transaction data is fraud or not is stored
       KAFKA_DLQ_TOPIC: transactions_dlq  #the topic where error and message saying why the detection system crashed is stored allowing us to debug problematic transactions later without stopping the rest of the pipeline.
       KAFKA_CONSUMER_GROUP_ID: fraud_detection_group
-      KAFKA_NUM_PARTITIONS: "3"
-      KAFKA_REPLICATION_FACTOR: "1"  
 
-  
-volumes:
-  kafka_kraft:
+      KAFKA_CONFIG_PATH: /app/secrets/client.properties  #configuration file for kafka client , kafka confluent is used 
+    volumes:
+      # Mounting local client.properties into the container as read-only at the time of runtime as our kafka configuration file contains sensitive information such as credentials and we want to keep it secure.
+      # This keeps credentials OFF the image layer (never baked into Docker image)
+      - ./client.properties:/app/secrets/client.properties:ro  
+    # Adding a health check to ensure the application is running and healthy. This allows Docker to automatically restart the container if it becomes unhealthy, improving the reliability of our fraud detection system.
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s  
+
 
 
