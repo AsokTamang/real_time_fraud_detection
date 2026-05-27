@@ -47,7 +47,7 @@ app = FastAPI(
     version='1.0.0',
     lifespan=lifespan_info 
 )
-app.mount("/static", StaticFiles(directory="statics"), name="statics")
+app.mount("/static", StaticFiles(directory="statics"), name="statics")  #static directory to serve the UI
 
 
 
@@ -79,6 +79,9 @@ class PredictRequest(BaseModel):  # class for defining the input data for predic
 
 
 
+@app.get("/health")
+def health_check():
+    return {'status':'healthy','service':'fraud detection api'}
 
 
 @app.get("/")
@@ -111,7 +114,7 @@ def predict(data: PredictRequest):
 
         }
 
-        # Producer code to send the prediction result to the Kafka topic
+        # Producer code to queue the prediction result to the Kafka topic
         #here we are using the nameorig of the transaction user as the key , so that the messages of the same account holder of transaction will be stored in the same partition
         kafka_producer.produce(
             FRAUD_RESULT_TOPIC, key=str(data.nameorig), value=json.dumps(kafka_payload),on_delivery=delivery_report
@@ -119,9 +122,12 @@ def predict(data: PredictRequest):
         logging.info(
             f"Produced message to topic {FRAUD_RESULT_TOPIC}: key = {'prediction':12} value = {result['result']:12}"
         )
-       
+        #finally sending the queued message to the Kafka topic
+        kafka_producer.poll(0)  # to trigger the delivery report callback function immediately after producing the message
         
         return result
+    except HTTPException as http_exc:
+        raise http_exc
 
     except Exception as e:
         raise CustomError(e, sys)
