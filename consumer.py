@@ -1,12 +1,29 @@
+import os
+import json
+import signal 
 from confluent_kafka import Consumer
 from src.logger import logging
 from kafka_client import consumer_config, FRAUD_RESULT_TOPIC
+
+
+
+running = True
+#signal handler to handle the shutdown signal and stop the consumer gracefully when the stop signal is received such as ctrl + C or kill command
+def handle_shutdown(signum, frame):
+     global running
+     logging.info("Shutdown signal received, stopping consumer...")
+     running = False
+
+signal.signal(signal.SIGINT, handle_shutdown)
+signal.signal(signal.SIGTERM, handle_shutdown)
+
+     
 
 def consumer(topic, consumer_config):
         # creating a new consumer instance
         consumer = Consumer(consumer_config)
 
-        # subscribing to the specified topic for this current consumer, then we only our consumer can consume the event from this specific topic
+        # subscribing to the specified topic for this current consumer, then only our consumer can consume the event from this specific topic
         consumer.subscribe([topic])
         try:
             while True:
