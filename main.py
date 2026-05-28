@@ -26,14 +26,16 @@ kafka_producer: Optional[Producer] = None
 async def lifespan_info(app: FastAPI):
     # using the predefined global instances
     global feature_engineering_pipeline, predict_pipeline, kafka_producer
-
+    
+    #storing the trained feature engineering, prediction pipeline and also the configured kafka producer in the global variables
     feature_engineering_pipeline = Feature_engineering()
     predict_pipeline = PredictPipeline()
     logging.info("ML pipelines loaded successfully")
     kafka_producer = Producer(producer_config)
     logging.info("kafka producer configured")
+    
+    yield  #app runs at the yield
 
-    yield
 
     logging.info("flushing kafka producer")
     kafka_producer.flush()
@@ -110,11 +112,12 @@ def predict(data: PredictRequest):
         )  # applying the feature engineering pipeline in the incoming transaction datas
         result = predict_pipeline.predict(df_features)
         # creation of kafka payload
+        #here we are converting the passed data into python dict using model_dump() and passed it as the transaction's value in kafka payload
         kafka_payload = {
             "transaction": data.model_dump(),
             "result": result["result"],
             "is_fraud": result["result"] == "Fraud Transaction",
-        }
+        }#As we stored the output of the prediction in the key called 'result', we are using result['result']
 
         # Producer code to queue the prediction result to the Kafka topic
         # here we are using the nameorig of the transaction user as the key , so that the messages of the same account holder of transaction will be stored in the same partition
@@ -123,14 +126,14 @@ def predict(data: PredictRequest):
             key=str(data.nameorig),
             value=json.dumps(kafka_payload),
             on_delivery=delivery_report,
-        )  # producing the prediction result to the Kafka topic, and as we stored the output of the prediction in the key called 'result', we are using result['result']
+        )  
         logging.info(
             f"Produced message to topic {FRAUD_RESULT_TOPIC}: key = {data.nameorig} value = {result['result']:12}"
         )
         # finally sending the queued message to the Kafka topic
         kafka_producer.poll(
             0
-        )  # to trigger the delivery report callback function immediately after producing the message
+        )  #to trigger the delivery report callback function immediately after producing the message
 
         return result
     except HTTPException as http_exc:

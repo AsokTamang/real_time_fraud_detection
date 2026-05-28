@@ -4,8 +4,10 @@ import signal
 from confluent_kafka import Consumer,Producer, KafkaException, KafkaError
 from src.exception import CustomError
 from src.logger import logging
-from kafka_client import consumer_config, FRAUD_RESULT_TOPIC
-from kafka_client import producer_config, FRAUD_RESULT_TOPIC, delivery_report, DLQ_TOPIC
+from kafka_client import producer_config, FRAUD_RESULT_TOPIC, delivery_report, DLQ_TOPIC, consumer_config
+import streamlit as st
+import json
+
 
 
 
@@ -16,7 +18,7 @@ def handle_shutdown(signum, frame):
      global running
      logging.info("Shutdown signal received, stopping consumer...")
      running = False
-
+#registering the signal handlers
 signal.signal(signal.SIGINT, handle_shutdown)
 signal.signal(signal.SIGTERM, handle_shutdown)
 
@@ -28,6 +30,7 @@ def send_to_dlq(dlq_producer: Producer, raw_value: bytes, reason: str) -> None:
         "original_message": raw_value.decode("utf-8") if raw_value else None,
         "failure_reason": reason,
     }
+    #we are also converting the dlq payload in the json format
     dlq_producer.produce(
         topic=DLQ_TOPIC,
         value=json.dumps(dlq_payload),
@@ -40,7 +43,16 @@ def send_to_dlq(dlq_producer: Producer, raw_value: bytes, reason: str) -> None:
 
 #here we need to build a real time dashboard of the prediction done by our model
 def process_fraud_result(message_value: dict) -> None:
-    pass
+    st.title("Real-Time Fraud Detection")
+    st.write("Fetching weather data from Kafka topic: weather-data")
+    for message in message_value:
+        transaction_data = message['transaction']
+        result = message['result']
+        final_result = message['is_fraud']
+
+        st.write(f"transaction: {transaction_data['nameorig']}")
+        st.write(f"result: {result}")
+        st.write(f"final_result: {final_result}")
 
 def run_consumer():
     consumer = Consumer(consumer_config)
@@ -55,18 +67,18 @@ def run_consumer():
             if msg.error():
                 if msg.error().code() == KafkaError._PARTITION_EOF:  #checking if the error is due to reaching the end of the partition, 
                     logging.info(f"End of partition reached {msg.topic()} [{msg.partition()}]")
-                else:
+                else:  #if the error is due to other reason
                     logging.error(f"Kafka error: {msg.error()}")
                     send_to_dlq(dlq_producer, msg.value(), f"Kafka error: {msg.error()}")
                 continue
 
             # Processing the message
             try:
-                raw_value = msg.value()  #decoding the message value from bytes to string
-                message_value = json.loads(raw_value.decode("utf-8")) if raw_value else None
+                raw_value = msg.value() 
+                message_value = json.loads(raw_value.decode("utf-8")) if raw_value else None  #decoding the message value from bytes to string and converting into python object
                 logging.info(f"Received message: {message_value} from topic {msg.topic()} partition {msg.partition()} offset {msg.offset()}")
                 process_fraud_result(message_value)
-                consumer.commit(asynchronous==False)  #committing the message offset after processing the message successfully  
+                consumer.commit(asynchronous=False)  #committing the message offset after processing the message successfully  
                 # Here you can add code to process the message as needed
             except Exception as e:
                 logging.error(f"Error processing message: {e}")

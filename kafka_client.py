@@ -29,6 +29,7 @@ def delivery_report(err,msg):
 
 
 # we must separate the config for producer and consumer because they have different configurations for the Kafka client
+#configuration of producer in kafka client
 producer_config = (
     read_config()
 )  # as the producer config only needs the bootstrap server and auth configuration, no need for additional configuration for producer
