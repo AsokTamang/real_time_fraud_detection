@@ -1,4 +1,5 @@
 from collections import defaultdict, deque
+import datetime
 import threading
 import os
 import json
@@ -88,9 +89,32 @@ def run_consumer():
 
             # Processing the message
             try:
+                #loading the payload
                 raw_value = msg.value() 
                 message_value = json.loads(raw_value.decode("utf-8")) if raw_value else None  #decoding the message value from bytes to string and converting into python object
                 logging.info(f"Received message: {message_value} from topic {msg.topic()} partition {msg.partition()} offset {msg.offset()}")
+                transaction_data = message_value['transaction']   #All the incoming transaction details from the frontend are stored in the key called transaction inside the payload
+                transaction_type = transaction_data['type']
+
+                enriched = {
+                    **message_value,
+                    "received_at": datetime.now().strftime("%H:%M:%S"),
+                    "partition"  : msg.partition(),
+                    "offset"     : msg.offset(),
+                }
+                
+                if message_value["is_fraud"]:
+                    st.session_state.fraud_count += 1  #incrementing the total number of transactions predicted as fraud
+                    st.session_state.type_counts[transaction_type]["fraud"] += 1  #incrementing the total number of transactions predicted as fraud for the specific type of transaction
+                    st.session_state.last_alert = enriched     #storing the enriched message in the session state to show it as the last alert in the dashboard if the transaction is predicted fraud by our model
+                else:
+                    st.session_state.legit_count += 1  #incrementing the total number of transactions predicted as legit
+                    st.session_state.type_counts[transaction_type]["legit"] += 1  #incrementing the total number of transactions predicted as legit for the specific type of transaction
+                
+                
+                st.session_state.messages.appendleft(enriched)  #storing the enriched message in the session state at left to show it in the dashboard as we pop the messages that are too old than the current 200 transaction details
+                st.session_state.total += 1  #incrementing the total number of transactions processed
+                
                 process_fraud_result(message_value)
                 consumer.commit(asynchronous=False)  #committing the message offset after processing the message successfully  
                 # Here you can add code to process the message as needed
