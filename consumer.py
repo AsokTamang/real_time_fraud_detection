@@ -11,6 +11,7 @@ from kafka_client import producer_config, FRAUD_RESULT_TOPIC, delivery_report, D
 import streamlit as st
 import json
 from state import initialize_state
+from dashboard import display_ui
 
 
 st.set_page_config(page_title="Real-Time Fraud Detection Dashboard",page_icon="🛡️",layout="wide")
@@ -100,8 +101,10 @@ if st.session_state.consumer_thread is None:
     st.session_state.consumer_thread.start()  #starting the consumer thread 
 
 
+#after all the inilization and setup of the consumer thread, we will run the consumer function to start consuming the messages from the kafka topic  
+#then we update the dashboard in real time with the prediction results of our model.
 
-
+display_ui()  #calling the function to display the dashboard UI
 
 if __name__ == "__main__":
     run_consumer()            

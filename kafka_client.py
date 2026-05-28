@@ -3,7 +3,6 @@ import os
 from src.logger import logging
 from confluent_kafka import Producer
 import json
-import signal
 import streamlit as st
 
 
@@ -57,8 +56,7 @@ def handle_shutdown(signum, frame):
      logging.info("Shutdown signal received, stopping consumer...")
      st.session_state.running = False
 #registering the signal handlers
-signal.signal(signal.SIGINT, handle_shutdown)
-signal.signal(signal.SIGTERM, handle_shutdown)
+
             
 
 
