@@ -7,7 +7,7 @@ def read_config():
     # reads the client configuration from client.properties
     # and returns it as a key-value map
     config = {}
-    with open("client.properties") as fh:
+    with open(r"secrets/client.properties") as fh:
         for line in fh:
             line = line.strip()
             if len(line) != 0 and line[0] != "#":

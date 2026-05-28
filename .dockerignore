@@ -3,3 +3,4 @@ __pycache__/
 .git/
 .env
 client.properties
+dashboard.py

@@ -1024,3 +1024,21 @@ src.exception.CustomError: 'step' error occured in C:\pythonprojects\Machine lea
 2026-05-25 14:45:12,907 - root - INFO - The given transaction is fraud
 2026-05-25 14:45:12,983 - root - INFO - Produced message to topic fraud_detection: key = prediction   value = Fraud Transaction
 2026-05-25 14:45:38,828 - root - INFO - Consumed message from topic fraud_detection: key = prediction   value = Fraud Transaction
+2026-05-28 10:54:55,046 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-28 10:55:08,241 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-28 10:55:08,548 - root - INFO - ML pipelines loaded successfully
+2026-05-28 10:55:08,621 - root - INFO - kafka producer configured
+2026-05-28 10:55:13,687 - root - INFO - flushing kafka producer
+2026-05-28 10:55:13,687 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-28 10:55:17,242 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-28 10:55:19,824 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-28 10:55:19,896 - root - INFO - ML pipelines loaded successfully
+2026-05-28 10:55:19,934 - root - INFO - kafka producer configured
+2026-05-28 10:55:48,507 - root - INFO - flushing kafka producer
+2026-05-28 10:55:48,508 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-28 10:55:51,357 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-28 10:55:57,908 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-28 10:55:58,059 - root - INFO - ML pipelines loaded successfully
+2026-05-28 10:55:58,094 - root - INFO - kafka producer configured
+2026-05-28 10:55:58,237 - root - INFO - flushing kafka producer
+2026-05-28 10:55:58,237 - root - INFO - kafka producer flushed, shutdown complete
