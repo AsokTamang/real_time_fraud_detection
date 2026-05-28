@@ -1,5 +1,4 @@
 from collections import defaultdict
-
 import streamlit as st
 
 def display_ui():
@@ -19,7 +18,7 @@ def display_ui():
             st.session_state.type_counts = defaultdict(lambda: {"fraud": 0, "legit": 0})
             st.session_state.tpm_history.clear()
             st.session_state.last_alert  = None                
-    st.divider()
+    st.divider()  #for better UI
     if st.session_state.last_alert:
         alert = st.session_state.last_alert
         incoming_transaction   = alert.get("transaction", {})
