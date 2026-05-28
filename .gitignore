@@ -4,4 +4,3 @@ artifacts/
 mlruns/
 client.properties
 .env
-dashboard

@@ -39,6 +39,7 @@ async def lifespan_info(app: FastAPI):
 
     logging.info("flushing kafka producer")
     kafka_producer.flush()
+    
     logging.info("kafka producer flushed, shutdown complete")
 
 

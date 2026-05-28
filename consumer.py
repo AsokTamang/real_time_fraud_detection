@@ -1,4 +1,5 @@
 from collections import defaultdict, deque
+import threading
 import os
 import json
 import signal 
@@ -20,12 +21,13 @@ if "legit_count"    not in st.session_state: st.session_state.legit_count    = 0
 if "type_counts"    not in st.session_state: st.session_state.type_counts    = defaultdict(lambda: {"fraud": 0, "legit": 0})  #total number of either fraud or legit transactions for each type of transaction
 if "tpm_history"    not in st.session_state: st.session_state.tpm_history    = deque(maxlen=20)   # total number of transactions per minute for the last 20 minutes to show the trend of the transaction volume
 if "running"        not in st.session_state: st.session_state.running        = True   #the flag to control the running of the consumer thread, it will be set to false when we want to stop the consumer thread gracefully
-if "consumer_thread"not in st.session_state: st.session_state.consumer_thread= None    
-if "last_alert"     not in st.session_state: st.session_state.last_alert     = None
+if "consumer_thread"not in st.session_state: st.session_state.consumer_thread= None   #this state stores the consumer thread   
+if "last_alert"     not in st.session_state: st.session_state.last_alert     = None   #the state to show the last alert message
 
 
 #GRACEFUL SHUTDOWN OF THE CONSUMER  
-#signal handler to handle the shutdown signal and stop the consumer gracefully when the stop signal is received such as ctrl + C or kill command
+#signal handler to handle the shutdown signal and stop the consumer gracefully when the stop signal is received  such as ctrl + C or kill command
+#and this stop signal is stored inside the streamlit session state
 def handle_shutdown(signum, frame):
      
      logging.info("Shutdown signal received, stopping consumer...")
@@ -72,7 +74,7 @@ def run_consumer():
     try:
         consumer.subscribe([FRAUD_RESULT_TOPIC])  #subscribing to the topic where the prediction result is produced by the producer
         logging.info(f"Consumer subscribed to topic {FRAUD_RESULT_TOPIC}")
-        while running:
+        while st.session_state.running:
             msg = consumer.poll(1.0)  #polling for new messages with a timeout of 1 second
             if msg is None:
                 continue  # no message received, continue polling
@@ -101,5 +103,13 @@ def run_consumer():
         consumer.close()
         dlq_producer.flush()  # Ensure all messages are sent before shutting down
         logging.info("Consumer and DLQ producer closed gracefully.")
+
+
+#here we are checking if the consumer thread is already running or not, if not then we will create a new thread to run the consumer function in the background so that it does not block the main thread of streamlit and allows us to update the dashboard in real time without any interruption.
+if st.session_state.consumer_thread is None:
+    st.session_state.consumer_thread = threading.Thread(target=run_consumer,daemon=True)   #creating a consumer thread to run the consumer function in the background so that it does not block the main thread of streamlit and allows us to update the dashboard in real time  
+    st.session_state.consumer_thread.start()  #starting the consumer thread 
+
+
 if __name__ == "__main__":
     run_consumer()            
