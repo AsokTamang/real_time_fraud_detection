@@ -1,3 +1,4 @@
+from collections import defaultdict, deque
 import os
 import json
 import signal 
@@ -9,15 +10,26 @@ import streamlit as st
 import json
 
 
+st.set_page_config(page_title="Real-Time Fraud Detection Dashboard",page_icon="🛡️",layout="wide")
+
+#session state initialization
+if "messages" not in st.session_state:st.session_state.messages = deque(maxlen=200)  # List to store last 200 received messages
+if "total"          not in st.session_state: st.session_state.total          = 0  #total number of transactions processed
+if "fraud_count"    not in st.session_state: st.session_state.fraud_count    = 0  #total number of transactions predicted as fraud
+if "legit_count"    not in st.session_state: st.session_state.legit_count    = 0   #total number of transactions predicted as legit
+if "type_counts"    not in st.session_state: st.session_state.type_counts    = defaultdict(lambda: {"fraud": 0, "legit": 0})  #total number of either fraud or legit transactions for each type of transaction
+if "tpm_history"    not in st.session_state: st.session_state.tpm_history    = deque(maxlen=20)   # total number of transactions per minute for the last 20 minutes to show the trend of the transaction volume
+if "running"        not in st.session_state: st.session_state.running        = True   #the flag to control the running of the consumer thread, it will be set to false when we want to stop the consumer thread gracefully
+if "consumer_thread"not in st.session_state: st.session_state.consumer_thread= None    
+if "last_alert"     not in st.session_state: st.session_state.last_alert     = None
 
 
-running = True
 #GRACEFUL SHUTDOWN OF THE CONSUMER  
 #signal handler to handle the shutdown signal and stop the consumer gracefully when the stop signal is received such as ctrl + C or kill command
 def handle_shutdown(signum, frame):
-     global running
+     
      logging.info("Shutdown signal received, stopping consumer...")
-     running = False
+     st.session_state.running = False
 #registering the signal handlers
 signal.signal(signal.SIGINT, handle_shutdown)
 signal.signal(signal.SIGTERM, handle_shutdown)

@@ -43,21 +43,6 @@ if "consumer_thread"not in st.session_state: st.session_state.consumer_thread= N
 if "last_alert"     not in st.session_state: st.session_state.last_alert     = None
 
 
-# ─────────────────────────────────────────────
-#  Dead-letter queue helper
-# ─────────────────────────────────────────────
-def send_to_dlq(dlq_producer: Producer, raw_value: bytes, reason: str) -> None:
-    dlq_payload = {
-        "original_message": raw_value.decode("utf-8") if raw_value else None,
-        "failure_reason": reason,
-    }
-    dlq_producer.produce(
-        topic=DLQ_TOPIC,
-        value=json.dumps(dlq_payload),
-        on_delivery=delivery_report,
-    )
-    dlq_producer.poll(0)
-    logging.error(f"Message sent to DLQ | Reason: {reason}")
 
 
 # ─────────────────────────────────────────────

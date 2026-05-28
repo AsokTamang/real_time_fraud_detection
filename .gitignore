@@ -4,4 +4,4 @@ artifacts/
 mlruns/
 client.properties
 .env
-dashboard.py
+dashboard
