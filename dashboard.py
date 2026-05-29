@@ -55,10 +55,18 @@ def display_ui():
             for event in st.session_state.tpm_history:
                 buckets[event["time"]] = buckets.get(event["time"], 0) + event["count"]  #if the time label of the event doesnot exist in bucket, then we create new count for this current time label of event inside the bucket
             df_tpm = pd.DataFrame(list(buckets.items()), columns=["time", "number of transactions"])
-            st.line_chart(df_tpm.set_index("time"))
+            st.line_chart(df_tpm.set_index("time"))  #setting the time label as x-axis
         else:
             st.info("waiting for the incoming transactions...")
-            
+    
+    with chart_col2:
+        st.subheader('Fraud vs Legitimate transaction by transaction type')
+        if st.session_state.type_counts:
+            datas = [{'type':t, 'fraud':v['fraud'], 'legit':v['legit']} for t,v in st.session_state.type_counts.items()]  #preparing the data for the bar chart to show the count of fraud and legit transactions for each type of transaction
+            df_type = pd.DataFrame(datas).set_index('type') #setting the type on x-axis
+            st.bar_chart(df_type)  
+        else:
+            st.info("waiting for the incoming transactions...")    
 
 
 
