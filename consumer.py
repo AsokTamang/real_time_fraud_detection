@@ -101,7 +101,7 @@ if st.session_state.consumer_thread is None:
     st.session_state.consumer_thread.start()  #starting the consumer thread 
 
 
-#after all the inilization and setup of the consumer thread, we will run the consumer function to start consuming the messages from the kafka topic  
+#after all the initialization and setup of the consumer thread, we will run the consumer function to start consuming the messages from the kafka topic  
 #then we update the dashboard in real time with the prediction results of our model.
 
 display_ui()  #calling the function to display the dashboard UI

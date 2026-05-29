@@ -115,7 +115,7 @@ def predict(data: PredictRequest):
         # creation of kafka payload
         #here we are converting the passed data into python dict using model_dump() and passed it as the transaction's value in kafka payload
         kafka_payload = {
-            "transaction": data.model_dump(),
+            "transaction": data.model_dump(),   #incoming transaction details stored in this transaction key inside the payload
             "result": result["result"],
             "is_fraud": result["result"] == "Fraud Transaction",
         }#As we stored the output of the prediction in the key called 'result', we are using result['result']
