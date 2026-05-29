@@ -1,9 +1,10 @@
 from collections import defaultdict, deque
-import datetime
+from datetime import datetime
 import threading
 import os
 import json
-import signal 
+import signal
+from time import time 
 from confluent_kafka import Consumer,Producer, KafkaException, KafkaError
 from src.exception import CustomError
 from src.logger import logging
@@ -16,26 +17,12 @@ from dashboard import display_ui
 
 st.set_page_config(page_title="Real-Time Fraud Detection Dashboard",page_icon="🛡️",layout="wide")
 
-#session state initialization
-initialize_state()  #calling the initialization function to initiate the streamlit session states
+
 
 #GRACEFUL SHUTDOWN OF THE CONSUMER 
 signal.signal(signal.SIGINT, handle_shutdown)
 signal.signal(signal.SIGTERM, handle_shutdown)
 
-
-#here we need to build a real time dashboard of the prediction done by our model
-def process_fraud_result(message_value: dict) -> None:
-    st.title("Real-Time Fraud Detection")
-    st.write("Fetching weather data from Kafka topic: weather-data")
-    for message in message_value:
-        transaction_data = message['transaction']
-        result = message['result']
-        final_result = message['is_fraud']
-
-        st.write(f"transaction: {transaction_data['nameorig']}")
-        st.write(f"result: {result}")
-        st.write(f"final_result: {final_result}")
 
 def run_consumer():
     consumer = Consumer(consumer_config)
@@ -43,6 +30,7 @@ def run_consumer():
     try:
         consumer.subscribe([FRAUD_RESULT_TOPIC])  #subscribing to the topic where the prediction result is produced by the producer
         logging.info(f"Consumer subscribed to topic {FRAUD_RESULT_TOPIC}")
+        
         while st.session_state.running:
             msg = consumer.poll(1.0)  #polling for new messages with a timeout of 1 second
             if msg is None:
@@ -78,11 +66,16 @@ def run_consumer():
                 else:
                     st.session_state.legit_count += 1  #incrementing the total number of transactions predicted as legit
                     st.session_state.type_counts[transaction_type]["legit"] += 1  #incrementing the total number of transactions predicted as legit for the specific type of transaction
-                
-                
+                st.session_state.tpm_history.append({"time": datetime.now().strftime("%H:%M:%S"), "count": 1})  #storing the transactions per poll history in the session state to show it in the dashboard as a line chart
                 st.session_state.messages.appendleft(enriched)  #storing the enriched message in the session state at left to show it in the dashboard as we pop the messages that are too old than the current 200 transaction details
                 st.session_state.total += 1  #incrementing the total number of transactions processed
                 consumer.commit(asynchronous=False)  #committing the message offset after processing the message successfully  
+                
+                #after all the initialization and setup of the consumer thread, we will run the consumer function to start consuming the messages from the kafka topic  
+                #then we update the dashboard in real time with the prediction results of our model.
+                
+                #calling the function to DISPLAY the DASHBOARD UI
+                display_ui()  
                 # Here you can add code to process the message as needed
             except Exception as e:
                 logging.error(f"Error processing message: {e}")
@@ -95,16 +88,17 @@ def run_consumer():
         logging.info("Consumer and DLQ producer closed gracefully.")
 
 
+#session state initialization
+initialize_state()  #calling the initialization function to initiate the streamlit session states
+
 #here we are checking if the consumer thread is already running or not, if not then we will create a new thread to run the consumer function in the background so that it does not block the main thread of streamlit and allows us to update the dashboard in real time without any interruption.
 if st.session_state.consumer_thread is None:
     st.session_state.consumer_thread = threading.Thread(target=run_consumer,daemon=True)   #creating a consumer thread to run the consumer function in the background so that it does not block the main thread of streamlit and allows us to update the dashboard in real time  
     st.session_state.consumer_thread.start()  #starting the consumer thread 
 
+time.sleep(0.5)
+st.rerun()
 
-#after all the initialization and setup of the consumer thread, we will run the consumer function to start consuming the messages from the kafka topic  
-#then we update the dashboard in real time with the prediction results of our model.
-
-display_ui()  #calling the function to display the dashboard UI
 
 if __name__ == "__main__":
     run_consumer()            

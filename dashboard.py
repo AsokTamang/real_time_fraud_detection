@@ -22,7 +22,7 @@ def display_ui():
             st.session_state.last_alert  = None                
     
     st.divider()  #for better UI
-    
+    #DISPLAY OF FRAUD ALERT BANNER IN THE DASHBOARD WHEN THE FRAUD TRANSACTION IS DETECTED BY OUR MODEL 
     if st.session_state.last_alert:
         alert = st.session_state.last_alert
         incoming_transaction   = alert.get("transaction", {})  #as the incoming transaction details was stored inside the key called transaction in the payload produced by the producer
@@ -34,7 +34,7 @@ def display_ui():
             icon="🚨",
         )        
     
-    #metric cards for showing the total number of transactions, fraud transactions, legit transactions and fraud rate percentage
+    #DISPLAY OF metric cards for showing the total number of transactions, fraud transactions, legit transactions and fraud rate percentage
     total       = st.session_state.total
     fraud_count = st.session_state.fraud_count
     legit_count = st.session_state.legit_count
@@ -46,7 +46,7 @@ def display_ui():
     m4.metric("📈 Fraud rate",          f"{fraud_rate:.1f}")
     
     st.divider()  
-    
+    #DISPLAY OF TRANSACTION PER MINUTE CHART
     chart_col1, chart_col2 = st.columns(2)
     with chart_col1:
         st.subheader("Transactions per minute")
@@ -67,6 +67,38 @@ def display_ui():
             st.bar_chart(df_type)  
         else:
             st.info("waiting for the incoming transactions...")    
+
+    st.divider()
+    #DISPLAY OF RECENT TRANSACTIONS FEED IN THE DASHBOARD
+    st.subheader("Recent transactions feed")
+    if st.session_state.messages:
+        messages = list(st.session_state.messages)[:50] #getting the latest 50 messages stored in the session state to show it in the dashboard as a feed
+        rows = []
+        for msg in messages:
+            transaction = msg.get("transaction", {})  #as the incoming transaction details was stored inside the key called transaction in the payload produced by the producer
+            is_fraud      = msg.get("is_fraud", False)    #as the prediction result was stored inside the key called result in the payload produced by the producer
+            rows.append({
+                "time": msg.get("received_at", ""),
+                "account": transaction.get("nameorig", ""),
+                "type": transaction.get("type", ""),
+                "Amount ($)": f"${transaction.get('amount', 0):,.2f}",
+                "Result": "🚨 Fraud" if is_fraud else "✅ Legit",
+                "Old balance": f"${transaction.get('oldbalanceorg', 0):,.2f}"
+            })
+        df_messages = pd.DataFrame(rows)
+        st.dataframe(
+            df_messages,
+            use_container_width=True,
+            hide_index=True,
+            column_config={
+                "Amount ($)" : st.column_config.NumberColumn(format="$%.2f"),
+                "Old balance": st.column_config.NumberColumn(format="$%.2f"),
+                "Result"     : st.column_config.TextColumn(width="small"),
+            },
+        )
+    else:
+        st.info("Waiting for messages…")
+
 
 
 
