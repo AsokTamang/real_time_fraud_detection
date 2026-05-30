@@ -19,9 +19,7 @@ st.set_page_config(page_title="Real-Time Fraud Detection Dashboard",page_icon="ð
 
 
 
-#GRACEFUL SHUTDOWN OF THE CONSUMER 
-signal.signal(signal.SIGINT, handle_shutdown)
-signal.signal(signal.SIGTERM, handle_shutdown)
+
 
 
 def run_consumer():
@@ -31,7 +29,10 @@ def run_consumer():
         consumer.subscribe([FRAUD_RESULT_TOPIC])  #subscribing to the topic where the prediction result is produced by the producer
         logging.info(f"Consumer subscribed to topic {FRAUD_RESULT_TOPIC}")
         
-        while st.session_state.running:
+        while True: 
+            if not st.session_state.running:
+                time.sleep(1)  # Sleep briefly to avoid busy-waiting
+                continue  # Skip the rest of the loop and check the running state again
             msg = consumer.poll(1.0)  #polling for new messages with a timeout of 1 second
             if msg is None:
                 continue  # no message received, continue polling

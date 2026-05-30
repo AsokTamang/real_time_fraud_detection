@@ -4,7 +4,8 @@ from src.logger import logging
 from confluent_kafka import Producer
 import json
 import streamlit as st
-
+from dotenv import load_dotenv
+load_dotenv(dotenv_path='secrets/.env')  # loading the environment variables from .env file
 
 def read_config():
     # reads the client configuration from client.properties
