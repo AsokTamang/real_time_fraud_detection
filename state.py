@@ -1,6 +1,8 @@
 import streamlit as st
+import threading
 from collections import deque, defaultdict
 def initialize_state():
+    if "lock" not in st.session_state: st.session_state.lock = threading.lock()  #to prevent
     if "messages"       not in st.session_state: st.session_state.messages       = deque(maxlen=200)  #we are only storing the latest 200 messages in the session state to avoid memory issues,
     if "total"          not in st.session_state: st.session_state.total          = 0  #total number of transactions
     if "fraud_count"    not in st.session_state: st.session_state.fraud_count    = 0  #total number of fraud transactions

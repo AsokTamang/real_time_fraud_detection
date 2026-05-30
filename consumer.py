@@ -4,7 +4,7 @@ import threading
 import os
 import json
 import signal
-from time import time 
+import time 
 from confluent_kafka import Consumer,Producer, KafkaException, KafkaError
 from src.exception import CustomError
 from src.logger import logging
@@ -40,7 +40,7 @@ def run_consumer():
                     logging.info(f"End of partition reached {msg.topic()} [{msg.partition()}]")
                 else:  #if the error is due to other reason
                     logging.error(f"Kafka error: {msg.error()}")
-                    send_to_dlq(dlq_producer, msg.value(), f"Kafka error: {msg.error()}")
+                    send_to_dlq(dlq_producer, msg.value(), f"Kafka error: {msg.error()}")  #sending the error message to the DLQ with reason for failure
                 continue
 
             # Processing the message
@@ -58,25 +58,23 @@ def run_consumer():
                     "partition"  : msg.partition(),
                     "offset"     : msg.offset(),
                 }
-                
-                if message_value["is_fraud"]:
-                    st.session_state.fraud_count += 1  #incrementing the total number of transactions predicted as fraud
-                    st.session_state.type_counts[transaction_type]["fraud"] += 1  #incrementing the total number of transactions predicted as fraud for the specific type of transaction
-                    st.session_state.last_alert = enriched     #storing the enriched message in the session state to show it as the last alert in the dashboard if the transaction is predicted fraud by our model
-                else:
-                    st.session_state.legit_count += 1  #incrementing the total number of transactions predicted as legit
-                    st.session_state.type_counts[transaction_type]["legit"] += 1  #incrementing the total number of transactions predicted as legit for the specific type of transaction
-                st.session_state.tpm_history.append({"time": datetime.now().strftime("%H:%M:%S"), "count": 1})  #storing the transactions per poll history in the session state to show it in the dashboard as a line chart
-                st.session_state.messages.appendleft(enriched)  #storing the enriched message in the session state at left to show it in the dashboard as we pop the messages that are too old than the current 200 transaction details
-                st.session_state.total += 1  #incrementing the total number of transactions processed
+                #if the passed transaction in the payload is fraudulent transaction, then we increase the number of variables accordingly
+                with st.session_state.lock:  #acquiring the lock to update the shared state variables in a thread safe way
+                    if message_value["is_fraud"]:
+                        st.session_state.fraud_count += 1  #incrementing the total number of transactions predicted as fraud
+                        st.session_state.type_counts[transaction_type]["fraud"] += 1  #incrementing the total number of transactions predicted as fraud for the specific type of transaction
+                        st.session_state.last_alert = enriched     #storing the enriched message in the session state to show it as the last alert in the dashboard if the transaction is predicted fraud by our model
+                    else:
+                        st.session_state.legit_count += 1  #incrementing the total number of transactions predicted as legit
+                        st.session_state.type_counts[transaction_type]["legit"] += 1  #incrementing the total number of transactions predicted as legit for the specific type of transaction
+                    st.session_state.tpm_history.append({"time": datetime.now().strftime("%H:%M"), "count": 1})  #storing the transactions per poll history in the session state to show it in the dashboard as a line chart
+                    st.session_state.messages.appendleft(enriched)  #storing the enriched message in the session state at left to show it in the dashboard as we pop the messages that are too old than the current 200 transaction details
+                    st.session_state.total += 1  #incrementing the total number of transactions processed
                 consumer.commit(asynchronous=False)  #committing the message offset after processing the message successfully  
                 
                 #after all the initialization and setup of the consumer thread, we will run the consumer function to start consuming the messages from the kafka topic  
                 #then we update the dashboard in real time with the prediction results of our model.
                 
-                #calling the function to DISPLAY the DASHBOARD UI
-                display_ui()  
-                # Here you can add code to process the message as needed
             except Exception as e:
                 logging.error(f"Error processing message: {e}")
                 send_to_dlq(dlq_producer, msg.value(), f"Processing error: {e}")
@@ -95,10 +93,6 @@ initialize_state()  #calling the initialization function to initiate the streaml
 if st.session_state.consumer_thread is None:
     st.session_state.consumer_thread = threading.Thread(target=run_consumer,daemon=True)   #creating a consumer thread to run the consumer function in the background so that it does not block the main thread of streamlit and allows us to update the dashboard in real time  
     st.session_state.consumer_thread.start()  #starting the consumer thread 
-
-time.sleep(0.5)
+display_ui()  #calling the function to display the dashboard UI and only on main thread
+time.sleep(1)
 st.rerun()
-
-
-if __name__ == "__main__":
-    run_consumer()            

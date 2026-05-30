@@ -133,7 +133,7 @@ def predict(data: PredictRequest):
         )
         # finally sending the queued message to the Kafka topic
         kafka_producer.poll(
-            0
+            1
         )  #to trigger the delivery report callback function immediately after producing the message
 
         return result
