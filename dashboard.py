@@ -1,40 +1,40 @@
 from collections import defaultdict
 import streamlit as st
 import pandas as pd
-from state import pause_event, state_lock
+from state import pause_event, state_lock, shared_state
 
 
 def display_ui():
     st.title("Real-Time Fraud Detection Dashboard")
     col1, col2, col3, _ = st.columns([1, 1, 1, 5])
     with col1:
-        if st.button("⏸ Pause" if st.session_state.running else "▶ Resume"):
+        if st.button("⏸ Pause" if shared_state['running'] else "▶ Resume"):
             with state_lock:  # acquiring the lock to check and update the running state of consumer thread in a thread safe way
-                st.session_state.running = not st.session_state.running
-                if st.session_state.running:
+                shared_state['running'] = not shared_state['running']
+                if shared_state['running']:
                     pause_event.set()  # Resuming the consumer thread if session state is running
                 else:
                     pause_event.clear()  # Pausing the consumer thread if session state is not running
     with col2:
         if st.button("🗑 Clear feed"):
             with state_lock:
-                st.session_state.messages.clear()
+                shared_state['messages'].clear()
     with col3:
         if st.button("↺ Reset stats"):
             with state_lock:
-                st.session_state.total = 0
-                st.session_state.fraud_count = 0
-                st.session_state.legit_count = 0
-                st.session_state.type_counts = defaultdict(
+                shared_state['total'] = 0
+                shared_state['fraud_count'] = 0
+                shared_state['legit_count'] = 0
+                shared_state['type_counts'] = defaultdict(
                     lambda: {"fraud": 0, "legit": 0}
                 )
-                st.session_state.tpm_history.clear()
-                st.session_state.last_alert = None
+                shared_state['tpm_history'].clear()
+                shared_state['last_alert'] = None
 
     st.divider()  # for better UI
     # DISPLAY OF FRAUD ALERT BANNER IN THE DASHBOARD WHEN THE FRAUD TRANSACTION IS DETECTED BY OUR MODEL
     with state_lock:
-        last_alert = st.session_state.last_alert
+        last_alert = shared_state['last_alert']
     if last_alert:
         incoming_transaction = last_alert.get(
             "transaction", {}
@@ -48,9 +48,9 @@ def display_ui():
         )
     with state_lock:  # acquiring the lock to read the shared state variables in a thread safe way
         # DISPLAY OF metric cards for showing the total number of transactions, fraud transactions, legit transactions and fraud rate percentage
-        total = st.session_state.total
-        fraud_count = st.session_state.fraud_count
-        legit_count = st.session_state.legit_count
+        total = shared_state['total']
+        fraud_count = shared_state['fraud_count']
+        legit_count = shared_state['legit_count']
         fraud_rate = (
             (fraud_count / total * 100) if total > 0 else 0.0
         )  # calculation of fraud transaction rate percentage
@@ -68,7 +68,7 @@ def display_ui():
         buckets: dict = {}
         with state_lock:  # acquiring the lock to read the shared state variables in a thread safe way
             tpm_snapshot = list(
-                st.session_state.tpm_history
+                shared_state['tpm_history']
             )  # getting the transactions per minute history stored in the session state to show it in the dashboard as a line chart
         if tpm_snapshot:
             for (
@@ -92,7 +92,7 @@ def display_ui():
         st.subheader("Fraud vs Legitimate transaction by transaction type")
         with state_lock:
             type_counts_snapshot = dict(
-                st.session_state.type_counts
+                shared_state['type_counts']
             )  # getting the transaction type counts for fraud and legit transactions stored in the session state to show it in the dashboard as a bar chart
         if type_counts_snapshot:
             datas = [
@@ -111,7 +111,7 @@ def display_ui():
     st.subheader("Recent transactions feed")
     with state_lock:
         messages_snapshot = list(
-            st.session_state.messages
+            shared_state['messages']
         )  # getting the recent transactions feed stored in the session state to show it in the dashboard as a table
     if messages_snapshot:
         messages = list(messages_snapshot)[

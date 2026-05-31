@@ -12,16 +12,14 @@ from kafka_client import (
 )
 import streamlit as st
 import json
-from state import initialize_state, pause_event, state_lock
+from state import  pause_event, state_lock, shared_state
 from dashboard import display_ui
+from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(
     page_title="Real-Time Fraud Detection Dashboard", page_icon="🛡️", layout="wide"
 )
 
-
-# session state initialization
-initialize_state()  # calling the initialization function to initiate the streamlit session states
 
 
 
@@ -87,23 +85,23 @@ def run_consumer():
                 # if the passed transaction in the payload is fraudulent transaction, then we increase the number of variables accordingly
                 with state_lock:  # acquiring the lock to update the shared state variables in a thread safe way
                     if message_value["is_fraud"]:
-                        st.session_state.fraud_count += 1  # incrementing the total number of transactions predicted as fraud
-                        st.session_state.type_counts[transaction_type][
+                        shared_state['fraud_count'] += 1  # incrementing the total number of transactions predicted as fraud
+                        shared_state['type_counts'][transaction_type][
                             "fraud"
                         ] += 1  # incrementing the total number of transactions predicted as fraud for the specific type of transaction
-                        st.session_state.last_alert = enriched  # storing the enriched message in the session state to show it as the last alert in the dashboard if the transaction is predicted fraud by our model
+                        shared_state['last_alert'] = enriched  # storing the enriched message in the session state to show it as the last alert in the dashboard if the transaction is predicted fraud by our model
                     else:
-                        st.session_state.legit_count += 1  # incrementing the total number of transactions predicted as legit
-                        st.session_state.type_counts[transaction_type][
+                        shared_state['legit_count'] += 1  # incrementing the total number of transactions predicted as legit
+                        shared_state['type_counts'][transaction_type][
                             "legit"
                         ] += 1  # incrementing the total number of transactions predicted as legit for the specific type of transaction
-                    st.session_state.tpm_history.append(
+                    shared_state['tpm_history'].append(
                         {"time": datetime.now().strftime("%H:%M"), "count": 1}
                     )  # storing the transactions per poll history in the session state to show it in the dashboard as a line chart
-                    st.session_state.messages.appendleft(
+                    shared_state['messages'].appendleft(
                         enriched
                     )  # storing the enriched message in the session state at left to show it in the dashboard as we pop the messages that are too old than the current 200 transaction details
-                    st.session_state.total += (
+                    shared_state['total'] += (
                         1  # incrementing the total number of transactions processed
                     )
                 consumer.commit(
@@ -125,7 +123,7 @@ def run_consumer():
 
 
 def start_consumer():
-    t = st.session_state.consumer_thread
+    t = shared_state['consumer_thread']
     if (
         t is None or not t.is_alive()
     ):  # checking if the consumer thread is not already started, if not then we will set the pause_event to allow the consumer thread to run and update the consumer_started variable to true
@@ -133,12 +131,11 @@ def start_consumer():
             target=run_consumer, daemon=True
         )  # creating a consumer thread to run the consumer function in the background so that it does not block the main thread of streamlit and allows us to update the dashboard in real time
         new_thread.start()  # starting the consumer thread
-        st.session_state.consumer_thread = new_thread  # storing the new consumer thread object in the session state to control it later when the user clicks on the pause and resume button in the dashboard UI
+        shared_state['consumer_thread'] = new_thread  # storing the new consumer thread object in the session state to control it later when the user clicks on the pause and resume button in the dashboard UI
         logging.info("Consumer thread started.")
 
 
 start_consumer()  # starting the consumer thread to consume the messages from the kafka topic in the background and update the dashboard in real time with the prediction results of our model.
 display_ui()  # calling the function to display the dashboard UI and only on main thread
-st.write(f"DEBUG: total={st.session_state.total}, thread alive={st.session_state.consumer_thread is not None and st.session_state.consumer_thread.is_alive()}")
-time.sleep(1)
-st.rerun()
+st.write(f"DEBUG: total={shared_state['total']}, thread alive={shared_state['consumer_thread'] is not None and shared_state['consumer_thread'].is_alive()}")
+st_autorefresh(interval=1000)
