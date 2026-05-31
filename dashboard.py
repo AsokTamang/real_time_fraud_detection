@@ -31,15 +31,14 @@ def display_ui():
     with st.session_state.lock:
         last_alert = st.session_state.last_alert
     if last_alert:
-        alert = st.session_state.last_alert
-        incoming_transaction = alert.get(
+        incoming_transaction = last_alert.get(
             "transaction", {}
         )  # as the incoming transaction details was stored inside the key called transaction in the payload produced by the producer
         st.error(
             f"🚨 **Fraud detected** — Account `{incoming_transaction.get('nameorig', 'N/A')}` · "
             f"Type: `{incoming_transaction.get('type', 'N/A')}` · "
             f"Amount: **${incoming_transaction.get('amount', 0):,.2f}** · "
-            f"At: {alert.get('received_at', '')}",  # this is the time when the message is received by the consumer from the kafka topic
+            f"At: {last_alert.get('received_at', '')}",  # this is the time when the message is received by the consumer from the kafka topic
             icon="🚨",
         )
     with st.session_state.lock:  # acquiring the lock to read the shared state variables in a thread safe way
@@ -72,6 +71,7 @@ def display_ui():
             ) in (
                 tpm_snapshot
             ):  # as we have stored the transactions per minute history in the session state as a list of dict with time and count keys, we are iterating over this list to prepare the data for line chart to show the total count of transactions received in each minute
+                #we are storing the count of transactions for each time labels in the bucket dictionary based on the time label as key and the count of transaction as value
                 # here we are displaying the total count of transactions recieved in each minute
                 buckets[event["time"]] = (
                     buckets.get(event["time"], 0) + event["count"]
