@@ -1,6 +1,7 @@
 from collections import defaultdict
 import streamlit as st
 import pandas as pd
+from state import pause_event
 
 
 def display_ui():
@@ -10,6 +11,10 @@ def display_ui():
         if st.button("⏸ Pause" if st.session_state.running else "▶ Resume"):
             with st.session_state.lock:
                 st.session_state.running = not st.session_state.running
+                if st.session_state.running:
+                    pause_event.set()  # Resuming the consumer thread if session state is running
+                else:
+                    pause_event.clear()  # Pausing the consumer thread if session state is not running
     with col2:
         if st.button("🗑 Clear feed"):
             with st.session_state.lock:

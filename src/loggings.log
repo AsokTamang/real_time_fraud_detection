@@ -1139,3 +1139,401 @@ src.exception.CustomError: 'step' error occured in C:\pythonprojects\Machine lea
 2026-05-30 00:57:51,318 - root - INFO - kafka producer configured
 2026-05-30 01:00:13,569 - root - INFO - flushing kafka producer
 2026-05-30 01:00:13,569 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:17:39,427 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:17:43,281 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:17:43,461 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:17:43,515 - root - INFO - kafka producer configured
+2026-05-30 21:18:03,714 - root - INFO - Consumer subscribed to topic fraud_results
+2026-05-30 21:18:03,717 - root - INFO - Consumer and DLQ producer closed gracefully.
+2026-05-30 21:18:03,752 - root - INFO - Consumer subscribed to topic fraud_results
+2026-05-30 21:18:03,756 - root - INFO - Consumer and DLQ producer closed gracefully.
+2026-05-30 21:19:07,889 - root - INFO - Dataframe created from incoming features
+2026-05-30 21:19:17,074 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-05-30 21:19:17,099 - root - INFO - The given transaction is fraud
+2026-05-30 21:19:17,102 - root - INFO - Produced message to topic fraud_results: key = C1305486145 value = Fraud Transaction
+2026-05-30 21:33:20,862 - root - INFO - flushing kafka producer
+2026-05-30 21:33:21,433 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:33:29,396 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:33:36,665 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:33:36,955 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:33:37,021 - root - INFO - kafka producer configured
+2026-05-30 21:33:37,160 - root - INFO - flushing kafka producer
+2026-05-30 21:33:37,160 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:33:42,822 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:33:47,833 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:33:47,922 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:33:47,938 - root - INFO - kafka producer configured
+2026-05-30 21:33:48,042 - root - INFO - flushing kafka producer
+2026-05-30 21:33:48,042 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:33:51,733 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:33:54,299 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:33:54,366 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:33:54,379 - root - INFO - kafka producer configured
+2026-05-30 21:37:27,888 - root - INFO - flushing kafka producer
+2026-05-30 21:37:27,890 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:37:34,731 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:37:38,932 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:37:39,150 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:37:39,187 - root - INFO - kafka producer configured
+2026-05-30 21:37:39,304 - root - INFO - flushing kafka producer
+2026-05-30 21:37:39,304 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:37:44,486 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:37:51,405 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:37:51,514 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:37:51,535 - root - INFO - kafka producer configured
+2026-05-30 21:38:11,038 - root - INFO - flushing kafka producer
+2026-05-30 21:38:11,039 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:38:15,194 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:38:17,956 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:38:18,000 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:38:18,012 - root - INFO - kafka producer configured
+2026-05-30 21:38:47,872 - root - INFO - flushing kafka producer
+2026-05-30 21:38:47,872 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:38:52,342 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:38:56,459 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:38:56,537 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:38:56,553 - root - INFO - kafka producer configured
+2026-05-30 21:39:07,038 - root - INFO - flushing kafka producer
+2026-05-30 21:39:07,038 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:39:10,532 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:39:13,194 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:39:13,253 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:39:13,270 - root - INFO - kafka producer configured
+2026-05-30 21:39:13,373 - root - INFO - flushing kafka producer
+2026-05-30 21:39:13,374 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:39:16,606 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:39:20,323 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:39:20,382 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:39:20,397 - root - INFO - kafka producer configured
+2026-05-30 21:39:33,589 - root - INFO - flushing kafka producer
+2026-05-30 21:39:33,589 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:39:37,107 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:39:39,425 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:39:39,568 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:39:39,628 - root - INFO - kafka producer configured
+2026-05-30 21:40:07,819 - root - INFO - flushing kafka producer
+2026-05-30 21:40:07,819 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:40:11,501 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:40:14,072 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:40:14,124 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:40:14,138 - root - INFO - kafka producer configured
+2026-05-30 21:40:17,971 - root - INFO - flushing kafka producer
+2026-05-30 21:40:17,972 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:40:24,327 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:40:30,492 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:40:30,638 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:40:30,942 - root - INFO - kafka producer configured
+2026-05-30 21:40:39,785 - root - INFO - flushing kafka producer
+2026-05-30 21:40:39,785 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:40:42,932 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:40:46,967 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:40:47,014 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:40:47,026 - root - INFO - kafka producer configured
+2026-05-30 21:40:49,474 - root - INFO - flushing kafka producer
+2026-05-30 21:40:49,475 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:40:53,119 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:40:56,002 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:40:56,125 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:40:56,156 - root - INFO - kafka producer configured
+2026-05-30 21:40:56,287 - root - INFO - flushing kafka producer
+2026-05-30 21:40:56,288 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:40:58,946 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:41:01,289 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:41:01,375 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:41:01,394 - root - INFO - kafka producer configured
+2026-05-30 21:41:01,498 - root - INFO - flushing kafka producer
+2026-05-30 21:41:01,498 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:41:04,147 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:41:06,503 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:41:06,563 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:41:06,577 - root - INFO - kafka producer configured
+2026-05-30 21:41:13,344 - root - INFO - flushing kafka producer
+2026-05-30 21:41:13,345 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:41:16,466 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:41:18,721 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:41:18,771 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:41:18,779 - root - INFO - kafka producer configured
+2026-05-30 21:43:49,218 - root - INFO - flushing kafka producer
+2026-05-30 21:43:49,219 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:43:53,864 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:43:56,709 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:43:56,810 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:43:56,885 - root - INFO - kafka producer configured
+2026-05-30 21:44:05,700 - root - INFO - flushing kafka producer
+2026-05-30 21:44:05,701 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:44:10,822 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:44:17,667 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:44:17,833 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:44:17,859 - root - INFO - kafka producer configured
+2026-05-30 21:46:09,372 - root - INFO - flushing kafka producer
+2026-05-30 21:46:09,372 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:46:13,267 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:46:16,174 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:46:16,318 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:46:16,353 - root - INFO - kafka producer configured
+2026-05-30 21:46:17,238 - root - INFO - flushing kafka producer
+2026-05-30 21:46:17,239 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:46:20,852 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:46:23,335 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:46:23,401 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:46:23,417 - root - INFO - kafka producer configured
+2026-05-30 21:46:55,388 - root - INFO - flushing kafka producer
+2026-05-30 21:46:55,388 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:46:59,521 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:47:02,160 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:47:02,217 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:47:02,232 - root - INFO - kafka producer configured
+2026-05-30 21:48:19,621 - root - INFO - flushing kafka producer
+2026-05-30 21:48:19,621 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:48:24,467 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:48:27,189 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:48:27,410 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:48:27,453 - root - INFO - kafka producer configured
+2026-05-30 21:48:31,761 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:48:36,463 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:48:36,623 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:48:36,646 - root - INFO - kafka producer configured
+2026-05-30 21:48:44,787 - root - INFO - Consumer subscribed to topic fraud_results
+2026-05-30 21:48:45,785 - root - ERROR - Kafka error: KafkaError{code=UNKNOWN_TOPIC_OR_PART,val=3,str="Subscribed topic not available: fraud_results: Broker: Unknown topic or partition"}
+2026-05-30 21:48:45,785 - root - ERROR -  Message sent to DLQ | Reason: Kafka error: KafkaError{code=UNKNOWN_TOPIC_OR_PART,val=3,str="Subscribed topic not available: fraud_results: Broker: Unknown topic or partition"}
+2026-05-30 21:49:24,298 - root - INFO - Dataframe created from incoming features
+2026-05-30 21:49:31,037 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-05-30 21:49:31,285 - root - INFO - The given transaction is fraud
+2026-05-30 21:49:31,300 - root - INFO - Produced message to topic fraud_results: key = C1305486145 value = Fraud Transaction
+2026-05-30 21:50:57,448 - root - INFO - Dataframe created from incoming features
+2026-05-30 21:50:57,459 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-05-30 21:50:57,469 - root - INFO - The given transaction is valid
+2026-05-30 21:50:57,470 - root - INFO - Produced message to topic fraud_results: key = C1231006815 value = Valid Transaction
+2026-05-30 21:51:03,685 - root - INFO - Consumer subscribed to topic fraud_results
+2026-05-30 21:51:04,977 - root - ERROR - Kafka error: KafkaError{code=UNKNOWN_TOPIC_OR_PART,val=3,str="Subscribed topic not available: fraud_results: Broker: Unknown topic or partition"}
+2026-05-30 21:51:04,978 - root - ERROR -  Message sent to DLQ | Reason: Kafka error: KafkaError{code=UNKNOWN_TOPIC_OR_PART,val=3,str="Subscribed topic not available: fraud_results: Broker: Unknown topic or partition"}
+2026-05-30 21:59:45,355 - root - INFO - flushing kafka producer
+2026-05-30 21:59:45,358 - root - INFO - flushing kafka producer
+2026-05-30 21:59:45,359 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:59:45,384 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 21:59:52,509 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:59:52,510 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 21:59:58,614 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:59:58,798 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 21:59:59,185 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:59:59,185 - root - INFO - ML pipelines loaded successfully
+2026-05-30 21:59:59,255 - root - INFO - kafka producer configured
+2026-05-30 21:59:59,261 - root - INFO - kafka producer configured
+2026-05-30 22:03:30,181 - root - INFO - flushing kafka producer
+2026-05-30 22:03:30,182 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:03:30,208 - root - INFO - flushing kafka producer
+2026-05-30 22:03:30,208 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:03:40,544 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 22:03:40,580 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 22:03:51,224 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:03:51,340 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:03:51,737 - root - INFO - ML pipelines loaded successfully
+2026-05-30 22:03:51,798 - root - INFO - kafka producer configured
+2026-05-30 22:03:51,798 - root - INFO - kafka producer configured
+2026-05-30 22:10:15,530 - root - INFO - flushing kafka producer
+2026-05-30 22:10:15,531 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:10:15,532 - root - INFO - flushing kafka producer
+2026-05-30 22:10:15,532 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:10:22,941 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 22:10:28,646 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:10:28,696 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:10:28,957 - root - INFO - ML pipelines loaded successfully
+2026-05-30 22:10:29,005 - root - INFO - kafka producer configured
+2026-05-30 22:10:37,143 - root - INFO - flushing kafka producer
+2026-05-30 22:10:37,143 - root - INFO - flushing kafka producer
+2026-05-30 22:10:37,145 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:10:37,145 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:10:44,846 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 22:10:44,846 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 22:10:50,638 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:10:50,649 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:10:51,025 - root - INFO - ML pipelines loaded successfully
+2026-05-30 22:10:51,028 - root - INFO - ML pipelines loaded successfully
+2026-05-30 22:10:51,121 - root - INFO - kafka producer configured
+2026-05-30 22:10:51,124 - root - INFO - kafka producer configured
+2026-05-30 22:10:52,315 - root - INFO - flushing kafka producer
+2026-05-30 22:10:52,316 - root - INFO - flushing kafka producer
+2026-05-30 22:10:52,316 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:10:58,248 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 22:10:58,248 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 22:11:03,839 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:11:03,840 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:11:04,012 - root - INFO - ML pipelines loaded successfully
+2026-05-30 22:11:04,047 - root - INFO - kafka producer configured
+2026-05-30 22:11:04,161 - root - INFO - flushing kafka producer
+2026-05-30 22:11:04,161 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:11:04,161 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:11:13,749 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 22:11:22,919 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:11:22,942 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:11:23,046 - root - INFO - ML pipelines loaded successfully
+2026-05-30 22:11:23,061 - root - INFO - ML pipelines loaded successfully
+2026-05-30 22:11:23,145 - root - INFO - kafka producer configured
+2026-05-30 22:11:23,385 - root - INFO - kafka producer configured
+2026-05-30 22:54:23,479 - root - INFO - flushing kafka producer
+2026-05-30 22:54:23,481 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:54:23,484 - root - INFO - flushing kafka producer
+2026-05-30 22:54:23,484 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:54:30,155 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 22:54:30,155 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 22:54:40,327 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:54:40,361 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:54:42,027 - root - INFO - ML pipelines loaded successfully
+2026-05-30 22:54:42,030 - root - INFO - ML pipelines loaded successfully
+2026-05-30 22:54:42,260 - root - INFO - kafka producer configured
+2026-05-30 22:54:42,265 - root - INFO - kafka producer configured
+2026-05-30 22:54:42,385 - root - INFO - flushing kafka producer
+2026-05-30 22:54:42,385 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:54:42,402 - root - INFO - flushing kafka producer
+2026-05-30 22:54:42,403 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:55:20,308 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 22:55:20,309 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 22:55:42,886 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:55:42,890 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:55:44,379 - root - INFO - ML pipelines loaded successfully
+2026-05-30 22:55:44,379 - root - INFO - ML pipelines loaded successfully
+2026-05-30 22:55:44,720 - root - INFO - kafka producer configured
+2026-05-30 22:55:44,730 - root - INFO - kafka producer configured
+2026-05-30 22:57:36,843 - root - INFO - flushing kafka producer
+2026-05-30 22:57:36,844 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:57:36,846 - root - INFO - flushing kafka producer
+2026-05-30 22:57:36,847 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:57:41,975 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 22:57:47,878 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:57:49,221 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:57:49,254 - root - INFO - ML pipelines loaded successfully
+2026-05-30 22:57:49,366 - root - INFO - kafka producer configured
+2026-05-30 22:57:49,598 - root - INFO - ML pipelines loaded successfully
+2026-05-30 22:57:49,652 - root - INFO - kafka producer configured
+2026-05-30 22:59:42,919 - root - INFO - flushing kafka producer
+2026-05-30 22:59:42,919 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:59:42,919 - root - INFO - flushing kafka producer
+2026-05-30 22:59:42,919 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 22:59:49,082 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 22:59:54,241 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:59:54,355 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 22:59:54,467 - root - INFO - ML pipelines loaded successfully
+2026-05-30 22:59:54,467 - root - INFO - ML pipelines loaded successfully
+2026-05-30 22:59:54,493 - root - INFO - kafka producer configured
+2026-05-30 23:00:21,739 - root - INFO - flushing kafka producer
+2026-05-30 23:00:21,740 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 23:00:21,740 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 23:00:27,248 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 23:00:27,248 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 23:00:33,321 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:00:33,325 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:00:33,478 - root - INFO - ML pipelines loaded successfully
+2026-05-30 23:00:33,517 - root - INFO - kafka producer configured
+2026-05-30 23:00:33,622 - root - INFO - flushing kafka producer
+2026-05-30 23:00:33,622 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 23:00:33,622 - root - INFO - flushing kafka producer
+2026-05-30 23:00:33,622 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 23:00:38,763 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 23:00:38,764 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 23:00:43,324 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:00:43,372 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:00:43,636 - root - INFO - ML pipelines loaded successfully
+2026-05-30 23:00:43,698 - root - INFO - kafka producer configured
+2026-05-30 23:00:43,700 - root - INFO - kafka producer configured
+2026-05-30 23:00:44,906 - root - INFO - flushing kafka producer
+2026-05-30 23:00:44,906 - root - INFO - flushing kafka producer
+hutdown complete
+2026-05-30 23:00:44,907 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 23:00:51,377 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 23:00:51,394 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 23:00:55,998 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:00:56,062 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:00:56,106 - root - INFO - ML pipelines loaded successfully
+2026-05-30 23:00:56,124 - root - INFO - kafka producer configured
+2026-05-30 23:00:56,148 - root - INFO - ML pipelines loaded successfully
+2026-05-30 23:00:56,165 - root - INFO - kafka producer configured
+2026-05-30 23:01:10,629 - root - INFO - Consumer subscribed to topic fraud_results
+2026-05-30 23:01:11,606 - root - ERROR - Kafka error: KafkaError{code=UNKNOWN_TOPIC_OR_PART,val=3,str="Subscribed topic not available: fraud_results: Broker: Unknown topic or partition"}
+2026-05-30 23:01:11,607 - root - ERROR -  Message sent to DLQ | Reason: Kafka error: KafkaError{code=UNKNOWN_TOPIC_OR_PART,val=3,str="Subscribed topic not available: fraud_results: Broker: Unknown topic or partition"}
+2026-05-30 23:01:17,691 - root - INFO - Dataframe created from incoming features
+2026-05-30 23:01:24,340 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-05-30 23:01:24,415 - root - INFO - The given transaction is valid
+2026-05-30 23:01:24,418 - root - INFO - Produced message to topic fraud_results: key = C1231006815 value = Valid Transaction
+2026-05-30 23:02:21,485 - root - INFO - Dataframe created from incoming features
+2026-05-30 23:02:21,513 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-05-30 23:02:21,621 - root - INFO - The given transaction is fraud
+2026-05-30 23:02:21,622 - root - INFO - Produced message to topic fraud_results: key = C840083671 value = Fraud Transaction
+2026-05-30 23:02:30,646 - root - INFO - Consumer subscribed to topic fraud_results
+2026-05-30 23:02:32,092 - root - ERROR - Kafka error: KafkaError{code=UNKNOWN_TOPIC_OR_PART,val=3,str="Subscribed topic not available: fraud_results: Broker: Unknown topic or partition"}
+2026-05-30 23:02:32,092 - root - ERROR -  Message sent to DLQ | Reason: Kafka error: KafkaError{code=UNKNOWN_TOPIC_OR_PART,val=3,str="Subscribed topic not available: fraud_results: Broker: Unknown topic or partition"}
+2026-05-30 23:03:00,809 - root - INFO - flushing kafka producer
+2026-05-30 23:03:00,842 - root - INFO - flushing kafka producer
+2026-05-30 23:03:00,843 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 23:03:01,075 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 23:03:07,822 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 23:03:07,822 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 23:03:13,792 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:03:13,819 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:03:14,278 - root - INFO - ML pipelines loaded successfully
+2026-05-30 23:03:14,364 - root - INFO - kafka producer configured
+2026-05-30 23:03:14,365 - root - INFO - kafka producer configured
+2026-05-30 23:03:15,657 - root - INFO - flushing kafka producer
+2026-05-30 23:03:15,657 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 23:03:33,548 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 23:03:37,553 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:03:37,707 - root - INFO - ML pipelines loaded successfully
+2026-05-30 23:03:37,726 - root - INFO - kafka producer configured
+2026-05-30 23:03:48,383 - root - INFO - Consumer subscribed to topic fraud_results
+2026-05-30 23:03:50,092 - root - ERROR - Kafka error: KafkaError{code=UNKNOWN_TOPIC_OR_PART,val=3,str="Subscribed topic not available: fraud_results: Broker: Unknown topic or partition"}
+2026-05-30 23:03:50,093 - root - ERROR -  Message sent to DLQ | Reason: Kafka error: KafkaError{code=UNKNOWN_TOPIC_OR_PART,val=3,str="Subscribed topic not available: fraud_results: Broker: Unknown topic or partition"}
+2026-05-30 23:04:20,110 - root - INFO - Dataframe created from incoming features
+2026-05-30 23:04:29,851 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-05-30 23:04:29,945 - root - INFO - The given transaction is fraud
+2026-05-30 23:04:29,963 - root - INFO - Produced message to topic fraud_results: key = C1305486145 value = Fraud Transaction
+2026-05-30 23:05:18,373 - root - INFO - Dataframe created from incoming features
+2026-05-30 23:05:18,402 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-05-30 23:05:18,439 - root - INFO - The given transaction is valid
+2026-05-30 23:05:18,443 - root - INFO - Produced message to topic fraud_results: key = C2048537720 value = Valid Transaction
+2026-05-30 23:11:48,866 - root - INFO - flushing kafka producer
+2026-05-30 23:11:48,889 - root - INFO - flushing kafka producer
+2026-05-30 23:11:48,895 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 23:11:48,934 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 23:11:58,636 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 23:11:58,636 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 23:12:13,095 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:12:13,723 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:12:16,501 - root - INFO - ML pipelines loaded successfully
+2026-05-30 23:12:16,501 - root - INFO - ML pipelines loaded successfully
+2026-05-30 23:12:16,757 - root - INFO - kafka producer configured
+2026-05-30 23:12:16,757 - root - INFO - kafka producer configured
+2026-05-30 23:12:16,889 - root - INFO - flushing kafka producer
+2026-05-30 23:12:16,889 - root - INFO - flushing kafka producer
+2026-05-30 23:12:16,889 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 23:12:16,889 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 23:12:34,826 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 23:12:34,826 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 23:12:46,807 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:12:46,810 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:12:47,236 - root - INFO - ML pipelines loaded successfully
+2026-05-30 23:12:47,353 - root - INFO - kafka producer configured
+2026-05-30 23:12:47,353 - root - INFO - kafka producer configured
+2026-05-30 23:12:59,522 - root - INFO - flushing kafka producer
+2026-05-30 23:12:59,523 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 23:12:59,574 - root - INFO - flushing kafka producer
+2026-05-30 23:12:59,574 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 23:13:09,713 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 23:13:19,011 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:13:19,232 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:13:20,021 - root - INFO - ML pipelines loaded successfully
+2026-05-30 23:13:20,137 - root - INFO - ML pipelines loaded successfully
+2026-05-30 23:13:20,239 - root - INFO - kafka producer configured
+2026-05-30 23:13:20,241 - root - INFO - kafka producer configured
+2026-05-30 23:14:12,833 - root - INFO - flushing kafka producer
+2026-05-30 23:14:12,834 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 23:14:12,838 - root - INFO - flushing kafka producer
+2026-05-30 23:14:12,838 - root - INFO - kafka producer flushed, shutdown complete
+2026-05-30 23:14:20,486 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 23:14:20,486 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-05-30 23:14:28,100 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:14:28,516 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-05-30 23:14:28,685 - root - INFO - ML pipelines loaded successfully
+2026-05-30 23:14:28,771 - root - INFO - kafka producer configured
+2026-05-30 23:14:28,837 - root - INFO - ML pipelines loaded successfully
+2026-05-30 23:14:28,855 - root - INFO - kafka producer configured
+2026-05-30 23:14:28,876 - root - INFO - flushing kafka producer
+2026-05-30 23:14:28,877 - root - INFO - kafka producer flushed, shutdown complete
