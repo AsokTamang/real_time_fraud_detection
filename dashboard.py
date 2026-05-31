@@ -1,7 +1,7 @@
 from collections import defaultdict
 import streamlit as st
 import pandas as pd
-from state import pause_event
+from state import pause_event, state_lock
 
 
 def display_ui():
@@ -9,7 +9,7 @@ def display_ui():
     col1, col2, col3, _ = st.columns([1, 1, 1, 5])
     with col1:
         if st.button("⏸ Pause" if st.session_state.running else "▶ Resume"):
-            with st.session_state.lock:
+            with state_lock:  # acquiring the lock to check and update the running state of consumer thread in a thread safe way
                 st.session_state.running = not st.session_state.running
                 if st.session_state.running:
                     pause_event.set()  # Resuming the consumer thread if session state is running
@@ -17,11 +17,11 @@ def display_ui():
                     pause_event.clear()  # Pausing the consumer thread if session state is not running
     with col2:
         if st.button("🗑 Clear feed"):
-            with st.session_state.lock:
+            with state_lock:
                 st.session_state.messages.clear()
     with col3:
         if st.button("↺ Reset stats"):
-            with st.session_state.lock:
+            with state_lock:
                 st.session_state.total = 0
                 st.session_state.fraud_count = 0
                 st.session_state.legit_count = 0
@@ -33,7 +33,7 @@ def display_ui():
 
     st.divider()  # for better UI
     # DISPLAY OF FRAUD ALERT BANNER IN THE DASHBOARD WHEN THE FRAUD TRANSACTION IS DETECTED BY OUR MODEL
-    with st.session_state.lock:
+    with state_lock:
         last_alert = st.session_state.last_alert
     if last_alert:
         incoming_transaction = last_alert.get(
@@ -46,7 +46,7 @@ def display_ui():
             f"At: {last_alert.get('received_at', '')}",  # this is the time when the message is received by the consumer from the kafka topic
             icon="🚨",
         )
-    with st.session_state.lock:  # acquiring the lock to read the shared state variables in a thread safe way
+    with state_lock:  # acquiring the lock to read the shared state variables in a thread safe way
         # DISPLAY OF metric cards for showing the total number of transactions, fraud transactions, legit transactions and fraud rate percentage
         total = st.session_state.total
         fraud_count = st.session_state.fraud_count
@@ -66,7 +66,7 @@ def display_ui():
     with chart_col1:
         st.subheader("Transactions per minute")
         buckets: dict = {}
-        with st.session_state.lock:  # acquiring the lock to read the shared state variables in a thread safe way
+        with state_lock:  # acquiring the lock to read the shared state variables in a thread safe way
             tpm_snapshot = list(
                 st.session_state.tpm_history
             )  # getting the transactions per minute history stored in the session state to show it in the dashboard as a line chart
@@ -90,7 +90,7 @@ def display_ui():
 
     with chart_col2:
         st.subheader("Fraud vs Legitimate transaction by transaction type")
-        with st.session_state.lock:
+        with state_lock:
             type_counts_snapshot = dict(
                 st.session_state.type_counts
             )  # getting the transaction type counts for fraud and legit transactions stored in the session state to show it in the dashboard as a bar chart
@@ -109,7 +109,7 @@ def display_ui():
     st.divider()
     # DISPLAY OF RECENT TRANSACTIONS FEED IN THE DASHBOARD
     st.subheader("Recent transactions feed")
-    with st.session_state.lock:
+    with state_lock:
         messages_snapshot = list(
             st.session_state.messages
         )  # getting the recent transactions feed stored in the session state to show it in the dashboard as a table

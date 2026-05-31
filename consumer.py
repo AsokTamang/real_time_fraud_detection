@@ -1,4 +1,3 @@
-from collections import defaultdict, deque
 from datetime import datetime
 import threading
 import json
@@ -8,15 +7,12 @@ from src.logger import logging
 from kafka_client import (
     producer_config,
     FRAUD_RESULT_TOPIC,
-    delivery_report,
-    DLQ_TOPIC,
     consumer_config,
     send_to_dlq,
-    handle_shutdown,
 )
 import streamlit as st
 import json
-from state import initialize_state, pause_event
+from state import initialize_state, pause_event, state_lock
 from dashboard import display_ui
 
 st.set_page_config(
@@ -89,7 +85,7 @@ def run_consumer():
                     "offset": msg.offset(),
                 }
                 # if the passed transaction in the payload is fraudulent transaction, then we increase the number of variables accordingly
-                with st.session_state.lock:  # acquiring the lock to update the shared state variables in a thread safe way
+                with state_lock:  # acquiring the lock to update the shared state variables in a thread safe way
                     if message_value["is_fraud"]:
                         st.session_state.fraud_count += 1  # incrementing the total number of transactions predicted as fraud
                         st.session_state.type_counts[transaction_type][
@@ -129,16 +125,16 @@ def run_consumer():
 
 
 def start_consumer():
+    t = st.session_state.consumer_thread
     if (
-        st.session_state.consumer_thread is None
+        t is None or not t.is_alive()
     ):  # checking if the consumer thread is not already started, if not then we will set the pause_event to allow the consumer thread to run and update the consumer_started variable to true
-        t = threading.Thread(
+        new_thread = threading.Thread(
             target=run_consumer, daemon=True
         )  # creating a consumer thread to run the consumer function in the background so that it does not block the main thread of streamlit and allows us to update the dashboard in real time
-        t.start()  # starting the consumer thread
-        with st.session_state.lock:  # acquiring the lock to check and update the consumer thread state in a thread safe way
-                st.session_state.consumer_thread = t  # storing the consumer thread object in the session state to control it later when the user clicks on the pause and resume button in the dashboard UI
-        
+        new_thread.start()  # starting the consumer thread
+        st.session_state.consumer_thread = new_thread  # storing the new consumer thread object in the session state to control it later when the user clicks on the pause and resume button in the dashboard UI
+        logging.info("Consumer thread started.")
 
 
 start_consumer()  # starting the consumer thread to consume the messages from the kafka topic in the background and update the dashboard in real time with the prediction results of our model.

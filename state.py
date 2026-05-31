@@ -6,8 +6,11 @@ from collections import deque, defaultdict
 pause_event = threading.Event()  # Event to control pausing and resuming the consumer thread
 pause_event.set()  # running the consumer thread by default when the app starts as we use this pause_event in our consumer thread
 
+#this lock is for synchronizing the access to the session state across main as well as background threads
+state_lock = threading.RLock()  # Lock to synchronize access to session state across threads, we will use this lock to ensure that when we are updating the session state in the consumer thread, the main thread of streamlit is not trying to read or update the session state at the same time which can
+
 def initialize_state():
-    if "lock" not in st.session_state: st.session_state.lock = threading.RLock()  #we are using reentrant lock so that the same thread can acquire the lock multiple times 
+    
     if "messages"       not in st.session_state: st.session_state.messages       = deque(maxlen=200)  #we are only storing the latest 200 messages in the session state to avoid memory issues,
     if "total"          not in st.session_state: st.session_state.total          = 0  #total number of transactions
     if "fraud_count"    not in st.session_state: st.session_state.fraud_count    = 0  #total number of fraud transactions
