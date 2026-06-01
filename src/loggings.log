@@ -2041,3 +2041,23 @@ hutdown complete
 2026-06-01 10:08:44,153 - root - INFO - kafka producer configured
 2026-06-01 10:08:44,707 - root - INFO - flushing kafka producer
 2026-06-01 10:08:44,707 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-01 10:09:50,683 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-01 10:09:53,413 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-01 10:09:53,468 - root - INFO - ML pipelines loaded successfully
+2026-06-01 10:09:53,482 - root - INFO - kafka producer configured
+2026-06-01 10:10:06,957 - root - INFO - Consumer subscribed to topic fraud_detection
+2026-06-01 10:10:06,958 - root - INFO - Consumer thread started.
+2026-06-01 10:11:01,224 - root - INFO - Dataframe created from incoming features
+2026-06-01 10:11:09,720 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-01 10:11:17,073 - root - INFO - The given transaction is fraud
+2026-06-01 10:11:17,078 - root - INFO - Produced message to topic fraud_detection: key = C1305486145 value = Fraud Transaction
+2026-06-01 10:11:17,714 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->3 offset->2
+2026-06-01 10:11:17,714 - root - INFO - Received message: {'transaction': {'step': 1, 'type': 'TRANSFER', 'amount': 181.0, 'nameorig': 'C1305486145', 'namedest': 'C553264065', 'oldbalanceorg': 181.0}, 'result': 'Fraud Transaction', 'is_fraud': True} from topic fraud_detection partition 3 offset 2
+2026-06-01 10:39:58,920 - root - INFO - flushing kafka producer
+2026-06-01 10:39:58,926 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-01 10:40:18,307 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-01 10:40:26,797 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-01 10:40:27,050 - root - INFO - ML pipelines loaded successfully
+2026-06-01 10:40:27,100 - root - INFO - kafka producer configured
+2026-06-01 10:44:06,806 - root - INFO - flushing kafka producer
+2026-06-01 10:44:06,807 - root - INFO - kafka producer flushed, shutdown complete

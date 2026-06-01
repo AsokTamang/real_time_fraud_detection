@@ -138,5 +138,4 @@ def start_consumer():
 
 start_consumer()  # starting the consumer thread to consume the messages from the kafka topic in the background and update the dashboard in real time with the prediction results of our model.
 display_ui()  # calling the function to display the dashboard UI and only on main thread
-st.write(f"DEBUG: total={shared_state['total']}, thread alive={shared_state['consumer_thread'] is not None and shared_state['consumer_thread'].is_alive()}")
 st_autorefresh(interval=1000)
