@@ -24,8 +24,8 @@ st.set_page_config(
 
 
 def run_consumer():
-    consumer = Consumer(consumer_config)
-    dlq_producer = Producer(producer_config)
+    consumer = Consumer(consumer_config)  #configured consumer to consume messages from kafka topic
+    dlq_producer = Producer(producer_config)  #configured producer to send the failed messages to the DLQ topic
     try:
         consumer.subscribe(
             [FRAUD_RESULT_TOPIC]
@@ -36,7 +36,7 @@ def run_consumer():
             # if the running state of the consumer is false then we wait for 1 second and again check the running state of the consumer
             if (
                 not pause_event.is_set()
-            ):  # checking if the consumer thread is in paused state or not by checking the pause_event state, if it is not set then it means the consumer thread is in paused state and we will wait for 1 second before checking again
+            ):  # checking if the consumer thread is in paused state or not by checking the pause_event state, if it is not set then it means the consumer thread is in paused state and we will wait for 0.2 second before checking again
                 time.sleep(0.2)
                 continue
             # only if the consumer state is running, we proceed with the transactions
@@ -126,10 +126,11 @@ def start_consumer():
     t = shared_state['consumer_thread']
     if (
         t is None or not t.is_alive()
-    ):  # checking if the consumer thread is not already started, if not then we will set the pause_event to allow the consumer thread to run and update the consumer_started variable to true
+    ):  # checking if the consumer thread is not already started, if not then we will set the pause_event to allow the consumer thread to run and update the consumer_thread variable to this new thread
         new_thread = threading.Thread(
             target=run_consumer, daemon=True
         )  # creating a consumer thread to run the consumer function in the background so that it does not block the main thread of streamlit and allows us to update the dashboard in real time
+        #and using daemon=True make sure that the consumer thread will automatically exit when the main thread of streamlit exits
         new_thread.start()  # starting the consumer thread
         shared_state['consumer_thread'] = new_thread  # storing the new consumer thread object in the session state to control it later when the user clicks on the pause and resume button in the dashboard UI
         logging.info("Consumer thread started.")

@@ -7,6 +7,16 @@ import streamlit as st
 from dotenv import load_dotenv
 load_dotenv(dotenv_path='secrets/.env')  # loading the environment variables from .env file
 
+
+TRANSACTION_TOPIC = os.getenv(
+    "KAFKA_TRANSACTION_TOPIC"
+)  # our topic where the event produced from producer reaches
+FRAUD_RESULT_TOPIC = os.getenv(
+    "KAFKA_FRAUD_RESULT_TOPIC"
+)  # our topic where the prediction done by the model reaches
+DLQ_TOPIC = os.getenv("KAFKA_DLQ_TOPIC")
+
+
 def read_config():
     # reads the client configuration from client.properties
     # and returns it as a key-value map
@@ -71,11 +81,5 @@ producer_config = (
 consumer_config = read_config()
 consumer_config["group.id"] = os.getenv("KAFKA_CONSUMER_GROUP_ID")
 consumer_config["auto.offset.reset"] = "earliest"
-TRANSACTION_TOPIC = os.getenv(
-    "KAFKA_TRANSACTION_TOPIC"
-)  # our topic where the event produced from producer reaches
-FRAUD_RESULT_TOPIC = os.getenv(
-    "KAFKA_FRAUD_RESULT_TOPIC"
-)  # our topic where the prediction done by the model reaches
-DLQ_TOPIC = os.getenv("KAFKA_DLQ_TOPIC")
+
 

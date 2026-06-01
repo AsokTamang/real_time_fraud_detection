@@ -6,9 +6,8 @@ from collections import deque, defaultdict
 pause_event = threading.Event()  # Event to control pausing and resuming the consumer thread
 pause_event.set()  # running the consumer thread by default when the app starts as we use this pause_event in our consumer thread
 
-#this lock is for synchronizing the access to the session state across main as well as background threads
-state_lock = threading.RLock()  # Lock to synchronize access to session state across threads, we will use this lock to ensure that when we are updating the session state in the consumer thread, the main thread of streamlit is not trying to read or update the session state at the same time which can
-
+#this lock is for synchronizing the access to the state called shared_state across main as well as background threads
+state_lock = threading.RLock() 
 # Shared runtime state (NOT Streamlit session_state) as the session state cannot be shared across multiple threads
 shared_state = {
     "messages": deque(maxlen=200),  #

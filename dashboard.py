@@ -18,7 +18,7 @@ def display_ui():
     with col2:
         if st.button("🗑 Clear feed"):
             with state_lock:
-                shared_state['messages'].clear()
+                shared_state['messages'].clear()  #clearing all the stored transaction details in the state
     with col3:
         if st.button("↺ Reset stats"):
             with state_lock:
@@ -124,7 +124,7 @@ def display_ui():
             )  # as the incoming transaction details was stored inside the key called transaction in the payload produced by the producer
             is_fraud = msg.get(
                 "is_fraud", False
-            )  # as the prediction result was stored inside the key called result in the payload produced by the producer
+            )  # as whether the incoming transaction is fraud or not, is represented by the key called is_fraud which is stored inside the payload produced by the producer
             rows.append(
                 {
                     "time": msg.get("received_at", ""),
