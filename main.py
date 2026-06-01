@@ -22,6 +22,8 @@ kafka_producer: Optional[Producer] = None
 
 
 # defining the lifespan of our fraud detection endpoint or app
+#and we are loading the expensive instances of feature engineering and predict pipeline and also configuring the kafka producer, as the loading and configuration of these instances is time consuming 
+#so we are loading them at the start of the app
 @asynccontextmanager
 async def lifespan_info(app: FastAPI):
     # using the predefined global instances

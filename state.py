@@ -9,9 +9,9 @@ pause_event.set()  # running the consumer thread by default when the app starts 
 #this lock is for synchronizing the access to the session state across main as well as background threads
 state_lock = threading.RLock()  # Lock to synchronize access to session state across threads, we will use this lock to ensure that when we are updating the session state in the consumer thread, the main thread of streamlit is not trying to read or update the session state at the same time which can
 
-# Shared runtime state (NOT Streamlit session_state)
+# Shared runtime state (NOT Streamlit session_state) as the session state cannot be shared across multiple threads
 shared_state = {
-    "messages": deque(maxlen=200),
+    "messages": deque(maxlen=200),  #
     "total": 0,
     "fraud_count": 0,
     "legit_count": 0,
