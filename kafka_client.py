@@ -3,9 +3,8 @@ import os
 from src.logger import logging
 from confluent_kafka import Producer
 import json
-import streamlit as st
 from dotenv import load_dotenv
-load_dotenv(dotenv_path='secrets/.env')  # loading the environment variables from .env file
+load_dotenv(dotenv_path=os.path.join('secrets','env'))  # loading the environment variables from .env file
 
 CONFIG_PATH = os.getenv("KAFKA_CONFIG_PATH")
 TRANSACTION_TOPIC = os.getenv(
@@ -25,7 +24,7 @@ config = {
     "sasl.username": os.getenv("KAFKA_SASL_USERNAME"),
     "sasl.password": os.getenv("KAFKA_SASL_PASSWORD"),
     "client.id": os.getenv("CLIENT_ID"),
-    "session.timeout.ms": os.getenv("SESSION_TIMEOUT_MS"),
+    "session.timeout.ms": int(os.getenv("SESSION_TIMEOUT_MS")),
 }
 
 #delivery report function to check whether the event is delivered or not
@@ -56,27 +55,16 @@ def send_to_dlq(dlq_producer: Producer, raw_value: bytes, reason: str) -> None:
     logging.error(f" Message sent to DLQ | Reason: {reason}")
 
 
-
-#GRACEFUL SHUTDOWN OF THE CONSUMER  
-#signal handler to handle the shutdown signal and stop the consumer gracefully when the stop signal is received  such as ctrl + C or kill command
-#and this stop signal is stored inside the streamlit session state
-def handle_shutdown(signum, frame):
-     
-     logging.info("Shutdown signal received, stopping consumer...")
-     st.session_state.running = False
-#registering the signal handlers
-
             
 
 
 # we must separate the config for producer and consumer because they have different configurations for the Kafka client
 #configuration of producer in kafka client
-producer_config = (
-    config()
-)  # as the producer config only needs the bootstrap server and auth configuration, no need for additional configuration for producer
+producer_config = config.copy()
+  # as the producer config only needs the bootstrap server and auth configuration, no need for additional configuration for producer
 
 # configuration of consumer in kafka client
-consumer_config =config()
+consumer_config =config.copy()
 consumer_config["group.id"] = os.getenv("KAFKA_CONSUMER_GROUP_ID")
 consumer_config["auto.offset.reset"] = "earliest"
 
