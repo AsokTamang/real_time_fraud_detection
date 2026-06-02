@@ -39,4 +39,6 @@ python-dotenv
 #for UI dashboard
 streamlit
 
+confluent-kafka
+
 fastapi
