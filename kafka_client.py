@@ -7,7 +7,7 @@ import streamlit as st
 from dotenv import load_dotenv
 load_dotenv(dotenv_path='secrets/.env')  # loading the environment variables from .env file
 
-
+CONFIG_PATH = os.getenv("KAFKA_CONFIG_PATH")
 TRANSACTION_TOPIC = os.getenv(
     "KAFKA_TRANSACTION_TOPIC"
 )  # our topic where the event produced from producer reaches
@@ -21,7 +21,7 @@ def read_config():
     # reads the client configuration from client.properties
     # and returns it as a key-value map
     config = {}
-    with open(r"secrets/client.properties") as fh:
+    with open(CONFIG_PATH) as fh:
         for line in fh:
             line = line.strip()
             if len(line) != 0 and line[0] != "#":

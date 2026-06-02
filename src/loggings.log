@@ -2065,3 +2065,9 @@ hutdown complete
 2026-06-01 10:44:19,087 - root - INFO - Loading object from artifacts\best_model_info.pkl
 2026-06-01 10:44:19,185 - root - INFO - ML pipelines loaded successfully
 2026-06-01 10:44:19,200 - root - INFO - kafka producer configured
+2026-06-01 23:37:08,888 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-01 23:37:13,135 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-01 23:37:13,355 - root - INFO - ML pipelines loaded successfully
+2026-06-01 23:37:13,448 - root - INFO - kafka producer configured
+2026-06-01 23:37:42,481 - root - INFO - flushing kafka producer
+2026-06-01 23:37:42,481 - root - INFO - kafka producer flushed, shutdown complete

@@ -20,6 +20,11 @@ services:
       timeout: 5s
       retries: 3
       start_period: 20s 
+    environment:
+      KAFKA_TRANSACTION_TOPIC: transactions
+      KAFKA_FRAUD_RESULT_TOPIC: fraud_results
+      KAFKA_DLQ_TOPIC: transactions_dlq 
+      KAFKA_CONFIG_PATH : secrets/client.properties
   dashboard:
     build: 
       context: .
@@ -27,6 +32,9 @@ services:
     container_name: fraud_detection_dashboard
     ports:
       - "8501:8501"
+    depends_on:  #only if there is prediction done by our model, we can show the transaction details as well as the prediction live on our dashboard
+      api:
+       condition: service_healthy  # Ensuring the dashboard starts only after the API is healthy and ready to serve requests, preventing connection issues and improving user experience. 
     volumes:
       # Mounting local client.properties into the container as read-only at the time of runtime as our kafka configuration file contains sensitive information such as credentials and we want to keep it secure.
       # This keeps credentials OFF the image layer (never baked into Docker image) only available at the docker container runtime
@@ -39,6 +47,11 @@ services:
       timeout: 5s
       retries: 3
       start_period: 20s      
-
+    environment:
+      KAFKA_TRANSACTION_TOPIC: transactions
+      KAFKA_FRAUD_RESULT_TOPIC: fraud_results
+      KAFKA_DLQ_TOPIC: transactions_dlq
+      KAFKA_CONSUMER_GROUP_ID: fraud_api_group
+      KAFKA_CONFIG_PATH : secrets/client.properties
 
 
