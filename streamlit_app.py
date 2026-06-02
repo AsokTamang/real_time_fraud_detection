@@ -13,7 +13,7 @@ from kafka_client import (
 import streamlit as st
 import json
 from state import  pause_event, state_lock, shared_state
-from dashboard import display_ui
+from dashboard_ui import display_ui
 from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(
