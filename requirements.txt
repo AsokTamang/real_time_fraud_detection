@@ -38,6 +38,9 @@ python-dotenv
 
 #for UI dashboard
 streamlit
+#for auto-refreshing the dashboard
+streamlit-autorefresh
+
 
 confluent-kafka
 

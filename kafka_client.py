@@ -17,18 +17,16 @@ FRAUD_RESULT_TOPIC = os.getenv(
 DLQ_TOPIC = os.getenv("KAFKA_DLQ_TOPIC")
 
 
-def read_config():
-    # reads the client configuration from client.properties
-    # and returns it as a key-value map
-    config = {}
-    with open(CONFIG_PATH) as fh:
-        for line in fh:
-            line = line.strip()
-            if len(line) != 0 and line[0] != "#":
-                parameter, value = line.strip().split("=", 1)
-                config[parameter] = value.strip()
-    return config
 
+config = {
+    "bootstrap.servers": os.getenv("KAFKA_BOOTSTRAP_SERVERS"),
+    "security.protocol": os.getenv("KAFKA_SECURITY_PROTOCOL"),
+    "sasl.mechanism": os.getenv("KAFKA_SASL_MECHANISM"),
+    "sasl.username": os.getenv("KAFKA_SASL_USERNAME"),
+    "sasl.password": os.getenv("KAFKA_SASL_PASSWORD"),
+    "client.id": os.getenv("CLIENT_ID"),
+    "session.timeout.ms": os.getenv("SESSION_TIMEOUT_MS"),
+}
 
 #delivery report function to check whether the event is delivered or not
 def delivery_report(err,msg):
@@ -74,11 +72,11 @@ def handle_shutdown(signum, frame):
 # we must separate the config for producer and consumer because they have different configurations for the Kafka client
 #configuration of producer in kafka client
 producer_config = (
-    read_config()
+    config()
 )  # as the producer config only needs the bootstrap server and auth configuration, no need for additional configuration for producer
 
 # configuration of consumer in kafka client
-consumer_config = read_config()
+consumer_config =config()
 consumer_config["group.id"] = os.getenv("KAFKA_CONSUMER_GROUP_ID")
 consumer_config["auto.offset.reset"] = "earliest"
 

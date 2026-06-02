@@ -21,6 +21,10 @@ predict_pipeline: Optional[PredictPipeline] = None
 kafka_producer: Optional[Producer] = None
 
 
+feature_engineering_pipeline = Feature_engineering()
+predict_pipeline = PredictPipeline()
+kafka_producer = Producer(producer_config)
+
 # defining the lifespan of our fraud detection endpoint or app
 #and we are loading the expensive instances of feature engineering and predict pipeline and also configuring the kafka producer, as the loading and configuration of these instances is time consuming 
 #so we are loading them at the start of the app
