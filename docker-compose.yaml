@@ -9,10 +9,7 @@ services:
     ports:
       - "8000:8000" 
     restart: always  
-    volumes:
-      # Mounting local client.properties into the container as read-only at the time of runtime as our kafka configuration file contains sensitive information such as credentials and we want to keep it secure.
-      # This keeps credentials OFF the image layer (never baked into Docker image) only available at the docker container runtime
-      - ./secrets/client.properties:/app/secrets/client.properties:ro  
+
     # Adding a health check to ensure the application is running and healthy. This allows Docker to automatically restart the container if it becomes unhealthy, improving the reliability of our fraud detection system.
     healthcheck:
       test: ["CMD", "curl", "-f", "-q", "http://localhost:8000/health"]
@@ -35,10 +32,6 @@ services:
     depends_on:  #only if there is prediction done by our model, we can show the transaction details as well as the prediction live on our dashboard
       api:
        condition: service_healthy  # Ensuring the dashboard starts only after the API is healthy and ready to serve requests, preventing connection issues and improving user experience. 
-    volumes:
-      # Mounting local client.properties into the container as read-only at the time of runtime as our kafka configuration file contains sensitive information such as credentials and we want to keep it secure.
-      # This keeps credentials OFF the image layer (never baked into Docker image) only available at the docker container runtime
-      - ./secrets/client.properties:/app/secrets/client.properties:ro 
     # Adding a health check to ensure the application is running and healthy. This allows Docker to automatically restart the container if it becomes unhealthy, improving the reliability of our fraud detection system.
     restart: always
     healthcheck:
