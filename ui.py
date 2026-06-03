@@ -40,9 +40,10 @@ def run_consumer():
             if (
                 not pause_event.is_set()
             ):  # checking if the consumer thread is in paused state or not by checking the pause_event state, if it is not set then it means the consumer thread is in paused state and we will wait for 0.2 second before checking again
-                time.sleep(0.2)
+                time.sleep(1)
                 continue
             # only if the consumer state is running, we proceed with the transactions
+            #checking new messages in kafka topic
             msg = consumer.poll(
                 1.0
             )  # polling for new messages with a timeout of 1 second
@@ -61,6 +62,7 @@ def run_consumer():
                         dlq_producer, msg.value(), f"Kafka error: {msg.error()}"
                     )  # sending the error message to the DLQ with reason for failure
                 continue
+
 
             # Processing the message
             try:
@@ -132,7 +134,6 @@ def start_consumer():
         new_thread = threading.Thread(target=run_consumer, daemon=True)
         new_thread.start()
         st.session_state["consumer_thread"] = new_thread
-        shared_state['consumer_thread'] = new_thread  # keeping shared_state in sync too
         logging.info("Consumer thread started.")
     else:
         logging.info("Consumer thread already running, skipping start.")

@@ -2250,3 +2250,336 @@ hutdown complete
 2026-06-02 11:47:38,556 - root - INFO - The given transaction is fraud
 2026-06-02 11:47:38,556 - root - INFO - Produced message to topic fraud_detection: key = C840083671 value = Fraud Transaction
 2026-06-02 11:47:38,656 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->5 offset->6
+2026-06-03 10:52:37,720 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-03 10:52:42,471 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-03 10:52:43,225 - root - INFO - ML pipelines loaded successfully
+2026-06-03 10:52:43,332 - root - INFO - kafka producer configured
+2026-06-03 10:53:03,261 - root - INFO - Consumer thread started.
+2026-06-03 10:53:03,263 - root - INFO - Consumer subscribed to topic fraud_detection
+2026-06-03 10:53:05,351 - root - INFO - Received message: {'transaction': {'step': 1, 'type': 'PAYMENT', 'amount': 1800.0, 'nameorig': 'C840083671', 'namedest': 'C38997010', 'oldbalanceorg': 27800000.0}, 'result': 'Valid Transaction', 'is_fraud': False} from topic fraud_detection partition 5 offset 3
+2026-06-03 10:53:05,516 - root - INFO - Received message: {'transaction': {'step': 1, 'type': 'TRANSFER', 'amount': 181.0, 'nameorig': 'C840083671', 'namedest': 'C38997010', 'oldbalanceorg': 181.0}, 'result': 'Fraud Transaction', 'is_fraud': True} from topic fraud_detection partition 5 offset 4
+2026-06-03 10:53:05,589 - root - INFO - Received message: {'transaction': {'step': 1, 'type': 'TRANSFER', 'amount': 181.0, 'nameorig': 'C840083671', 'namedest': 'C38997010', 'oldbalanceorg': 181.0}, 'result': 'Fraud Transaction', 'is_fraud': True} from topic fraud_detection partition 5 offset 5
+2026-06-03 10:53:05,657 - root - INFO - Received message: {'transaction': {'step': 1, 'type': 'TRANSFER', 'amount': 181.0, 'nameorig': 'C840083671', 'namedest': 'C38997010', 'oldbalanceorg': 181.0}, 'result': 'Fraud Transaction', 'is_fraud': True} from topic fraud_detection partition 5 offset 6
+2026-06-03 10:53:05,726 - root - INFO - Received message: {'transaction': {'step': 1, 'type': 'PAYMENT', 'amount': 9839.64, 'nameorig': 'C1231006815', 'namedest': 'M1979787155', 'oldbalanceorg': 170136.0}, 'result': 'Valid Transaction', 'is_fraud': False} from topic fraud_detection partition 1 offset 0
+2026-06-03 10:53:05,792 - root - INFO - Received message: {'transaction': {'step': 1, 'type': 'TRANSFER', 'amount': 181.0, 'nameorig': 'C1305486145', 'namedest': 'C553264065', 'oldbalanceorg': 181.0}, 'result': 'Fraud Transaction', 'is_fraud': True} from topic fraud_detection partition 3 offset 5
+2026-06-03 10:53:05,874 - root - INFO - Received message: {'transaction': {'step': 1, 'type': 'PAYMENT', 'amount': 9839.64, 'nameorig': 'C1231006815', 'namedest': 'M1979787155', 'oldbalanceorg': 170136.0}, 'result': 'Valid Transaction', 'is_fraud': False} from topic fraud_detection partition 1 offset 1
+2026-06-03 10:53:05,948 - root - INFO - Received message: {'transaction': {'step': 1, 'type': 'PAYMENT', 'amount': 9839.64, 'nameorig': 'C1231006815', 'namedest': 'M1979787155', 'oldbalanceorg': 170136.0}, 'result': 'Valid Transaction', 'is_fraud': False} from topic fraud_detection partition 1 offset 2
+2026-06-03 10:53:06,016 - root - INFO - Received message: {'transaction': {'step': 1, 'type': 'PAYMENT', 'amount': 9839.64, 'nameorig': 'C1231006815', 'namedest': 'M1979787155', 'oldbalanceorg': 1070136.0}, 'result': 'Valid Transaction', 'is_fraud': False} from topic fraud_detection partition 1 offset 3
+2026-06-03 10:53:14,875 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:53:15,131 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:53:17,303 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:53:17,346 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:53:24,848 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:53:25,166 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:53:28,376 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:53:29,140 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:53:29,947 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:53:30,925 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:53:37,103 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:53:38,239 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:53:43,292 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:53:51,689 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:53:52,276 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:54:05,364 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:54:12,218 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:54:12,496 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:54:13,912 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:54:14,268 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:54:15,636 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:54:17,041 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:54:18,184 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:54:20,761 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:54:24,952 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:54:26,061 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:54:26,466 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:54:38,080 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:54:45,787 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:55:01,783 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:55:02,463 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:55:08,842 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:55:09,472 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:55:13,327 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:55:14,617 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:55:34,681 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:55:47,738 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:55:50,063 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:55:50,417 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:55:50,750 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:55:50,940 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:55:51,166 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:55:51,393 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:55:53,185 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:56:22,420 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:56:31,893 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:56:32,113 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:56:33,175 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:56:33,608 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:25,296 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:27,163 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:30,985 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:32,205 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:36,790 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:36,996 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:40,344 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:40,882 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:48,583 - root - INFO - Consumer subscribed to topic fraud_detection
+2026-06-03 10:57:48,584 - root - INFO - Consumer thread started.
+2026-06-03 10:57:52,109 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:53,110 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:54,101 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:55,097 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:56,113 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:57,116 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:57,409 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:58,104 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:57:59,097 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:00,103 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:01,109 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:01,446 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:02,110 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:03,110 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:05,166 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:05,391 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:07,117 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:08,897 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:09,668 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:11,343 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:13,194 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:15,616 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:17,213 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:18,857 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:19,780 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:22,805 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:23,012 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:23,648 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:25,340 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:26,708 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:28,381 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:30,540 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:32,449 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:34,284 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:36,558 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:38,527 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:40,694 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:42,751 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:44,573 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:46,698 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:48,886 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:50,353 - root - INFO - Dataframe created from incoming features
+2026-06-03 10:58:50,865 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:52,614 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:54,693 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:56,416 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:58:58,582 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:00,410 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:01,176 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-03 10:59:01,526 - root - INFO - The given transaction is valid
+2026-06-03 10:59:01,543 - root - INFO - Produced message to topic fraud_detection: key = C2048537720 value = Valid Transaction
+2026-06-03 10:59:01,919 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:02,162 - root - INFO - Received message: {'transaction': {'step': 1, 'type': 'PAYMENT', 'amount': 11668.14, 'nameorig': 'C2048537720', 'namedest': 'M1230701703', 'oldbalanceorg': 41554.0}, 'result': 'Valid Transaction', 'is_fraud': False} from topic fraud_detection partition 1 offset 4
+2026-06-03 10:59:02,163 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->1 offset->4
+2026-06-03 10:59:02,686 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:04,213 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:05,156 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:06,106 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:07,131 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:08,105 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:09,110 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:10,358 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:11,099 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:16,201 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:16,416 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:18,474 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:20,257 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:22,508 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:24,483 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:26,455 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:28,353 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:30,987 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:32,581 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:34,421 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:51,013 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:51,672 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:52,063 - root - INFO - Dataframe created from incoming features
+2026-06-03 10:59:52,095 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-03 10:59:52,192 - root - INFO - The given transaction is fraud
+2026-06-03 10:59:52,193 - root - INFO - Produced message to topic fraud_detection: key = C840083671 value = Fraud Transaction
+2026-06-03 10:59:52,824 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->5 offset->7
+2026-06-03 10:59:52,824 - root - INFO - Received message: {'transaction': {'step': 1, 'type': 'CASH_OUT', 'amount': 181.0, 'nameorig': 'C840083671', 'namedest': 'C38997010', 'oldbalanceorg': 21182.0}, 'result': 'Fraud Transaction', 'is_fraud': True} from topic fraud_detection partition 5 offset 7
+2026-06-03 10:59:53,261 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:55,354 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:55,687 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:56,160 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:57,109 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:58,120 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 10:59:59,107 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:00:00,113 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:00:01,108 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:00:02,106 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:00:03,108 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:00:04,103 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:00:05,102 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:00:06,108 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:00:07,099 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:00:08,500 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:00:10,423 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:00:12,663 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:00:14,510 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:00:16,752 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:00:18,629 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:00:20,759 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:00:25,999 - root - INFO - flushing kafka producer
+2026-06-03 11:00:25,999 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-03 11:08:16,183 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-03 11:08:19,643 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-03 11:08:20,316 - root - INFO - ML pipelines loaded successfully
+2026-06-03 11:08:20,393 - root - INFO - kafka producer configured
+2026-06-03 11:08:30,788 - root - INFO - Consumer thread started.
+2026-06-03 11:08:30,812 - root - INFO - Consumer subscribed to topic fraud_detection
+2026-06-03 11:08:33,395 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:34,455 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:35,390 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:36,375 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:37,378 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:38,387 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:39,386 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:40,110 - root - INFO - Consumer thread started.
+2026-06-03 11:08:40,111 - root - INFO - Consumer subscribed to topic fraud_detection
+2026-06-03 11:08:40,705 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:41,424 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:42,151 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:42,393 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:43,136 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:43,384 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:44,391 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:44,656 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:45,389 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:46,145 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:46,388 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:47,388 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:48,377 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:48,589 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:49,386 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:50,058 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:50,380 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:50,656 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:51,381 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:52,018 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:52,387 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:53,389 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:53,663 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:54,388 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:55,391 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:55,627 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:56,377 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:57,367 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:57,378 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:58,392 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:59,390 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:08:59,513 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:00,388 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:01,150 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:01,378 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:02,390 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:02,902 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:03,388 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:03,657 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:04,378 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:05,029 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:05,375 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:06,394 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:06,689 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:06,796 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:07,392 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:08,380 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:08,844 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:09,388 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:10,388 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:10,678 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:11,390 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:12,388 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:12,672 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:13,374 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:14,305 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:14,396 - root - INFO - Dataframe created from incoming features
+2026-06-03 11:09:14,527 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:15,381 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:16,243 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:16,429 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:17,393 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:17,804 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:18,387 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:19,382 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:19,579 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:20,513 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:21,336 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:21,512 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:22,378 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:23,384 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:23,478 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:24,385 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:25,201 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:25,402 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:25,797 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-03 11:09:25,838 - root - INFO - The given transaction is fraud
+2026-06-03 11:09:25,842 - root - INFO - Produced message to topic fraud_detection: key = C840083671 value = Fraud Transaction
+2026-06-03 11:09:26,381 - root - INFO - Received message: {'transaction': {'step': 1, 'type': 'TRANSFER', 'amount': 181.0, 'nameorig': 'C840083671', 'namedest': 'C38997010', 'oldbalanceorg': 181.0}, 'result': 'Fraud Transaction', 'is_fraud': True} from topic fraud_detection partition 5 offset 8
+2026-06-03 11:09:26,381 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->5 offset->8
+2026-06-03 11:09:26,390 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:27,318 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:27,769 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:28,363 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:28,550 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:29,214 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:29,940 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:30,625 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:32,251 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:32,397 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:32,547 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:32,888 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:33,495 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:34,159 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:34,588 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:35,294 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:35,726 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:36,262 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:37,195 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:37,199 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:37,765 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:38,798 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:38,971 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:39,530 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:39,533 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:40,264 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:40,972 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:41,242 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:41,526 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:42,319 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:42,410 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:43,394 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:43,395 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:44,181 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:44,547 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:45,141 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:45,993 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:46,590 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:47,014 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:47,531 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:48,244 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:48,397 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:49,273 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:49,395 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:50,918 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:51,369 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:51,374 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:53,369 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:53,375 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:55,458 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:55,461 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:57,614 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:57,898 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:58,391 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:58,597 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:09:59,145 - root - INFO - Consumer thread already running, skipping start.
+2026-06-03 11:10:02,435 - root - INFO - flushing kafka producer
+2026-06-03 11:10:02,435 - root - INFO - kafka producer flushed, shutdown complete

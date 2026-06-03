@@ -17,5 +17,4 @@ shared_state = {
     "tpm_history": deque(maxlen=20),   #history of transactions per minute
     "last_alert": None,     #last fraud transaction details
     "running": True,        #running state of consumer thread 
-    "consumer_thread": None #consumer thread state to control the lifecycle of consumer thread in the background 
 }
