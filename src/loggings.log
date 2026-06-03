@@ -2089,3 +2089,164 @@ hutdown complete
 2026-06-02 10:27:33,725 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->3 offset->4
 2026-06-02 10:29:16,895 - root - INFO - flushing kafka producer
 2026-06-02 10:29:16,895 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:01:12,158 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:01:18,109 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:01:18,838 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:01:32,637 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:01:32,651 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:01:32,758 - root - INFO - kafka producer configured
+2026-06-02 11:02:01,445 - root - INFO - flushing kafka producer
+2026-06-02 11:02:01,446 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:02:06,338 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:02:13,905 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:02:18,119 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:02:28,097 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:02:28,196 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:02:28,456 - root - INFO - kafka producer configured
+2026-06-02 11:03:18,429 - root - INFO - Dataframe created from incoming features
+2026-06-02 11:03:27,942 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-02 11:03:28,139 - root - INFO - The given transaction is valid
+2026-06-02 11:03:28,149 - root - INFO - Produced message to topic fraud_detection: key = C1231006815 value = Valid Transaction
+2026-06-02 11:03:28,834 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->1 offset->0
+2026-06-02 11:06:13,846 - root - INFO - flushing kafka producer
+2026-06-02 11:06:13,856 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:06:21,608 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:06:30,447 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:06:30,937 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:06:37,259 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:06:37,274 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:06:37,379 - root - INFO - kafka producer configured
+2026-06-02 11:06:46,483 - root - INFO - Dataframe created from incoming features
+2026-06-02 11:06:53,261 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-02 11:06:53,427 - root - INFO - The given transaction is valid
+2026-06-02 11:06:53,437 - root - INFO - Produced message to topic fraud_detection: key = C1231006815 value = Valid Transaction
+2026-06-02 11:06:54,124 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->1 offset->1
+2026-06-02 11:07:16,444 - root - INFO - Dataframe created from incoming features
+2026-06-02 11:07:16,469 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-02 11:07:16,524 - root - INFO - The given transaction is valid
+2026-06-02 11:07:16,524 - root - INFO - Produced message to topic fraud_detection: key = C1231006815 value = Valid Transaction
+2026-06-02 11:07:16,611 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->1 offset->2
+2026-06-02 11:08:36,717 - root - INFO - flushing kafka producer
+2026-06-02 11:08:36,718 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:08:42,611 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:08:46,882 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:08:47,258 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:08:56,329 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:08:56,346 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:08:56,441 - root - INFO - kafka producer configured
+2026-06-02 11:08:56,548 - root - INFO - flushing kafka producer
+2026-06-02 11:08:56,550 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:09:01,193 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:09:04,255 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:09:04,583 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:09:09,182 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:09:09,188 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:09:09,295 - root - INFO - kafka producer configured
+2026-06-02 11:09:36,985 - root - INFO - Dataframe created from incoming features
+2026-06-02 11:09:44,360 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-02 11:09:44,383 - root - INFO - The given transaction is valid
+2026-06-02 11:09:44,387 - root - INFO - Produced message to topic fraud_detection: key = C1231006815 value = Valid Transaction
+2026-06-02 11:09:45,061 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->1 offset->3
+2026-06-02 11:15:53,248 - root - INFO - flushing kafka producer
+2026-06-02 11:15:53,255 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:17:44,347 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:17:51,635 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:17:52,226 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:17:59,051 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:17:59,114 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:17:59,381 - root - INFO - kafka producer configured
+2026-06-02 11:19:24,619 - root - INFO - Dataframe created from incoming features
+2026-06-02 11:19:32,886 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-02 11:19:33,202 - root - INFO - The given transaction is valid
+2026-06-02 11:19:33,237 - root - INFO - Produced message to topic fraud_detection: key = C840083671 value = Valid Transaction
+2026-06-02 11:19:33,971 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->5 offset->3
+2026-06-02 11:20:39,442 - root - INFO - flushing kafka producer
+2026-06-02 11:20:39,444 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:20:47,841 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:20:54,028 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:20:54,684 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:21:04,240 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:21:04,276 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:21:04,482 - root - INFO - kafka producer configured
+2026-06-02 11:22:23,318 - root - INFO - flushing kafka producer
+2026-06-02 11:22:23,320 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:22:35,578 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:22:42,852 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:22:45,117 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:22:59,923 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:22:59,989 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:23:00,385 - root - INFO - kafka producer configured
+2026-06-02 11:27:11,900 - root - INFO - Dataframe created from incoming features
+2026-06-02 11:27:21,513 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-02 11:27:21,656 - root - INFO - The given transaction is fraud
+2026-06-02 11:27:21,681 - root - INFO - Produced message to topic fraud_detection: key = C840083671 value = Fraud Transaction
+2026-06-02 11:27:22,478 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->5 offset->4
+2026-06-02 11:30:14,900 - root - INFO - flushing kafka producer
+2026-06-02 11:30:14,902 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:30:25,873 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:30:35,067 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:30:36,374 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:30:36,501 - root - INFO - kafka producer configured
+2026-06-02 11:31:05,929 - root - INFO - Dataframe created from incoming features
+2026-06-02 11:31:15,613 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-02 11:31:16,054 - root - INFO - The given transaction is fraud
+2026-06-02 11:31:16,097 - root - INFO - Produced message to topic fraud_detection: key = C1305486145 value = Fraud Transaction
+2026-06-02 11:31:16,735 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->3 offset->5
+2026-06-02 11:42:28,395 - root - INFO - flushing kafka producer
+2026-06-02 11:42:28,397 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:42:36,593 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:42:39,850 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:42:40,169 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:42:40,231 - root - INFO - kafka producer configured
+2026-06-02 11:42:49,523 - root - INFO - flushing kafka producer
+2026-06-02 11:42:49,523 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:42:56,223 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:43:06,069 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:43:06,187 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:43:06,568 - root - INFO - kafka producer configured
+2026-06-02 11:43:29,274 - root - INFO - flushing kafka producer
+2026-06-02 11:43:29,274 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:43:36,400 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:43:42,865 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:43:43,076 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:43:43,118 - root - INFO - kafka producer configured
+2026-06-02 11:43:43,555 - root - INFO - flushing kafka producer
+2026-06-02 11:43:43,555 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:43:46,872 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:43:50,072 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:43:50,318 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:43:50,360 - root - INFO - kafka producer configured
+2026-06-02 11:45:22,355 - root - INFO - flushing kafka producer
+2026-06-02 11:45:22,355 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:45:26,501 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:45:30,624 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:45:30,720 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:45:30,733 - root - INFO - kafka producer configured
+2026-06-02 11:45:30,841 - root - INFO - flushing kafka producer
+2026-06-02 11:45:30,842 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:45:34,521 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:45:37,868 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:45:37,931 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:45:37,948 - root - INFO - kafka producer configured
+2026-06-02 11:45:38,057 - root - INFO - flushing kafka producer
+2026-06-02 11:45:38,058 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:45:41,186 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:45:44,221 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:45:44,428 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:45:44,473 - root - INFO - kafka producer configured
+2026-06-02 11:45:44,591 - root - INFO - flushing kafka producer
+2026-06-02 11:45:44,591 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-02 11:46:13,695 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-02 11:46:17,266 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-02 11:46:17,481 - root - INFO - ML pipelines loaded successfully
+2026-06-02 11:46:17,542 - root - INFO - kafka producer configured
+2026-06-02 11:47:02,078 - root - INFO - Dataframe created from incoming features
+2026-06-02 11:47:08,331 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-02 11:47:08,460 - root - INFO - The given transaction is fraud
+2026-06-02 11:47:08,464 - root - INFO - Produced message to topic fraud_detection: key = C840083671 value = Fraud Transaction
+2026-06-02 11:47:09,093 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->5 offset->5
+2026-06-02 11:47:38,545 - root - INFO - Dataframe created from incoming features
+2026-06-02 11:47:38,554 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-02 11:47:38,556 - root - INFO - The given transaction is fraud
+2026-06-02 11:47:38,556 - root - INFO - Produced message to topic fraud_detection: key = C840083671 value = Fraud Transaction
+2026-06-02 11:47:38,656 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->5 offset->6

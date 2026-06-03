@@ -1,4 +1,3 @@
-import streamlit as st
 import threading
 from collections import deque, defaultdict
 
@@ -10,13 +9,13 @@ pause_event.set()  # running the consumer thread by default when the app starts 
 state_lock = threading.RLock() 
 # Shared runtime state (NOT Streamlit session_state) as the session state cannot be shared across multiple threads
 shared_state = {
-    "messages": deque(maxlen=200),  #
-    "total": 0,
-    "fraud_count": 0,
-    "legit_count": 0,
-    "type_counts": defaultdict(lambda: {"fraud": 0, "legit": 0}),
-    "tpm_history": deque(maxlen=20),
-    "last_alert": None,
-    "running": True,
-    "consumer_thread": None
+    "messages": deque(maxlen=200),  #total number of transaction details with the time of transaction received and the value of kafka partition
+    "total": 0,  #total number of transactions
+    "fraud_count": 0,  #total number of fraud transactions
+    "legit_count": 0,  #total number of legit transactions
+    "type_counts": defaultdict(lambda: {"fraud": 0, "legit": 0}),   #total number of fraud and legit transactions based on the type of transactions
+    "tpm_history": deque(maxlen=20),   #history of transactions per minute
+    "last_alert": None,     #last fraud transaction details
+    "running": True,        #running state of consumer thread 
+    "consumer_thread": None #consumer thread state to control the lifecycle of consumer thread in the background 
 }

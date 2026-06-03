@@ -13,12 +13,15 @@ from kafka_client import (
 import streamlit as st
 import json
 from state import  pause_event, state_lock, shared_state
-from dashboard_ui import display_ui
+from dashboard import display_ui
 from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(
     page_title="Real-Time Fraud Detection Dashboard", page_icon="🛡️", layout="wide"
 )
+st_autorefresh(interval=1000)
+# At the top of your streamlit app file, after imports
+
 
 
 
@@ -112,7 +115,8 @@ def run_consumer():
                 # then we update the dashboard in real time with the prediction results of our model.
 
             except Exception as e:
-                logging.error(f"Error processing message: {e}")
+                                     # <-- add this
+                logging.error(f"Unexpected error in consumer thread: {e}", exc_info=True)
                 send_to_dlq(dlq_producer, msg.value(), f"Processing error: {e}")
     except KafkaException as ke:
         logging.error(f"Kafka error: {ke}")
@@ -123,19 +127,15 @@ def run_consumer():
 
 
 def start_consumer():
-    t = shared_state['consumer_thread']
-    if (
-        t is None or not t.is_alive()
-    ):  # checking if the consumer thread is not already started, if not then we will set the pause_event to allow the consumer thread to run and update the consumer_thread variable to this new thread
-        new_thread = threading.Thread(
-            target=run_consumer, daemon=True
-        )  # creating a consumer thread to run the consumer function in the background so that it does not block the main thread of streamlit and allows us to update the dashboard in real time
-        #and using daemon=True make sure that the consumer thread will automatically exit when the main thread of streamlit exits
-        new_thread.start()  # starting the consumer thread
-        shared_state['consumer_thread'] = new_thread  # storing the new consumer thread object in the session state to control it later when the user clicks on the pause and resume button in the dashboard UI
+    if "consumer_thread" not in st.session_state or not st.session_state["consumer_thread"].is_alive():
+        
+        new_thread = threading.Thread(target=run_consumer, daemon=True)
+        new_thread.start()
+        st.session_state["consumer_thread"] = new_thread
+        shared_state['consumer_thread'] = new_thread  # keeping shared_state in sync too
         logging.info("Consumer thread started.")
+    else:
+        logging.info("Consumer thread already running, skipping start.")
+start_consumer()  # Starting the consumer thread to consume messages from the kafka topic
 
-
-start_consumer()  # starting the consumer thread to consume the messages from the kafka topic in the background and update the dashboard in real time with the prediction results of our model.
-display_ui()  # calling the function to display the dashboard UI and only on main thread
-st_autorefresh(interval=1000)
+display_ui()

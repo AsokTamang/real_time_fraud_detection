@@ -21,10 +21,6 @@ predict_pipeline: Optional[PredictPipeline] = None
 kafka_producer: Optional[Producer] = None
 
 
-feature_engineering_pipeline = Feature_engineering()
-predict_pipeline = PredictPipeline()
-kafka_producer = Producer(producer_config)
-
 # defining the lifespan of our fraud detection endpoint or app
 #and we are loading the expensive instances of feature engineering and predict pipeline and also configuring the kafka producer, as the loading and configuration of these instances is time consuming 
 #so we are loading them at the start of the app
@@ -130,7 +126,7 @@ def predict(data: PredictRequest):
         # here we are using the nameorig of the transaction user as the key , so that the messages of the same account holder of transaction will be stored in the same partition
         kafka_producer.produce(
             FRAUD_RESULT_TOPIC,
-            key=str(data.nameorig),
+            key=str(data.nameorig),  #acts as the partitioning key for kafka topic
             value=json.dumps(kafka_payload),
             on_delivery=delivery_report,
         )  

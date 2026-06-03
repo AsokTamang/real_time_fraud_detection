@@ -4,7 +4,7 @@ from src.logger import logging
 from confluent_kafka import Producer
 import json
 from dotenv import load_dotenv
-load_dotenv(dotenv_path=os.path.join('secrets','env'))  # loading the environment variables from .env file
+load_dotenv(dotenv_path=os.path.join('secrets','.env'))  # loading the environment variables from .env file
 
 CONFIG_PATH = os.getenv("KAFKA_CONFIG_PATH")
 TRANSACTION_TOPIC = os.getenv(
