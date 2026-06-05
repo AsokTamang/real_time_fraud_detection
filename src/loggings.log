@@ -3400,3 +3400,52 @@ cimpl.KafkaException: KafkaError{code=_NO_OFFSET,val=-168,str="Commit failed: Lo
 2026-06-04 22:35:51,711 - root - INFO - kafka producer configured
 2026-06-04 22:39:22,806 - root - INFO - flushing kafka producer
 2026-06-04 22:39:22,812 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-04 23:13:23,661 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-04 23:13:30,462 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-04 23:13:30,903 - root - INFO - ML pipelines loaded successfully
+2026-06-04 23:13:30,969 - root - INFO - kafka producer configured
+2026-06-04 23:13:31,365 - root - INFO - Consumer thread started.
+2026-06-04 23:13:31,391 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 23:13:33,388 - root - INFO - Partitions assigned: ['topic: fraud_detection and partition: 0', 'topic: fraud_detection and partition: 1', 'topic: fraud_detection and partition: 2', 'topic: fraud_detection and partition: 3', 'topic: fraud_detection and partition: 4', 'topic: fraud_detection and partition: 5']
+2026-06-04 23:13:35,185 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:13:38,692 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:13:39,485 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:13:41,494 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:13:43,491 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:13:46,599 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:13:48,633 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:13:50,717 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:13:51,492 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:13:53,483 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:13:55,484 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:13:58,655 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:13:59,506 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:02,535 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:04,363 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:06,483 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:08,472 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:09,503 - root - INFO - Dataframe created from incoming features
+2026-06-04 23:14:10,488 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:12,396 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:13,263 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:16,235 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:17,577 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-04 23:14:17,734 - root - INFO - The given transaction is valid
+2026-06-04 23:14:18,287 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:18,454 - root - INFO - Processed offset 21 | fraud=False | type=PAYMENT
+2026-06-04 23:14:19,173 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:21,636 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:23,511 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:25,459 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:27,364 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:29,354 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:31,431 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:33,188 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:35,855 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:39,514 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:41,191 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:43,482 - root - INFO - Consumer thread already running — skipping.
+2026-06-04 23:14:44,710 - root - INFO - flushing kafka producer
+2026-06-04 23:14:44,710 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->5 offset->21
+2026-06-04 23:14:44,711 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-04 23:14:45,495 - root - INFO - Consumer thread already running — skipping.
