@@ -66,6 +66,6 @@ producer_config = config.copy()
 # configuration of consumer in kafka client
 consumer_config =config.copy()
 consumer_config["group.id"] = os.getenv("KAFKA_CONSUMER_GROUP_ID")
-consumer_config["auto.offset.reset"] = "earliest"
+consumer_config["auto.offset.reset"] = "latest"   #here we are setting  the autooffset reset to latest so that the consumer will start consuming messages from the latest offset only
 
 

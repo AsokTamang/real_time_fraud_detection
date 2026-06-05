@@ -2643,3 +2643,139 @@ hutdown complete
 2026-06-03 13:34:47,836 - root - INFO - Dataframe created from incoming features
 2026-06-03 13:34:57,741 - root - INFO - feature engineering applied on incoming transaction dataset.
 2026-06-03 13:34:58,052 - root - INFO - The given transaction is fraud
+2026-06-04 21:34:55,983 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-04 21:34:59,338 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-04 21:34:59,692 - root - INFO - ML pipelines loaded successfully
+2026-06-04 21:34:59,769 - root - INFO - kafka producer configured
+2026-06-04 21:35:06,599 - root - INFO - flushing kafka producer
+2026-06-04 21:35:06,599 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-04 21:35:11,289 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-04 21:35:15,124 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-04 21:35:15,383 - root - INFO - ML pipelines loaded successfully
+2026-06-04 21:35:15,426 - root - INFO - kafka producer configured
+2026-06-04 21:35:50,884 - root - INFO - Dataframe created from incoming features
+2026-06-04 21:35:56,768 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-04 21:35:56,789 - root - INFO - The given transaction is fraud
+2026-06-04 21:36:05,910 - root - INFO - Consumer thread started.
+2026-06-04 21:36:05,913 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:11,244 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:11,244 - root - INFO - Consumer thread started.
+2026-06-04 21:36:13,492 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:13,493 - root - INFO - Consumer thread started.
+2026-06-04 21:36:15,235 - root - INFO - Consumer thread started.
+2026-06-04 21:36:15,240 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:17,495 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:17,495 - root - INFO - Consumer thread started.
+2026-06-04 21:36:19,521 - root - INFO - Consumer thread started.
+2026-06-04 21:36:19,531 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:21,522 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:21,522 - root - INFO - Consumer thread started.
+2026-06-04 21:36:24,468 - root - INFO - Consumer thread started.
+2026-06-04 21:36:24,479 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:26,389 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:26,389 - root - INFO - Consumer thread started.
+2026-06-04 21:36:28,164 - root - INFO - Consumer thread started.
+2026-06-04 21:36:28,167 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:30,262 - root - INFO - Consumer thread started.
+2026-06-04 21:36:30,263 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:32,047 - root - INFO - Consumer thread started.
+2026-06-04 21:36:32,054 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:33,588 - root - INFO - Consumer thread started.
+2026-06-04 21:36:33,675 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:35,377 - root - INFO - Consumer thread started.
+2026-06-04 21:36:35,405 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:37,508 - root - INFO - Consumer thread started.
+2026-06-04 21:36:37,509 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:39,354 - root - INFO - Dataframe created from incoming features
+2026-06-04 21:36:39,363 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-04 21:36:39,365 - root - INFO - The given transaction is fraud
+2026-06-04 21:36:39,365 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->5 offset->15
+2026-06-04 21:36:39,498 - root - INFO - Consumer thread started.
+2026-06-04 21:36:39,507 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:41,229 - root - INFO - Consumer thread started.
+2026-06-04 21:36:41,245 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:43,498 - root - INFO - Consumer thread started.
+2026-06-04 21:36:43,498 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:45,498 - root - INFO - Consumer thread started.
+2026-06-04 21:36:45,498 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:47,508 - root - INFO - Consumer thread started.
+2026-06-04 21:36:47,508 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:50,474 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:50,475 - root - INFO - Consumer thread started.
+2026-06-04 21:36:52,553 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:52,553 - root - INFO - Consumer thread started.
+2026-06-04 21:36:54,447 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:54,447 - root - INFO - Consumer thread started.
+2026-06-04 21:36:55,201 - root - INFO - Dataframe created from incoming features
+2026-06-04 21:36:55,222 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-04 21:36:55,225 - root - INFO - The given transaction is fraud
+2026-06-04 21:36:55,226 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->5 offset->16
+2026-06-04 21:36:56,272 - root - INFO - Consumer thread started.
+2026-06-04 21:36:56,273 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:58,346 - root - INFO - Consumer thread started.
+2026-06-04 21:36:58,371 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:59,964 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:36:59,965 - root - INFO - Consumer thread started.
+2026-06-04 21:37:01,995 - root - INFO - Consumer thread started.
+2026-06-04 21:37:01,996 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:37:04,007 - root - INFO - Consumer thread started.
+2026-06-04 21:37:04,008 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:37:05,121 - root - INFO - Dataframe created from incoming features
+2026-06-04 21:37:05,143 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-04 21:37:05,231 - root - INFO - The given transaction is fraud
+2026-06-04 21:37:05,232 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->5 offset->17
+2026-06-04 21:37:05,994 - root - INFO - Consumer thread started.
+2026-06-04 21:37:05,994 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:37:07,804 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:37:07,804 - root - INFO - Consumer thread started.
+2026-06-04 21:37:09,791 - root - INFO - Dataframe created from incoming features
+2026-06-04 21:37:09,819 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-04 21:37:09,822 - root - INFO - The given transaction is fraud
+2026-06-04 21:37:09,822 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->5 offset->18
+2026-06-04 21:37:09,858 - root - INFO - Consumer thread started.
+2026-06-04 21:37:09,869 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:37:11,798 - root - INFO - Consumer thread started.
+2026-06-04 21:37:11,807 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:37:13,552 - root - INFO - Consumer thread started.
+2026-06-04 21:37:13,554 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:37:15,602 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:37:15,602 - root - INFO - Consumer thread started.
+2026-06-04 21:37:17,458 - root - INFO - Consumer thread started.
+2026-06-04 21:37:17,459 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:37:19,571 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:37:19,572 - root - INFO - Consumer thread started.
+2026-06-04 21:37:21,585 - root - INFO - Consumer thread started.
+2026-06-04 21:37:21,586 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:37:23,499 - root - INFO - Consumer thread started.
+2026-06-04 21:37:23,500 - root - INFO - Consumer subscribed to fraud_detection
+2026-06-04 21:38:32,001 - root - INFO - Dataframe created from incoming features
+2026-06-04 21:38:32,007 - root - INFO - feature engineering applied on incoming transaction dataset.
+2026-06-04 21:38:32,009 - root - INFO - The given transaction is valid
+2026-06-04 21:38:32,009 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->5 offset->19
+2026-06-04 21:39:46,362 - root - INFO - flushing kafka producer
+2026-06-04 21:39:46,362 - root - INFO - kafka message delivered, topic->fraud_detectionpartition->1 offset->5
+2026-06-04 21:39:46,362 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-04 21:39:51,691 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-04 21:39:57,806 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-04 21:39:57,883 - root - INFO - ML pipelines loaded successfully
+2026-06-04 21:39:57,895 - root - INFO - kafka producer configured
+2026-06-04 21:40:08,481 - root - INFO - flushing kafka producer
+2026-06-04 21:40:08,481 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-04 21:40:13,056 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-04 21:40:15,582 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-04 21:40:15,651 - root - INFO - ML pipelines loaded successfully
+2026-06-04 21:40:15,665 - root - INFO - kafka producer configured
+2026-06-04 21:40:30,025 - root - INFO - flushing kafka producer
+2026-06-04 21:40:30,026 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-04 21:40:33,587 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-04 21:40:36,602 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-04 21:40:36,824 - root - INFO - ML pipelines loaded successfully
+2026-06-04 21:40:36,860 - root - INFO - kafka producer configured
+2026-06-04 21:40:36,979 - root - INFO - flushing kafka producer
+2026-06-04 21:40:36,979 - root - INFO - kafka producer flushed, shutdown complete
+2026-06-04 21:40:41,225 - root - INFO - Loading object from artifacts\preprocessors.pkl
+2026-06-04 21:40:47,538 - root - INFO - Loading object from artifacts\best_model_info.pkl
+2026-06-04 21:40:47,674 - root - INFO - ML pipelines loaded successfully
+2026-06-04 21:40:47,695 - root - INFO - kafka producer configured
+2026-06-04 21:41:35,595 - root - INFO - flushing kafka producer
+2026-06-04 21:41:35,595 - root - INFO - kafka producer flushed, shutdown complete

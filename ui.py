@@ -29,10 +29,10 @@ def run_consumer() -> None:
     dlq_producer = Producer(producer_config)
 
     def on_assign(c, partitions):  #this functions is called when the consumer subscirbed to the particulat topic like below is assigned a partition
-        logging.info(f"Partitions assigned: {partitions}")
+        logging.info(f"Partitions assigned: {repr(partitions)}")
 
     def on_revoke(c, partitions):  #this function is called when the consumer is removed from a partititon and the messages that are not yet committed from offsets are committed before the consumer is removed from the partition, inorder to prevent the processing of duplicate messages
-        logging.info(f"Partitions revoked — committing offsets: {partitions}")
+        logging.info(f"Partitions revoked — committing offsets: {repr(partitions)}")
         c.commit(asynchronous=False)
 
     try:
