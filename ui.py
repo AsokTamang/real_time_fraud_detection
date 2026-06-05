@@ -121,13 +121,13 @@ def run_consumer() -> None:
             consumer.close()
         except Exception as e:
             logging.error(f"Error closing consumer: {e}", exc_info=True) 
-        dlq_producer.flush()
+        dlq_producer.flush()  #flushing the remaining buffered messages  before shutting down the consumer thread
         logging.info("Consumer shut down cleanly.")
 
 
 def start_consumer() -> None:
     "Starting the consumer thread exactly once, even across multiple Streamlit reruns"
-    if 'consumer_thread' not in st.session_state: #checking whether the consumer thread is already created as key or not
+    if 'consumer_thread' not in st.session_state: #checking whether the consumer thread is already created as key or not inside the streamlit session state , as the session state persists across multiple reruns of the streamlit
         st.session_state.consumer_thread = None
     thread:threading.Thread|None = st.session_state.consumer_thread
     if thread is None or not thread.is_alive():  #checking whether the consumer thread is alive or not
@@ -141,4 +141,4 @@ def start_consumer() -> None:
 
 
 start_consumer()
-display_ui()
+display_ui()   #our real time dashboard
