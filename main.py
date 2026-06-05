@@ -124,19 +124,23 @@ def predict(data: PredictRequest):
 
         # Producer code to queue the prediction result to the Kafka topic
         # here we are using the nameorig of the transaction user as the key , so that the messages of the same account holder of transaction will be stored in the same partition
-        kafka_producer.produce(
-            FRAUD_RESULT_TOPIC,
-            key=str(data.nameorig),  #acts as the partitioning key for kafka topic
-            value=json.dumps(kafka_payload),
-            on_delivery=delivery_report,
-        )  
-        logging.info(
-            f"Produced message to topic {FRAUD_RESULT_TOPIC}: key = {data.nameorig} value = {result['result']:12}"
-        )
-        # finally sending the queued message to the Kafka topic
-        kafka_producer.poll(
-            1
-        )  #to trigger the delivery report callback function immediately after producing the message
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                kafka_producer.produce(
+                    FRAUD_RESULT_TOPIC,
+                    key=str(data.nameorig)[:64],   #capping key length
+                    value=json.dumps(kafka_payload),
+                    on_delivery=delivery_report,
+                )
+                kafka_producer.poll(0)  
+                break
+            except BufferError:
+                if attempt < max_retries - 1:
+                    logging.warning(f"Kafka producer queue full, retry {attempt + 1}")
+                    kafka_producer.poll(0.5)
+                else:
+                    raise HTTPException(status_code=503, detail="Kafka producer queue full")
 
         return result
     except HTTPException as http_exc:

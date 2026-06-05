@@ -5,6 +5,10 @@ from collections import deque, defaultdict
 pause_event = threading.Event()  # Event to control pausing and resuming the consumer thread
 pause_event.set()  # running the consumer thread by default when the app starts as we use this pause_event in our consumer thread
 
+stop_event = threading.Event()  # Event to signal the consumer thread to stop gracefully when the app is shutting down
+
+
+
 #this lock is for synchronizing the access to the state called shared_state across main as well as background threads
 state_lock = threading.RLock() 
 # Shared runtime state (NOT Streamlit session_state) as the session state cannot be shared across multiple threads
@@ -18,3 +22,5 @@ shared_state = {
     "last_alert": None,     #last fraud transaction details
     "running": True,        #running state of consumer thread 
 }
+
+VALID_TRANSACTION_TYPES = {"PAYMENT", "TRANSFER", "CASH_OUT", "DEBIT", "CASH_IN"}

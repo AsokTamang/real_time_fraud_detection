@@ -1,142 +1,135 @@
-from datetime import datetime
 import threading
 import json
 import time
+from datetime import datetime
 from confluent_kafka import Consumer, Producer, KafkaException, KafkaError
+
 from src.logger import logging
-from kafka_client import (
-    producer_config,
-    FRAUD_RESULT_TOPIC,
-    consumer_config,
-    send_to_dlq,
-)
+from kafka_client import producer_config, FRAUD_RESULT_TOPIC, consumer_config, send_to_dlq
+from state import pause_event, stop_event, state_lock, shared_state, VALID_TRANSACTION_TYPES
+
 import streamlit as st
-import json
-from state import  pause_event, state_lock, shared_state
 from dashboard import display_ui
 from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(
-    page_title="Real-Time Fraud Detection Dashboard", page_icon="🛡️", layout="wide"
+    page_title="Real-Time Fraud Detection Dashboard",
+    page_icon="🛡️",
+    layout="wide",
 )
-st_autorefresh(interval=1000)
-# At the top of your streamlit app file, after imports
+st_autorefresh(interval=2000)  
 
 
+_consumer_thread: threading.Thread | None = None
+_thread_lock = threading.Lock()
 
 
+def run_consumer() -> None:
+    consumer = Consumer(consumer_config)
+    dlq_producer = Producer(producer_config)
 
-def run_consumer():
-    consumer = Consumer(consumer_config)  #configured consumer to consume messages from kafka topic
-    dlq_producer = Producer(producer_config)  #configured producer to send the failed messages to the DLQ topic
+    def on_assign(c, partitions):  #this functions is called when the consumer subscirbed to the particulat topic like below is assigned a partition
+        logging.info(f"Partitions assigned: {partitions}")
+
+    def on_revoke(c, partitions):  #this function is called when the consumer is removed from a partititon and the messages that are not yet committed from offsets are committed before the consumer is removed from the partition, inorder to prevent the processing of duplicate messages
+        logging.info(f"Partitions revoked — committing offsets: {partitions}")
+        c.commit(asynchronous=False)
+
     try:
-        consumer.subscribe(
-            [FRAUD_RESULT_TOPIC]
-        )  # subscribing to the topic where the prediction result is produced by the producer
-        logging.info(f"Consumer subscribed to topic {FRAUD_RESULT_TOPIC}")
+        consumer.subscribe([FRAUD_RESULT_TOPIC], on_assign=on_assign, on_revoke=on_revoke)
+        logging.info(f"Consumer subscribed to {FRAUD_RESULT_TOPIC}")
 
-        while True:
-            # if the running state of the consumer is false then we wait for 1 second and again check the running state of the consumer
-            if (
-                not pause_event.is_set()
-            ):  # checking if the consumer thread is in paused state or not by checking the pause_event state, if it is not set then it means the consumer thread is in paused state and we will wait for 0.2 second before checking again
-                time.sleep(1)
+        while not stop_event.is_set():     #checking the stop_event to allow graceful shutdown, if the stop_event is not set the we keep the consumer running and polling for messages
+            if not pause_event.is_set():   #checking whether the pause event is set or not , to check if the consumer thread is paused or not 
+                time.sleep(0.2)
                 continue
-            # only if the consumer state is running, we proceed with the transactions
-            #checking new messages in kafka topic
-            msg = consumer.poll(
-                1.0
-            )  # polling for new messages with a timeout of 1 second
+
+            msg = consumer.poll(1.0)
             if msg is None:
-                continue  # no message received, continue polling
+                continue
             if msg.error():
-                if (
-                    msg.error().code() == KafkaError._PARTITION_EOF
-                ):  # checking if the error is due to reaching the end of the partition,
-                    logging.info(
-                        f"End of partition reached {msg.topic()} [{msg.partition()}]"
-                    )
-                else:  # if the error is due to other reasons
+                if msg.error().code() == KafkaError._PARTITION_EOF:
+                    logging.info(f"EOF: {msg.topic()}[{msg.partition()}]")
+                else:
                     logging.error(f"Kafka error: {msg.error()}")
-                    send_to_dlq(
-                        dlq_producer, msg.value(), f"Kafka error: {msg.error()}"
-                    )  # sending the error message to the DLQ with reason for failure
+                    send_to_dlq(dlq_producer, msg.value(), f"Kafka error: {msg.error()}")
                 continue
 
-
-            # Processing the message
             try:
-                # loading the payload
-                raw_value = msg.value()
-                message_value = (
-                    json.loads(raw_value.decode("utf-8")) if raw_value else None
-                )  # decoding the message value from bytes to string and converting into python object
-                logging.info(
-                    f"Received message: {message_value} from topic {msg.topic()} partition {msg.partition()} offset {msg.offset()}"
-                )
-                transaction_data = message_value[
-                    "transaction"
-                ]  # All the incoming transaction details from the frontend are stored in the key called transaction inside the payload
-                transaction_type = transaction_data[
-                    "type"
-                ]  # type of incoming transaction
+                raw = msg.value()
+                if not raw:
+                    logging.warning("Received empty message — skipping")
+                    consumer.commit(asynchronous=False)
+                    continue
+
+                payload: dict = json.loads(raw.decode("utf-8"))
+                transaction: dict = payload.get("transaction", {})
+                is_fraud: bool = payload.get("is_fraud", False)
+
+             
+                t_type: str = (transaction.get("type") or "UNKNOWN").upper()
+                if t_type not in VALID_TRANSACTION_TYPES:
+                    logging.warning(f"Unknown transaction type '{t_type}' — defaulting to UNKNOWN")
+                    t_type = "UNKNOWN"
 
                 enriched = {
-                    **message_value,
+                    **payload,
                     "received_at": datetime.now().strftime("%H:%M:%S"),
                     "partition": msg.partition(),
                     "offset": msg.offset(),
                 }
-                # if the passed transaction in the payload is fraudulent transaction, then we increase the number of variables accordingly
-                with state_lock:  # acquiring the lock to update the shared state variables in a thread safe way
-                    if message_value["is_fraud"]:
-                        shared_state['fraud_count'] += 1  # incrementing the total number of transactions predicted as fraud
-                        shared_state['type_counts'][transaction_type][
-                            "fraud"
-                        ] += 1  # incrementing the total number of transactions predicted as fraud for the specific type of transaction
-                        shared_state['last_alert'] = enriched  # storing the enriched message in the session state to show it as the last alert in the dashboard if the transaction is predicted fraud by our model
+
+               
+                with state_lock:
+                    shared_state["total"] += 1
+                    if is_fraud:
+                        shared_state["fraud_count"] += 1
+                        shared_state["type_counts"][t_type]["fraud"] += 1
+                        shared_state["last_alert"] = enriched
                     else:
-                        shared_state['legit_count'] += 1  # incrementing the total number of transactions predicted as legit
-                        shared_state['type_counts'][transaction_type][
-                            "legit"
-                        ] += 1  # incrementing the total number of transactions predicted as legit for the specific type of transaction
-                    shared_state['tpm_history'].append(
+                        shared_state["legit_count"] += 1
+                        shared_state["type_counts"][t_type]["legit"] += 1
+
+                    shared_state["tpm_history"].append(
                         {"time": datetime.now().strftime("%H:%M"), "count": 1}
-                    )  # storing the transactions per poll history in the session state to show it in the dashboard as a line chart
-                    shared_state['messages'].appendleft(
-                        enriched
-                    )  # storing the enriched message in the session state at left to show it in the dashboard as we pop the messages that are too old than the current 200 transaction details
-                    shared_state['total'] += (
-                        1  # incrementing the total number of transactions processed
                     )
-                consumer.commit(
-                    asynchronous=False
-                )  # committing the message offset after processing the message successfully
+                    shared_state["messages"].appendleft(enriched)
 
-                # after all the initialization and setup of the consumer thread, we will run the consumer function to start consuming the messages from the kafka topic
-                # then we update the dashboard in real time with the prediction results of our model.
+                consumer.commit(asynchronous=False)
+                logging.info(
+                    f"Processed offset {msg.offset()} | fraud={is_fraud} | type={t_type}"
+                )
 
+            except json.JSONDecodeError as e:
+                logging.error(f"JSON decode error: {e}")
+                send_to_dlq(dlq_producer, msg.value(), f"JSON error: {e}")
+                consumer.commit(asynchronous=False)   # skipping bad message
             except Exception as e:
-                                     # <-- add this
-                logging.error(f"Unexpected error in consumer thread: {e}", exc_info=True)
+                logging.error(f"Unexpected consumer error: {e}", exc_info=True)
                 send_to_dlq(dlq_producer, msg.value(), f"Processing error: {e}")
+
     except KafkaException as ke:
-        logging.error(f"Kafka error: {ke}")
+        logging.error(f"Fatal Kafka error: {ke}", exc_info=True)
     finally:
         consumer.close()
-        dlq_producer.flush()  # Ensure all messages are sent before shutting down
-        logging.info("Consumer and DLQ producer closed gracefully.")
+        dlq_producer.flush()
+        logging.info("Consumer shut down cleanly.")
 
 
-def start_consumer():
-    if "consumer_thread" not in st.session_state or not st.session_state["consumer_thread"].is_alive():
-        
-        new_thread = threading.Thread(target=run_consumer, daemon=True)
-        new_thread.start()
-        st.session_state["consumer_thread"] = new_thread
-        logging.info("Consumer thread started.")
-    else:
-        logging.info("Consumer thread already running, skipping start.")
-start_consumer()  # Starting the consumer thread to consume messages from the kafka topic
+def start_consumer() -> None:
+    "Starting the consumer thread exactly once, even across multiple Streamlit reruns"
+    global _consumer_thread
+    with _thread_lock:  
+        if _consumer_thread is None or not _consumer_thread.is_alive():
+            stop_event.clear()   #clearing the stop event before starting the consumer thread to ensure it's not set from a previous run, so the dashboard won't be hanged when the consumer thread is restarted after being stopped
+            _consumer_thread = threading.Thread(
+                target=run_consumer, daemon=True, name="kafka-consumer"
+            )
+            _consumer_thread.start()
+            logging.info("Consumer thread started.")
+        else:
+            logging.debug("Consumer thread already running — skipping.")
 
+
+start_consumer()
 display_ui()

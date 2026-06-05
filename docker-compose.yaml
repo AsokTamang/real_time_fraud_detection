@@ -5,10 +5,12 @@ services:
     build: 
       context: .  #at the dir where docker-compose.yaml is located
       dockerfile: Dockerfile.api 
+    image: asoktamang/fraud_detection_api  
     container_name: fraud_detection_api
     ports:
       - "8000:8000" 
     restart: always  
+    
 
     # Adding a health check to ensure the application is running and healthy. This allows Docker to automatically restart the container if it becomes unhealthy, improving the reliability of our fraud detection system.
     healthcheck:
@@ -26,6 +28,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.dashboard
+    image: asoktamang/fraud_detection_dashboard  
     container_name: fraud_detection_dashboard
     ports:
       - "8501:8501"
