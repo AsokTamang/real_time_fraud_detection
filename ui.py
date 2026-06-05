@@ -20,8 +20,6 @@ st.set_page_config(
 st_autorefresh(interval=2000)  
 
 
-_consumer_thread: threading.Thread | None = None
-_thread_lock = threading.Lock()
 
 
 def run_consumer() -> None:
@@ -29,18 +27,26 @@ def run_consumer() -> None:
     dlq_producer = Producer(producer_config)
 
     def on_assign(c, partitions):  #this functions is called when the consumer subscirbed to the particulat topic like below is assigned a partition
-        logging.info(f"Partitions assigned: {repr(partitions)}")
+        valid_strings = [f'topic: {p.topic} and partition: {p.partition}' for p in partitions]
+        logging.info(f"Partitions assigned: {valid_strings}")
 
     def on_revoke(c, partitions):  #this function is called when the consumer is removed from a partititon and the messages that are not yet committed from offsets are committed before the consumer is removed from the partition, inorder to prevent the processing of duplicate messages
-        logging.info(f"Partitions revoked — committing offsets: {repr(partitions)}")
-        c.commit(asynchronous=False)
+        valid_strings = [f'topic: {p.topic} and partition: {p.partition}' for p in partitions]
+        logging.info(f"Partitions revoked — committing offsets: {valid_strings}")
+        try:
+            c.commit(asynchronous=False)  
+        except KafkaException as e:
+            if e.args[0].code() == KafkaError._NO_OFFSET:
+                logging.info("No offsets to commit on revoke — skipping")
+            else:
+                logging.warning("Commit on revoke failed: %s", e)
 
     try:
         consumer.subscribe([FRAUD_RESULT_TOPIC], on_assign=on_assign, on_revoke=on_revoke)
         logging.info(f"Consumer subscribed to {FRAUD_RESULT_TOPIC}")
 
         while not stop_event.is_set():     #checking the stop_event to allow graceful shutdown, if the stop_event is not set the we keep the consumer running and polling for messages
-            if not pause_event.is_set():   #checking whether the pause event is set or not , to check if the consumer thread is paused or not 
+            if not pause_event.is_set():   #checking whether the pause event is set or not , to check if the consumer thread is running or not 
                 time.sleep(0.2)
                 continue
 
@@ -111,24 +117,27 @@ def run_consumer() -> None:
     except KafkaException as ke:
         logging.error(f"Fatal Kafka error: {ke}", exc_info=True)
     finally:
-        consumer.close()
+        try:
+            consumer.close()
+        except Exception as e:
+            logging.error(f"Error closing consumer: {e}", exc_info=True) 
         dlq_producer.flush()
         logging.info("Consumer shut down cleanly.")
 
 
 def start_consumer() -> None:
     "Starting the consumer thread exactly once, even across multiple Streamlit reruns"
-    global _consumer_thread
-    with _thread_lock:  
-        if _consumer_thread is None or not _consumer_thread.is_alive():
-            stop_event.clear()   #clearing the stop event before starting the consumer thread to ensure it's not set from a previous run, so the dashboard won't be hanged when the consumer thread is restarted after being stopped
-            _consumer_thread = threading.Thread(
-                target=run_consumer, daemon=True, name="kafka-consumer"
-            )
-            _consumer_thread.start()
-            logging.info("Consumer thread started.")
-        else:
-            logging.debug("Consumer thread already running — skipping.")
+    if 'consumer_thread' not in st.session_state: #checking whether the consumer thread is already created as key or not
+        st.session_state.consumer_thread = None
+    thread:threading.Thread|None = st.session_state.consumer_thread
+    if thread is None or not thread.is_alive():  #checking whether the consumer thread is alive or not
+        stop_event.clear()  #clearing the stop event before starting the consumer thread to ensure that the consumer thread runs without any issue
+        st.session_state.consumer_thread = threading.Thread(target=run_consumer, daemon=True)    
+        st.session_state.consumer_thread.start()
+        logging.info("Consumer thread started.")
+    else:
+        logging.info("Consumer thread already running — skipping.")    
+    
 
 
 start_consumer()
