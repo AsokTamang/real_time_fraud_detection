@@ -4,8 +4,4 @@ COPY requirements.txt .
 RUN apt-get update && apt-get install -y curl
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app
-CMD ["streamlit", "run", "ui.py", \
-     "--server.port=8501", \
-     "--server.address=0.0.0.0", \
-     "--server.headless=true", \
-     "--server.fileWatcherType=none"]
+CMD ["sh", "-c", "streamlit run ui.py --server.address=0.0.0.0 --server.port=$PORT --server.headless=true --server.fileWatcherType=none"]

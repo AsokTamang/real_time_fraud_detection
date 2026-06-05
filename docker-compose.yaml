@@ -21,7 +21,7 @@ services:
       start_period: 20s 
     environment:
       KAFKA_TRANSACTION_TOPIC: transactions
-      KAFKA_FRAUD_RESULT_TOPIC: fraud_results
+      KAFKA_FRAUD_RESULT_TOPIC: fraud_detection
       KAFKA_DLQ_TOPIC: transactions_dlq 
       KAFKA_CONFIG_PATH : secrets/client.properties
       KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS}  #using ${}  so that docker compose can read the env variables from .env file and pass it to the container as env variables at
@@ -29,6 +29,8 @@ services:
       KAFKA_SASL_MECHANISM: ${KAFKA_SASL_MECHANISM}
       KAFKA_SASL_USERNAME: ${KAFKA_SASL_USERNAME}
       KAFKA_SASL_PASSWORD : ${KAFKA_SASL_PASSWORD}
+      SESSION_TIMEOUT_MS : ${SESSION_TIMEOUT_MS}
+      CLIENT_ID : ${CLIENT_ID}
   dashboard:
     build: 
       context: .
@@ -50,7 +52,7 @@ services:
       start_period: 20s      
     environment:
       KAFKA_TRANSACTION_TOPIC: transactions
-      KAFKA_FRAUD_RESULT_TOPIC: fraud_results
+      KAFKA_FRAUD_RESULT_TOPIC: fraud_detection
       KAFKA_DLQ_TOPIC: transactions_dlq 
       KAFKA_CONFIG_PATH : secrets/client.properties
       KAFKA_BOOTSTRAP_SERVERS: ${KAFKA_BOOTSTRAP_SERVERS}
@@ -59,5 +61,7 @@ services:
       KAFKA_SASL_USERNAME: ${KAFKA_SASL_USERNAME}
       KAFKA_SASL_PASSWORD : ${KAFKA_SASL_PASSWORD}
       KAFKA_CONSUMER_GROUP_ID : ${KAFKA_CONSUMER_GROUP_ID}
+      SESSION_TIMEOUT_MS : ${SESSION_TIMEOUT_MS}
+      CLIENT_ID : ${CLIENT_ID}
 
 
