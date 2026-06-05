@@ -122,18 +122,18 @@ def predict(data: PredictRequest):
             "is_fraud": result["result"] == "Fraud Transaction",
         }#As we stored the output of the prediction in the key called 'result', we are using result['result']
 
-        # Producer code to queue the prediction result to the Kafka topic
+        # Producer code to queue the prediction result to the Kafka topic, inorder to prevent the loss of the message being produced by producer to the kafka broker , if the producer buffer is full 
         # here we are using the nameorig of the transaction user as the key , so that the messages of the same account holder of transaction will be stored in the same partition
         max_retries = 3
         for attempt in range(max_retries):
             try:
                 kafka_producer.produce(
                     FRAUD_RESULT_TOPIC,
-                    key=str(data.nameorig)[:64],   #capping key length
+                    key=str(data.nameorig)[:64],   #capping the key length
                     value=json.dumps(kafka_payload),
                     on_delivery=delivery_report,
                 )
-                kafka_producer.poll(0)  
+                kafka_producer.poll(0)    #triggering to send the message to the topic
                 break
             except BufferError:
                 if attempt < max_retries - 1:
