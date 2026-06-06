@@ -128,7 +128,7 @@ def predict(data: PredictRequest):
         for attempt in range(max_retries):
             try:
                 kafka_producer.produce(
-                    FRAUD_RESULT_TOPIC,
+                    FRAUD_RESULT_TOPIC,  #this same topic must be listened by the consumer inorder to consume this produced messages
                     key=str(data.nameorig)[:64],   #capping the key length
                     value=json.dumps(kafka_payload),
                     on_delivery=delivery_report,

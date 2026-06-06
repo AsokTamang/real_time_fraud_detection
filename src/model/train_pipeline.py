@@ -28,7 +28,7 @@ class ModelTrainer:
     def train_model(self, X_train, X_val, X_test, y_train, y_val, y_test):
         try:
             neg = (y_train == 0).sum()
-            pos = (y_train == 1).sum()
+            pos = (y_train == 1).sum()  #pos means the transaction is fraud
             ratio = neg / pos
 
             models = {
